@@ -1,7 +1,8 @@
 package com.freeletics.dilyana.freeletics.model;
 
+import com.freeletics.dilyana.freeletics.model.actions.Action;
+
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * Created by Ioana on 30.03.2017 г..
@@ -21,7 +22,7 @@ public class User {
     private Gender gender;
     private int picture;//from gallerty or take picture
     private int level;
-    private ArrayList<Workouts> workouts;
+    private ArrayList<Action> workouts;
 
     public User(String firstName, String lastName, String email, String password,
                 double weight, double height, int age, Gender gender) {
@@ -38,7 +39,7 @@ public class User {
             this.password = password;
         }
         this.level = 1;
-        this.workouts = new ArrayList<>();
+        this.workouts = new ArrayList<Action>();
       //  this.weight = weight; //SeekBar
        // this.height = height; // SeekBar
        // if(age>0) {
@@ -47,7 +48,7 @@ public class User {
         //this.gender = gender;
     }
 
-    public ArrayList<Workouts> getWorkouts() {
+    public ArrayList<Action> getWorkouts() {
         return workouts;
     }
 
