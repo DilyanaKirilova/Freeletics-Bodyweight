@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Freeletics</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="log_in_with_facebook">Log in with Facebook</string>
+    <string name="or">or</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="log_in_with_email">Log in with Email</string>
+    <string name="facebook_app_id">1869606893278167</string>
 </resources>

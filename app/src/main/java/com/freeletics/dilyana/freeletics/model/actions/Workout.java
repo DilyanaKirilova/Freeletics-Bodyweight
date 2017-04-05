@@ -19,10 +19,12 @@ public class Workout extends Action {
     private int duration;
     private int difficulty;
     private int volume;
+    int repetitions;
     private ArrayList<String> videoUrl;
 
     public Workout(String equipment,int volume, WorkoutName name, int duration, int difficulty, ArrayList<String> videoUrl) {
         super(equipment);
+
 
         if(repetitions > 0 && repetitions <= 3) {
             this.volume = volume;
@@ -48,4 +50,15 @@ public class Workout extends Action {
         this.points = this.name.points;
     }
 
+    public int getDuration() {
+        return duration;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public WorkoutName getName() {
+        return name;
+    }
 }
