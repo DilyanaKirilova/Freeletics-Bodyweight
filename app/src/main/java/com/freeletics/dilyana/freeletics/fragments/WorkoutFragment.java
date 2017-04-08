@@ -1,4 +1,4 @@
-package com.freeletics.dilyana.freeletics;
+package com.freeletics.dilyana.freeletics.fragments;
 
 
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.freeletics.dilyana.freeletics.model.WorkoutAdapter;
+import com.freeletics.dilyana.freeletics.adapters.WorkoutAdapter;
 import com.freeletics.dilyana.freeletics.model.actions.Workout;
 
 import java.util.ArrayList;

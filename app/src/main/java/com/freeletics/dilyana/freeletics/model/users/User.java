@@ -1,4 +1,4 @@
-package com.freeletics.dilyana.freeletics.model;
+package com.freeletics.dilyana.freeletics.model.users;
 
 import com.freeletics.dilyana.freeletics.model.actions.Action;
 

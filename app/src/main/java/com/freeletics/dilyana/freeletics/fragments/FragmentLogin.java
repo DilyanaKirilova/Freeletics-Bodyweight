@@ -1,4 +1,4 @@
-package com.freeletics.dilyana.freeletics;
+package com.freeletics.dilyana.freeletics.fragments;
 
 
 import android.content.Intent;
@@ -18,7 +18,9 @@ import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.freeletics.dilyana.freeletics.model.User;
+import com.freeletics.dilyana.freeletics.HomeActivity;
+import com.freeletics.dilyana.freeletics.MainActivity;
+import com.freeletics.dilyana.freeletics.model.users.User;
 
 import java.util.ArrayList;
 

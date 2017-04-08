@@ -5,7 +5,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.freeletics.dilyana.freeletics.model.User;
+import com.freeletics.dilyana.freeletics.fragments.FragmentLogin;
+import com.freeletics.dilyana.freeletics.model.users.User;
 
 import java.util.ArrayList;
 

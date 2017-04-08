@@ -8,7 +8,7 @@
     android:gravity="center"
     android:layout_marginLeft="@dimen/activity_horizontal_margin"
     android:layout_marginRight="@dimen/activity_horizontal_margin"
-    tools:context="com.freeletics.dilyana.freeletics.FragmentLogin">
+    tools:context="com.freeletics.dilyana.freeletics.fragments.FragmentLogin">
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/facebook_login_button_login"

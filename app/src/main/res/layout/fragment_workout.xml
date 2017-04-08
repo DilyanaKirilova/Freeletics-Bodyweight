@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context="com.freeletics.dilyana.freeletics.WorkoutFragment">
+    tools:context="com.freeletics.dilyana.freeletics.fragments.WorkoutFragment">
 
    
     <android.support.v7.widget.RecyclerView
