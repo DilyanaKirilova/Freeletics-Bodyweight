@@ -9,4 +9,10 @@
     <string name="password">Password</string>
     <string name="log_in_with_email">Log in with Email</string>
     <string name="facebook_app_id">1869606893278167</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
