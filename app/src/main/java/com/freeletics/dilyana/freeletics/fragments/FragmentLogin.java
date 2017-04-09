@@ -14,10 +14,13 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.freeletics.dilyana.freeletics.model.users.*;
 
 import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.freeletics.dilyana.freeletics.HomeActivity;
+import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.model.users.User;
 
 import java.util.ArrayList;
@@ -68,7 +71,7 @@ public class FragmentLogin extends Fragment {
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validData(email.getText().toString(), password.getText().toString())){
+                if(UsersManager.getInstance().isValidLogin(email.getText().toString(), password.getText().toString())){
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     startActivity(intent);
                 }
@@ -77,20 +80,4 @@ public class FragmentLogin extends Fragment {
 
         return root;
     }
-
-    private boolean validData(String email, String password) {
-        boolean flag = false;
-        ArrayList<User> users = MainActivity.getRegisterUsers();
-        if(users.size() > 0) {
-            for (User user : users) {
-                if (email.equals(user.getEmail()) && password.equals(user.getPassword())) {
-                    flag = true;
-                    this.u = user;
-                    break;
-                }
-            }
-        }
-        return flag;
-    }
-
 }

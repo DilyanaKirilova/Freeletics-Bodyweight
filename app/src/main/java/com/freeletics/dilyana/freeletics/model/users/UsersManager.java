@@ -1,5 +1,6 @@
 package com.freeletics.dilyana.freeletics.model.users;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -7,10 +8,10 @@ import java.util.HashSet;
  * Created by Dilyana on 8.4.2017 г..
  */
 
-class UsersManager {
+public class UsersManager {
     private static final UsersManager ourInstance = new UsersManager();
 
-    static UsersManager getInstance() {
+    public static UsersManager getInstance() {
         return ourInstance;
     }
 
@@ -29,7 +30,7 @@ class UsersManager {
     }
 
     public void registerUser(String firstName, String lastName, String email, String password,
-                             double weight, double height, int age, Gender gender) {
+                             double weight, double height, int age, User.Gender gender) {
 
         User user = new User(firstName, lastName, email, password,
                 weight, height, age, gender);
@@ -49,5 +50,4 @@ class UsersManager {
         }
         return false;
     }
-
 }

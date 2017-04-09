@@ -18,7 +18,7 @@ public class User {
     private double weight;
     private double height;
     private int age;
-    private enum Gender {MALE, FEMALE};
+    public enum Gender {MALE, FEMALE};
     private Gender gender;
     private int picture;//from gallerty or take picture
     private int level;

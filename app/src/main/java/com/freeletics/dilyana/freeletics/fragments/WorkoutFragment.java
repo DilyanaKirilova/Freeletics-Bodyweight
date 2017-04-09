@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.adapters.WorkoutAdapter;
 import com.freeletics.dilyana.freeletics.model.actions.Workout;
 
