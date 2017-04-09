@@ -30,7 +30,7 @@ public class UsersManager {
     }
 
     public void registerUser(String firstName, String lastName, String email, String password,
-                             double weight, double height, int age, User.Gender gender) {
+                             int weight, int height, int age, User.Gender gender) {
 
         User user = new User(firstName, lastName, email, password,
                 weight, height, age, gender);

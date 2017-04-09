@@ -15,8 +15,8 @@ public class User {
     private String email;
     private String password;
     private String motivation;
-    private double weight;
-    private double height;
+    private int weight;
+    private int height;
     private int age;
     public enum Gender {MALE, FEMALE};
     private Gender gender;
@@ -25,7 +25,7 @@ public class User {
     private ArrayList<Action> workouts;
 
     public User(String firstName, String lastName, String email, String password,
-                double weight, double height, int age, Gender gender) {
+                int weight, int height, int age, Gender gender) {
         if(firstName!=null && !firstName.isEmpty()) {
             this.firstName = firstName;
         }
