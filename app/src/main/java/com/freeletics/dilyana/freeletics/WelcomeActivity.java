@@ -18,9 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
-public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener{
+public class WelcomeActivity extends AppCompatActivity{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -35,7 +33,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager mViewPager;
+    private static ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +49,8 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-    }
 
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,10 +82,8 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     private static String tTwo;
     private static TextView tvTitleOne;
     private static TextView tvTitleTwo;
-    private static Button btnStart;
-    private static Button btnLogin;
 
-    public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment extends Fragment{
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -135,12 +131,32 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 tvTitleTwo.setText(getArguments().getString(tTwo));
             }
 
-            btnStart = (Button) rootView.findViewById(R.id.btn_fw_start);
-            btnLogin = (Button) rootView.findViewById(R.id.btn_fw_login);
+            Button btnStart = (Button) rootView.findViewById(R.id.btn_fw_start);
+            Button btnLogin = (Button) rootView.findViewById(R.id.btn_fw_login);
+
+            btnStart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.putExtra("request_code", "start_now");
+                    startActivity(intent);
+                }
+            });
+
+            btnLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.putExtra("request_code", "login");
+                    startActivity(intent);
+                }
+            });
 
             return rootView;
         }
     }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -178,21 +194,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                     return "SECTION 4";
             }
             return null;
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        if(v.getId() == btnStart.getId()){
-            Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-            intent.putExtra("request_code", "start_now");
-            startActivity(intent);
-        }
-        else if(v.getId() == btnLogin.getId()){
-            Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-            intent.putExtra("request_code", "login");
-            startActivity(intent);
         }
     }
 }
