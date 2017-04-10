@@ -22,10 +22,10 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InfoUserFragment extends Fragment {
+public class UserInfoFragment extends Fragment {
 
 
-    public InfoUserFragment() {
+    public UserInfoFragment() {
         // Required empty public constructor
     }
 

@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="com.freeletics.dilyana.freeletics.fragments.SettingsFragment">
+
+    <Button
+        android:id="@+id/btn_fup_edit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Edit Profile"/>
+
+    <Button
+        android:id="@+id/btn_fup_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Log Out"/>
+
+    <Button
+        android:id="@+id/btn_fup_delete_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Delete Profile"/>
+
+</LinearLayout>

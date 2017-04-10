@@ -16,6 +16,7 @@ public class UsersManager {
     }
 
     private HashMap<String, User> registeredUsers;
+    private User loggedUser;
 
     private UsersManager() {
         this.registeredUsers = new HashMap<String, User>();
@@ -38,16 +39,22 @@ public class UsersManager {
         if (!this.registeredUsers.containsKey(email)) {
             this.registeredUsers.put(email, user);
         }
+        this.loggedUser = user;
     }
 
     public boolean isValidLogin(String email, String password) {
 
         if (registeredUsers.containsKey(email)) {
-            User u = registeredUsers.get(email);
-            if (u.getEmail().equals(email) && u.getPassword().equals(password)) {
+            User user = registeredUsers.get(email);
+            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+                this.loggedUser = user;
                 return true;
             }
         }
         return false;
+    }
+
+    public void logOutUser() {
+        this.loggedUser = null;
     }
 }

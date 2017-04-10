@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="center"
-    tools:context="com.freeletics.dilyana.freeletics.fragments.InfoUserFragment">
+    tools:context="com.freeletics.dilyana.freeletics.fragments.UserInfoFragment">
 
     <TextView
         android:id="@+id/tv_fiu_title_one"
