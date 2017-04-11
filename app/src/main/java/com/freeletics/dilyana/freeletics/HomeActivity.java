@@ -88,10 +88,11 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_settings) {
 
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.activity_main, new SettingsFragment()).commit();
+            //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+           // fragmentTransaction.replace(R.id.activity_main, new SettingsFragment()).commit();
 
             Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("request_code", "settings");
             startActivity(intent);
         }
 

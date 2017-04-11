@@ -4,8 +4,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
 
 import com.freeletics.dilyana.freeletics.fragments.FragmentLogin;
+import com.freeletics.dilyana.freeletics.fragments.SettingsFragment;
 import com.freeletics.dilyana.freeletics.fragments.UserInfoFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,8 +32,17 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if(getIntent().getStringExtra("request_code").equals("settings")) {
-                fragmentTransaction.replace(R.id.activity_main, new FragmentLogin()).commit();
+                fragmentTransaction.replace(R.id.activity_main, new SettingsFragment()).commit();
             }
         }
+    }
+
+    public boolean isEmptyField(String txt, EditText et){
+        if (txt.trim().isEmpty()) {
+            et.setError("Please fill out this field");
+            et.requestFocus();
+            return true;
+        }
+        return false;
     }
 }

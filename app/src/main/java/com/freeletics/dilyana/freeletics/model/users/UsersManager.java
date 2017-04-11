@@ -3,6 +3,7 @@ package com.freeletics.dilyana.freeletics.model.users;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * Created by Dilyana on 8.4.2017 г..
@@ -56,5 +57,37 @@ public class UsersManager {
 
     public void logOutUser() {
         this.loggedUser = null;
+    }
+
+    public void deleteUserRegistration() {
+
+        this.registeredUsers.remove(loggedUser.getEmail());
+        this.loggedUser = null;
+    }
+
+    public User getLoggedUser() {
+        return loggedUser;
+    }
+
+    public void changeLoggedUserPassword(String newPassword) {
+
+        if(newPassword == null || newPassword.trim().isEmpty()){
+            return;
+        }
+        UsersManager.getInstance().getLoggedUser().setPassword(newPassword);
+        registeredUsers.get(loggedUser.getEmail()).setPassword(newPassword);
+    }
+
+    public void setLoggedUser(User user){
+        if(user != null){
+            this.loggedUser = user;
+        }
+    }
+
+    public void updateUserInfo(String firstNameStr, String lastNameStr, String emailStr, int weight, int height, int age, User.Gender gender) {
+
+        String password = UsersManager.getInstance().getLoggedUser().getPassword();
+        UsersManager.getInstance().deleteUserRegistration();
+        UsersManager.getInstance().registerUser(firstNameStr, lastNameStr, emailStr, password, weight, height, age, gender);
     }
 }

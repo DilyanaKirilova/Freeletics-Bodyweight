@@ -18,6 +18,37 @@ public class User {
     private int weight;
     private int height;
     private int age;
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Gender getGender() {
+        return this.gender;
+    }
+
+    public String getStringGender() {
+        if(this.gender.equals(Gender.FEMALE)){
+            return "Female";
+        }
+        else if(this.gender.equals(Gender.MALE)){
+            return "Male";
+        }
+        return null;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+
+    public int getWeight() {
+        return this.weight;
+    }
+
     public enum Gender {MALE, FEMALE};
     private Gender gender;
     private int picture;//from gallerty or take picture
@@ -40,12 +71,20 @@ public class User {
         }
         this.level = 1;
         this.workouts = new ArrayList<Action>();
-      //  this.weight = weight; //SeekBar
-       // this.height = height; // SeekBar
-       // if(age>0) {
-         //   this.age = age;
-        //
-        //this.gender = gender;
+
+        if(weight > 0) {
+            this.weight = weight;
+        }
+
+        if(height > 0) {
+            this.height = height;
+        }
+        if(age > 0) {
+            this.age = age;
+        }
+        if(gender != null) {
+            this.gender = gender;
+        }
     }
 
     public ArrayList<Action> getWorkouts() {
