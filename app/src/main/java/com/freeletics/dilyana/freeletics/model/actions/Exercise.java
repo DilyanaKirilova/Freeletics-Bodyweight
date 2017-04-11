@@ -36,4 +36,8 @@ public class Exercise extends Action {
         this.category = Category.EXERCISES;
         this.points = this.name.points;
     }
+
+    public ExerciseName getName() {
+        return name;
+    }
 }

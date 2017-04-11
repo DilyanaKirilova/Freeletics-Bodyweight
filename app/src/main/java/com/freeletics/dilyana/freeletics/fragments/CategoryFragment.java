@@ -36,7 +36,7 @@ public class CategoryFragment extends Fragment {
         Button btnWorkout = (Button) root.findViewById(R.id.workouts_button);
         Button btnExercise = (Button) root.findViewById(R.id.exercises_button);
 
-        FragmentManager fragmentManager = getFragmentManager();
+        final FragmentManager fragmentManager = getFragmentManager();
         final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         btnWorkout.setOnClickListener(new View.OnClickListener() {
@@ -50,8 +50,7 @@ public class CategoryFragment extends Fragment {
         btnExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // TODO go to ExerciseFragment
+                fragmentTransaction.replace(R.id.fragment_container, new ExerciseFragment());
             }
         });
 

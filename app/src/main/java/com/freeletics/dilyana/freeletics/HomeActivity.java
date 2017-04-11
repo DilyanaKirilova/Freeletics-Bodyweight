@@ -32,6 +32,7 @@ public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,25 +49,10 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        Bundle inBundle = getIntent().getExtras();
-        String name = inBundle.get("name").toString();
-        String surname = inBundle.get("surname").toString();
-        String imageUrl = inBundle.get("imageUrl").toString();
-        int profilePic = Integer.parseInt(imageUrl);
-        UsersManager usersManager = UsersManager.getInstance();
-        usersManager.setLoggedUser(new User(name, surname, profilePic));
-        new DownloadImage((ImageView)findViewById(R.id.imageView)).execute(imageUrl);
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        imageView.setImageResource(profilePic);
-        TextView names = (TextView) findViewById(R.id.first_last_name);
-        names.setText(name+" "+surname);
-
-
         fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
+        fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, new CategoryFragment()).commit();
+
     }
 
     @Override
@@ -108,10 +94,13 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_training) {
+            fragmentTransaction.replace(R.id.fragment_container, new CategoryFragment()).commit();
 
         } else if (id == R.id.nav_feed) {
 
+
         } else if (id == R.id.nav_leaderboards) {
+
 
         } else if (id == R.id.nav_settings) {
 
@@ -126,5 +115,20 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void setFacebookInfo(){
+        Bundle inBundle = getIntent().getExtras();
+        String name = inBundle.get("name").toString();
+        String surname = inBundle.get("surname").toString();
+        String imageUrl = inBundle.get("imageUrl").toString();
+        int profilePic = Integer.parseInt(imageUrl);
+        UsersManager usersManager = UsersManager.getInstance();
+        usersManager.setLoggedUser(new User(name, surname, profilePic));
+        new DownloadImage((ImageView)findViewById(R.id.imageView)).execute(imageUrl);
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        imageView.setImageResource(profilePic);
+        TextView names = (TextView) findViewById(R.id.first_last_name);
+        names.setText(name+" "+surname);
     }
 }
