@@ -3,6 +3,8 @@ package com.freeletics.dilyana.freeletics.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,29 +32,26 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_category, container, false);
-        workoutsButton = (Button) root.findViewById(R.id.workouts_button);
-        exercisesButton = (Button) root.findViewById(R.id.exercises_button);
 
-        workoutsButton.setOnClickListener(new View.OnClickListener() {
+        Button btnWorkout = (Button) root.findViewById(R.id.workouts_button);
+        Button btnExercise = (Button) root.findViewById(R.id.exercises_button);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        btnWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //create new fragment
-                //Fragment fr=new FregmentN();
-                //interface`s instance
-                FragmentChange fc=(FragmentChange)getActivity();
-                //fc.replaceFragment(fr);
+
+                fragmentTransaction.replace(R.id.fragment_container, new WorkoutFragment());
             }
         });
 
-        exercisesButton.setOnClickListener(new View.OnClickListener() {
+        btnExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //create new fragment
-                // Fragment fr=new FregmentN();
-                //interface`s instance
-                FragmentChange fc=(FragmentChange)getActivity();
-                //method in FragmentChangeListener Interface
-                //fc.replaceFragment(fr);
+
+                // TODO go to ExerciseFragment
             }
         });
 

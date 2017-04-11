@@ -1,26 +1,35 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_gravity="center"
-    tools:context="com.freeletics.dilyana.freeletics.fragments.UserInfoFragment">
+    tools:context="com.freeletics.dilyana.freeletics.fragments.EditProfileFragment">
 
-    <TextView
-        android:id="@+id/tv_fiu_title_one"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <EditText
+        android:id="@+id/et_fr_first_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="35dp"
-        android:gravity="center"
-        android:text="GET STARTED"/>
+        android:hint="First Name"
+        android:maxLines="1"/>
 
-    <TextView
-        android:id="@+id/tv_fiu_title_two"
+    <EditText
+        android:id="@+id/et_fr_last_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Take the first step to individualizing your Athletic jorney. Tell us more about yourself."/>
+        android:hint="Last Name"
+        android:maxLines="1"/>
 
+    <EditText
+        android:id="@+id/et_fr_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:maxLines="1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -95,9 +104,42 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_fiu_save"
+        android:id="@+id/btn_fep_save_changes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Save information about yourself"/>
+        android:hint="Save changes"/>
 
-</LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change your password"/>
+
+    <EditText
+        android:id="@+id/et_fep_old_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:hint="Old password"/>
+
+    <EditText
+        android:id="@+id/et_fep_new_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:hint="New password"/>
+
+    <EditText
+        android:id="@+id/et_fep_confirm_new_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:hint="Confirm new password"/>
+
+    <Button
+        android:id="@+id/btn_fep_change_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Change password"/>
+    </LinearLayout>
+
+</ScrollView>

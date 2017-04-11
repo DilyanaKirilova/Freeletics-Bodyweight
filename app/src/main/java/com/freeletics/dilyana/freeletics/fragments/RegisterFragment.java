@@ -90,18 +90,20 @@ $                       #   End of the line
 
 
         // get user info
-        if(getArguments() != null && getArguments().getString("gender") != null){
+        if(getArguments() != null){
 
-            if(getArguments().getString("gender").equals("Male")){
-                gender = User.Gender.MALE;
-            }
-            else{
-                gender = User.Gender.FEMALE;
-            }
+            Bundle bundle = getArguments();
 
-            age = getArguments().getInt("age");
-            height = getArguments().getInt("height");
-            weight = getArguments().getInt("weight");
+            if(bundle.getString("gender")!= null) {
+                if (bundle.getString("gender").equals("Male")) {
+                    gender = User.Gender.MALE;
+                } else {
+                    gender = User.Gender.FEMALE;
+                }
+            }
+            age = bundle.getInt("age");
+            height = bundle.getInt("height");
+            weight = bundle.getInt("weight");
         }
 
 
