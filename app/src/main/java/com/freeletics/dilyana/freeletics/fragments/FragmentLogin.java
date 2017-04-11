@@ -1,6 +1,7 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,11 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.ProfileTracker;
+import com.freeletics.dilyana.freeletics.MainActivity;
 import com.freeletics.dilyana.freeletics.model.users.*;
 
 import com.facebook.Profile;
@@ -37,6 +43,9 @@ public class FragmentLogin extends Fragment {
     private LoginButton facebookButton;
     private Button emailButton;
     private CallbackManager callbackManager;
+    private AccessTokenTracker accessTokenTracker;
+    private ProfileTracker profileTracker;
+
     public static User u;
 
     @Override
@@ -45,16 +54,47 @@ public class FragmentLogin extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_fragment_login, container, false);
 
-        callbackManager = CallbackManager.Factory.create();
+
         email = (EditText) root.findViewById(R.id.email_login);
         password = (EditText) root.findViewById(R.id.password_login);
-        facebookButton = (LoginButton) root.findViewById(R.id.facebook_login_button_login);
+        facebookButton = (LoginButton) root.findViewById(R.id.login_button);
         emailButton = (Button) root.findViewById(R.id.email_login_button_login);
 
+        FacebookSdk.sdkInitialize(getContext());
+        callbackManager = CallbackManager.Factory.create();
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+
+            }
+        };
+
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
+                nextActivity(newProfile);
+            }
+        };
+        accessTokenTracker.startTracking();
+        profileTracker.startTracking();
+
+        facebookButton.setFragment(this);
+        facebookButton.setReadPermissions("user_friends");
         facebookButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                AccessToken accessToken = loginResult.getAccessToken();
                 Profile profile = Profile.getCurrentProfile();
+                nextActivity(profile);
+                Toast.makeText(getContext(), "Logging in...", Toast.LENGTH_SHORT).show();
+
+
+               // int profilePic = Integer.parseInt(profile.getProfilePictureUri(5,5).toString());
+               // User user = new User(profile.getFirstName().toString(), profile.getLastName(), profilePic);
+               // Intent intent = new Intent(getActivity(), HomeActivity.class);
+               // intent.putExtra("user", user);
+               // startActivity(intent);
+
             }
 
             @Override
@@ -68,6 +108,8 @@ public class FragmentLogin extends Fragment {
             }
         });
 
+
+
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +120,34 @@ public class FragmentLogin extends Fragment {
             }
         });
 
+
+
         return root;
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Facebook login
+        Profile profile = Profile.getCurrentProfile();
+        nextActivity(profile);
+    }
+
+    public void onStop() {
+        super.onStop();
+        //Facebook login
+        accessTokenTracker.stopTracking();
+        profileTracker.stopTracking();
+    }
+
+    private void nextActivity(Profile profile){
+        if(profile != null){
+            Intent main = new Intent(getActivity(), HomeActivity.class);
+            main.putExtra("name", profile.getFirstName());
+            main.putExtra("surname", profile.getLastName());
+            main.putExtra("imageUrl", profile.getProfilePictureUri(200,200).toString());
+            startActivity(main);
+        }
+    }
+
+
 }

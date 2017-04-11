@@ -11,6 +11,8 @@ import java.util.HashSet;
 public class UsersManager {
     private static final UsersManager ourInstance = new UsersManager();
 
+    public static User loggedUser;
+
     public static UsersManager getInstance() {
         return ourInstance;
     }

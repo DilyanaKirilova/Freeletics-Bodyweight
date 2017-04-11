@@ -2,13 +2,14 @@ package com.freeletics.dilyana.freeletics.model.users;
 
 import com.freeletics.dilyana.freeletics.model.actions.Action;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Ioana on 30.03.2017 г..
  */
 
-public class User {
+public class User implements Serializable {
 
     private String firstName;
     private String lastName;
@@ -24,31 +25,40 @@ public class User {
     private int level;
     private ArrayList<Action> workouts;
 
-    public User(String firstName, String lastName, String email, String password,
-                int weight, int height, int age, Gender gender) {
+    public User(String firstName, String lastName, int picture){
         if(firstName!=null && !firstName.isEmpty()) {
             this.firstName = firstName;
         }
         if(lastName!=null && !lastName.isEmpty()) {
             this.lastName = lastName;
         }
-        if(email!=null && !email.isEmpty()) {
+        this.picture = picture;
+    }
+
+    public User(String firstName, String lastName, String email, String password,
+                int weight, int height, int age, Gender gender) {
+        if (firstName != null && !firstName.isEmpty()) {
+            this.firstName = firstName;
+        }
+        if (lastName != null && !lastName.isEmpty()) {
+            this.lastName = lastName;
+        }
+        if (email != null && !email.isEmpty()) {
             this.email = email;
         }
-        if(password!=null && !password.isEmpty()) {
+        if (password != null && !password.isEmpty()) {
             this.password = password;
         }
         this.level = 1;
         this.workouts = new ArrayList<Action>();
-      //  this.weight = weight; //SeekBar
-       // this.height = height; // SeekBar
-       // if(age>0) {
-         //   this.age = age;
-        //
-        //this.gender = gender;
+        this.weight = weight; //SeekBar
+        this.height = height; // SeekBar
+        if (age > 0) {
+            this.age = age;
+            this.gender = gender;
+        }
     }
-
-    public ArrayList<Action> getWorkouts() {
+    public ArrayList<Action> getWorkouts(){
         return workouts;
     }
 
