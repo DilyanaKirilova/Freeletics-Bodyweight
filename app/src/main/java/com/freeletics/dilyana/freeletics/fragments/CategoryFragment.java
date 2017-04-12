@@ -48,7 +48,7 @@ public class CategoryFragment extends Fragment {
         btnWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentTransaction.replace(R.id.fragment_container, new WorkoutFragment());
+                fragmentTransaction.replace(R.id.fragment_container, new WorkoutFragment()).commit();
 
             }
         });
@@ -56,7 +56,7 @@ public class CategoryFragment extends Fragment {
         btnExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentTransaction.replace(R.id.fragment_container, new ExerciseFragment());
+                fragmentTransaction.replace(R.id.fragment_container, new ExerciseFragment()).commit();
             }
         });
 
