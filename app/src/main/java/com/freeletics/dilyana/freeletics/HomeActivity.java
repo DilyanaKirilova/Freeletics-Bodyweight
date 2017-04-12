@@ -51,7 +51,8 @@ public class HomeActivity extends AppCompatActivity
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, new CategoryFragment()).commit();
+        fragmentTransaction.add(R.id.fragment_container, new CategoryFragment(), "Category Fragment").commit();
+        //fragmentTransaction.replace(R.id.fragment_container, new CategoryFragment()).commit();
 
     }
 
@@ -94,7 +95,7 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_training) {
-            fragmentTransaction.replace(R.id.fragment_container, new CategoryFragment()).commit();
+           // fragmentTransaction.replace(R.id.fragment_container, ).commit();
 
         } else if (id == R.id.nav_feed) {
 

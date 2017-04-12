@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:paddingTop="25dp"
     android:gravity="center_horizontal"
-    android:id="@+id/fragment_container"
     tools:context="com.freeletics.dilyana.freeletics.fragments.CategoryFragment">
 
     <Button
@@ -14,6 +13,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="Workouts"
+        android:background="@drawable/women_workout"
         android:textSize="45sp"/>
 
     <Button
@@ -22,5 +22,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="Exercises"
+        android:background="@drawable/women_exercise"
         android:textSize="45sp"/>
 </LinearLayout>

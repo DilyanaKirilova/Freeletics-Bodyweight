@@ -1,7 +1,13 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
 
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -42,8 +48,8 @@ public class CategoryFragment extends Fragment {
         btnWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 fragmentTransaction.replace(R.id.fragment_container, new WorkoutFragment());
+
             }
         });
 
