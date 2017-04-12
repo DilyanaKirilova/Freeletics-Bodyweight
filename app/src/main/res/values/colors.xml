@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#0d2f39</color>
     <color name="colorAccent">#FF4081</color>
     <color name="workoutBackgroun">#bebebe</color>
+    <color name="whiteColor">#FFFFFF</color>
+    <color name="blueColor">#0051ff</color>
 </resources>

@@ -13,9 +13,10 @@ public abstract class Action {
     protected double points;
 
     public Action(String equipment) {
-
-        if(equipment != null && !equipment.isEmpty()){
             this.equipment = equipment;
-        }
+    }
+
+    public String getEquipment() {
+        return equipment;
     }
 }
