@@ -1,5 +1,7 @@
 package com.freeletics.dilyana.freeletics;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
@@ -17,8 +19,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.freeletics.dilyana.freeletics.fragments.CategoryFragment;
 import com.freeletics.dilyana.freeletics.model.DownloadImage;
@@ -29,7 +33,7 @@ import com.freeletics.dilyana.freeletics.fragments.CategoryFragment;
 import com.freeletics.dilyana.freeletics.fragments.SettingsFragment;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -64,28 +68,6 @@ public class HomeActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -131,5 +113,15 @@ public class HomeActivity extends AppCompatActivity
         imageView.setImageResource(profilePic);
         TextView names = (TextView) findViewById(R.id.first_last_name);
         names.setText(name+" "+surname);
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        //TODO here use date picker
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        //TODO here use time picker
     }
 }

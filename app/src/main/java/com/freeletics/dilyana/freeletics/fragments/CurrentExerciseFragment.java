@@ -1,6 +1,7 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,8 +14,6 @@ import android.widget.TextView;
 
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.model.actions.Exercise;
-
-import java.io.Serializable;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +60,8 @@ public class CurrentExerciseFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(getActivity(), VideoActivity.class);
+                startActivity(intent);
             }
         });
 

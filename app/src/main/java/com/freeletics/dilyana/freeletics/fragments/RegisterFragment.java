@@ -26,7 +26,7 @@ public class RegisterFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public final static String NAME_REGEX = "^[a-z]{2,15}$";
+    public final static String NAME_REGEX = "^[a-zA-Z]{2,15}$";
     /* Description:
         ^               #   Start of the line
         [a-z]	    #   Match characters and symbols in the list a-z
