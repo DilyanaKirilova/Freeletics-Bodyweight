@@ -58,16 +58,16 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.MyExer
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
             }
         });
-        if (exercise.getName() == Exercise.ExerciseName.SITUPS) {
+        if (exercise.getName().equals(Exercise.ExerciseName.SITUPS)) {
             holder.excercisesButton.setText("SITUPS");
         }
-        if (exercise.getName() == Exercise.ExerciseName.SQUATS) {
+        if (exercise.getName().equals(Exercise.ExerciseName.SQUATS)) {
             holder.excercisesButton.setText("SQUATS");
         }
-        if (exercise.getName() == Exercise.ExerciseName.PUSHUPS) {
+        if (exercise.getName().equals(Exercise.ExerciseName.PUSHUPS)) {
             holder.excercisesButton.setText("PUSHUPS");
         }
-        if (exercise.getName() == Exercise.ExerciseName.BYCICLE_CRUNCHES) {
+        if (exercise.getName().equals(Exercise.ExerciseName.CRUNCHES)) {
             holder.excercisesButton.setText("BYCICLE CRUNCHES");
         }
     }

@@ -1,5 +1,6 @@
 package com.freeletics.dilyana.freeletics.model.users;
 
+
 import com.freeletics.dilyana.freeletics.model.actions.Action;
 
 import java.io.Serializable;

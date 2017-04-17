@@ -4,6 +4,8 @@ package com.freeletics.dilyana.freeletics.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.freeletics.dilyana.freeletics.MainActivity;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.VideoActivity;
 import com.freeletics.dilyana.freeletics.model.actions.Exercise;
-
-import java.io.Serializable;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,30 +47,33 @@ public class CurrentExerciseFragment extends Fragment {
         Bundle bundle = this.getArguments();
         Exercise exercise = null;
         if (bundle != null) {
-           exercise = (Exercise) bundle.getSerializable("exercise");
-            rewardValue.setText(exercise.getName().getPoints() +" Points");
-            if(exercise.getEquipment() == null) {
+            exercise = (Exercise) bundle.getSerializable("exercise");
+            rewardValue.setText(exercise.getName().getPoints() + " Points");
+            if (exercise.getEquipment() == null) {
                 equipmentValue.setText("No Equipment");
-            }
-            else{
+            } else {
                 equipmentValue.setText(exercise.getEquipment());
             }
-            if(exercise.getPicture()!=0){
+            if (exercise.getPicture() != 0) {
                 exerciseImage.setImageResource(exercise.getPicture());
             }
         }
 
+
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(getActivity(), VideoActivity.class);
                 startActivity(intent);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, new VideoFragment()).commit();
             }
         });
 
 
         return root;
     }
-
-
 }

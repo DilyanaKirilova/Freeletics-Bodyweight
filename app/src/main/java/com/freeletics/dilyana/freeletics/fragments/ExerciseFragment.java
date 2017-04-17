@@ -18,6 +18,11 @@ import com.freeletics.dilyana.freeletics.model.actions.Exercise;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.freeletics.dilyana.freeletics.model.actions.Exercise.ExerciseName.CRUNCHES;
+import static com.freeletics.dilyana.freeletics.model.actions.Exercise.ExerciseName.PUSHUPS;
+import static com.freeletics.dilyana.freeletics.model.actions.Exercise.ExerciseName.SITUPS;
+import static com.freeletics.dilyana.freeletics.model.actions.Exercise.ExerciseName.SQUATS;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -36,10 +41,10 @@ public class ExerciseFragment extends Fragment {
         context = root.getContext();
         recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view_exercise);
         final List<Exercise> exercises = new ArrayList<>();
-        exercises.add(new Exercise("No equipment", 10, Exercise.ExerciseName.BYCICLE_CRUNCHES, " ", R.drawable.bicycle_crunches));
-        exercises.add(new Exercise("No equipment", 10, Exercise.ExerciseName.PUSHUPS, " ", R.drawable.pushups));
-        exercises.add(new Exercise("No equipment", 10, Exercise.ExerciseName.SITUPS, " ", R.drawable.situps));
-        exercises.add(new Exercise("No equipment", 10, Exercise.ExerciseName.SQUATS, " ", R.drawable.squats));
+        exercises.add(new Exercise(CRUNCHES));
+        exercises.add(new Exercise(PUSHUPS));
+        exercises.add(new Exercise(SITUPS));
+        exercises.add(new Exercise(SQUATS));
 
 
         ExerciseAdapter exerciseAdapter = new ExerciseAdapter(exercises, context);

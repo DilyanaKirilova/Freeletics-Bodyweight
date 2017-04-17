@@ -91,7 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/blueColor"
-        android:text="NEXT"
+        android:text="Do your first exercise"
         android:textColor="@color/whiteColor"/>
 
     <ImageView
