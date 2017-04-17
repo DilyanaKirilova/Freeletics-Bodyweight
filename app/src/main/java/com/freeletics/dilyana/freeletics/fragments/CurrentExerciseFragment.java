@@ -63,9 +63,6 @@ public class CurrentExerciseFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, new VideoFragment()).commit();

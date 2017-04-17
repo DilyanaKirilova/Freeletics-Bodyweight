@@ -17,6 +17,9 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
 public class WelcomeActivity extends AppCompatActivity{
 
@@ -172,6 +175,15 @@ public class WelcomeActivity extends AppCompatActivity{
                     return "SECTION 4";
             }
             return null;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(UsersManager.getInstance().getLoggedUser() != null){
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
         }
     }
 }
