@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.freeletics.dilyana.freeletics.MainActivity;
 import com.freeletics.dilyana.freeletics.R;
-import com.freeletics.dilyana.freeletics.VideoActivity;
 import com.freeletics.dilyana.freeletics.model.actions.Exercise;
 
 /**
@@ -64,7 +63,7 @@ public class CurrentExerciseFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getActivity(), VideoActivity.class);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
 
                 FragmentManager fragmentManager = getFragmentManager();

@@ -35,44 +35,21 @@ public class VideoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root =  inflater.inflate(R.layout.fragment_video, container, false);
+        /*
+             get the full YouTube url form - https://weibomiaopai.com/online-video-downloader/youtube
 
-
+ 	    */
 
         video = (VideoView) root.findViewById(R.id.videoView);
 
+        Uri uri = Uri.parse("https://redirector.googlevideo.com/videoplayback?requiressl=yes&ms=au&ei=qeb0WNe-D4Oy4wK9rJaYBw&mv=m&mt=1492444764&mn=sn-a5mekn7y&clen=2498618&ratebypass=yes&gir=yes&id=o-ACRGkWKc5kwghy5frTM2upIwNzP4oj1AQ_P6oNrADfYW&initcwndbps=943750&source=youtube&expire=1492466441&dur=56.749&lmt=1427704337058587&ip=2001%3A19f0%3A7001%3Ad32%3A5400%3Aff%3Afe58%3A19e7&key=yt6&upn=uRJUxGye_QI&ipbits=0&mm=31&itag=18&pl=48&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&mime=video%2Fmp4&signature=22353C4304A9A000AE81EAB810834C1632741334.9F5040988E48640F45BD08CC1726CCF2A1E8B6D4");
 
-        /*
-            get the full YouTube url form - https://weibomiaopai.com/online-video-downloader/youtube
-        */
-
-
-        //1.
-        Uri uri = Uri.parse("https://redirector.googlevideo.com/videoplayback?dur=263.267&ei=_a7wWNHtHdDE-wPTzayACQ&initcwndbps=7362500&expire=1492190045&pl=33&mime=video%2Fmp4&id=o-AOgexVc9TJ83TJAtFXdoBheKjTQTpVvZdew9w9Hoj2Ai&mn=sn-n4v7sn76&mm=31&ipbits=0&requiressl=yes&ip=2600%3A3c01%3A%3Af03c%3A91ff%3Afe24%3Ab564&ms=au&mv=m&mt=1492168344&ratebypass=yes&upn=5-2FhhQNIPU&itag=22&beids=%5B9466593%5D&lmt=1485858637260028&key=yt6&sparams=dur%2Cei%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&source=youtube&signature=C477C99E17B03B018627FD49A7DA234D776096DD.81C28CE5029D272DE727DE8C98339797919F2CF7");
         video.setVideoURI(uri);
 
-        // prograss dialog
-        final ProgressDialog pd = new ProgressDialog(getActivity());
-        pd.setMessage("Buffering video please wait...");
-        pd.show();
-
-        video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                //close the progress dialog when buffering is done
-                pd.dismiss();
-            }
-        });
-
-        //2.
-        // create an object of media controller
         MediaController mediaController = new MediaController(getActivity());
-        // set media controller object for a video view
         video.setMediaController(mediaController);
 
-        //3.
-        video.requestFocus();
         video.start();
-
 
         return root;
     }
