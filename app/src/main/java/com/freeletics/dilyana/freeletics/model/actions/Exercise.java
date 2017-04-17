@@ -21,10 +21,6 @@ public class Exercise implements Action, Serializable{
 
     public static String noEquipment = "No Equipment";
 
-    public String getEquipment() {
-        return equipment;
-    }
-
     public enum ExerciseName{BURPEES(6, burpee, noEquipment, 10), CLIMBERS(3.5, climber, noEquipment, 10), JUMPS(8, jump, noEquipment, 10), SQUATS(3.5, squat, noEquipment, 10),
         SITUPS(3.5, situp, noEquipment, 10), PULLUPS(5, pullup, "Pullup Bar", 10), CRUNCHES(6, crunch, noEquipment, 10), FROGGERS(5, frogger, noEquipment, 10), PUSHUPS(5, pushup, noEquipment, 10),
         STANDUPS(3, standups, noEquipment, 10);
@@ -46,47 +42,30 @@ public class Exercise implements Action, Serializable{
     }
 
     private ExerciseName name;
-    private String equipment;
-    private String videoUrl;
-    private int repetitions;
-    private double points;
-    private int picture;
 
     public Exercise(ExerciseName name) {
         if(name != null){
             this.name = name;
         }
-        this.videoUrl = this.name.videoUrl;
-        this.points = this.name.points;
-        this.repetitions = this.name.repetitions;
-        this.equipment = this.name.equipment;
     }
 
     public ExerciseName getName() {
         return name;
     }
 
-    public int getPicture() {
-        return picture;
-    }
-
     public int getRepetitions(){
-        return this.repetitions;
+        return this.name.repetitions;
     }
 
     public double getPoints(){
-        return this.points;
+        return this.name.points;
     }
 
     public String getVideoUrl(){
-        return videoUrl;
+        return this.name.videoUrl;
     }
 
-    public String getNoEquipment(){
-        return equipment;
-    }
-
-    public void setPicture(int picture){
-        this.picture = picture;
+    public String getEquipment() {
+        return this.name.equipment;
     }
 }

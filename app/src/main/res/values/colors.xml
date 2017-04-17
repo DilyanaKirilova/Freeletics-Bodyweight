@@ -6,4 +6,5 @@
     <color name="workoutBackgroun">#bebebe</color>
     <color name="whiteColor">#FFFFFF</color>
     <color name="blueColor">#0051ff</color>
+    <color name="black">#000000</color>
 </resources>

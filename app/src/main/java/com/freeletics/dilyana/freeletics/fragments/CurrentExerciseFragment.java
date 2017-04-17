@@ -53,9 +53,6 @@ public class CurrentExerciseFragment extends Fragment {
             } else {
                 equipmentValue.setText(exercise.getEquipment());
             }
-            if (exercise.getPicture() != 0) {
-                exerciseImage.setImageResource(exercise.getPicture());
-            }
         }
 
 

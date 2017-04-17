@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.adapters.ExerciseAdapter;
+import com.freeletics.dilyana.freeletics.model.actions.ActionsManager;
 import com.freeletics.dilyana.freeletics.model.actions.Exercise;
 
 import java.util.ArrayList;
@@ -40,14 +41,9 @@ public class ExerciseFragment extends Fragment {
 
         context = root.getContext();
         recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view_exercise);
-        final List<Exercise> exercises = new ArrayList<>();
-        exercises.add(new Exercise(CRUNCHES));
-        exercises.add(new Exercise(PUSHUPS));
-        exercises.add(new Exercise(SITUPS));
-        exercises.add(new Exercise(SQUATS));
 
 
-        ExerciseAdapter exerciseAdapter = new ExerciseAdapter(exercises, context);
+        ExerciseAdapter exerciseAdapter = new ExerciseAdapter(ActionsManager.getInstance().getExercises(), context);
         recyclerView.setAdapter(exerciseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         return root;

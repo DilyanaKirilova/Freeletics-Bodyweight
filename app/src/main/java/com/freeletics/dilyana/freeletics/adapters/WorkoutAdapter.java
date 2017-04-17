@@ -37,16 +37,9 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.MyViewHo
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Workout workout = workoutList.get(position);
-       // holder.title.setText();
-        if(workout.getName() == Workout.WorkoutName.APHRODITE){
-            holder.title.setText("APHRODITE");
-        }
-        if(workout.getName() == Workout.WorkoutName.ARES){
-            holder.title.setText("ARES");
-        }
-        if(workout.getName() == Workout.WorkoutName.DIONE){
-            holder.title.setText("DIONE");
-        }
+
+        holder.title.setText(workout.getName().toString());
+
         holder.duration.setText(workout.getDuration()+"");
         holder.difficylty.setText(workout.getDifficulty()+"");
 

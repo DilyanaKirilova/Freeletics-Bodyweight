@@ -58,18 +58,8 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.MyExer
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
             }
         });
-        if (exercise.getName().equals(Exercise.ExerciseName.SITUPS)) {
-            holder.excercisesButton.setText("SITUPS");
-        }
-        if (exercise.getName().equals(Exercise.ExerciseName.SQUATS)) {
-            holder.excercisesButton.setText("SQUATS");
-        }
-        if (exercise.getName().equals(Exercise.ExerciseName.PUSHUPS)) {
-            holder.excercisesButton.setText("PUSHUPS");
-        }
-        if (exercise.getName().equals(Exercise.ExerciseName.CRUNCHES)) {
-            holder.excercisesButton.setText("BYCICLE CRUNCHES");
-        }
+
+        holder.excercisesButton.setText(exercise.getName().toString());
     }
 
     @Override

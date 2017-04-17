@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.adapters.WorkoutAdapter;
+import com.freeletics.dilyana.freeletics.model.actions.ActionsManager;
 import com.freeletics.dilyana.freeletics.model.actions.Workout;
 
 import java.util.ArrayList;
@@ -33,10 +34,7 @@ public class WorkoutFragment extends Fragment {
         context = root.getContext();
         recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view_workout);
 
-        final List<Workout> workouts = new ArrayList<>();
-        //workouts.add(new Workout("No equipment", 3, Workout.WorkoutName.APHRODITE, 3.45, 2, ));
-
-        WorkoutAdapter adapter = new WorkoutAdapter(workouts, context);
+        WorkoutAdapter adapter = new WorkoutAdapter(ActionsManager.getInstance().getWorkouts(), context);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         return root;

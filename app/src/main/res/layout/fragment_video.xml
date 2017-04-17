@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/black"
+    android:gravity="center"
     tools:context="com.freeletics.dilyana.freeletics.fragments.VideoFragment">
 
 
