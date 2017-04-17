@@ -39,19 +39,6 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.MyExer
     public MyExerciseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater li = LayoutInflater.from(context);
         View row = li.inflate(R.layout.exercise_row, parent, false);
-        row.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            /*    AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                Bundle bagaj = new Bundle();
-                Exercise exercise = exerciseList.get(i);
-                i++;
-                bagaj.putSerializable("exercise", exercise);
-                CurrentExerciseFragment fragment = new CurrentExerciseFragment();
-                fragment.setArguments(bagaj);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit(); */
-            }
-        });
         MyExerciseViewHolder viewHolder = new MyExerciseViewHolder(row);
         return viewHolder;
     }
@@ -62,7 +49,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.MyExer
         holder.excercisesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                AppCompatActivity activity = (AppCompatActivity) v.getContext() ;
                 Bundle bagaj = new Bundle();
                 Exercise exercise = exerciseList.get(position);
                 bagaj.putSerializable("exercise", exercise);

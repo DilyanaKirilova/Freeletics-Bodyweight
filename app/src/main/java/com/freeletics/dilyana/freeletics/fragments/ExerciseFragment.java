@@ -1,6 +1,7 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ public class ExerciseFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private Context context;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

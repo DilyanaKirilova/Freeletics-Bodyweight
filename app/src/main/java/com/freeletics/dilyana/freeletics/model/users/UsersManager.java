@@ -91,4 +91,26 @@ public class UsersManager {
         UsersManager.getInstance().deleteUserRegistration();
         UsersManager.getInstance().registerUser(firstNameStr, lastNameStr, emailStr, password, weight, height, age, gender);
     }
+
+    public void countBMI(User user){
+        String pol = user.getStringGender();
+        int weight = user.getWeight();
+        int height = user.getHeight();
+        double heightInMeters = height/10;
+        int age = user.getAge();
+
+        double bmi = weight/(heightInMeters*heightInMeters);
+        if(bmi<18.5) {
+            user.setBmi(User.BMI.SLIM);
+
+        }
+        if(bmi>=18.5 && bmi<30){
+            user.setBmi(User.BMI.NORMAL);
+        }
+        if(bmi>=30){
+            user.setBmi(User.BMI.FATTENED);
+        }
+
+    }
+
 }

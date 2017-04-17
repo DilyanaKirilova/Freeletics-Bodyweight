@@ -20,6 +20,10 @@ public class User implements Serializable {
     private int height;
     private int age;
 
+    public enum BMI {SLIM, NORMAL, FATTENED};
+    private BMI bmi;
+
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -115,5 +119,13 @@ public class User implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setBmi(BMI bmi) {
+        this.bmi = bmi;
+    }
+
+    public BMI getBmi() {
+        return bmi;
     }
 }
