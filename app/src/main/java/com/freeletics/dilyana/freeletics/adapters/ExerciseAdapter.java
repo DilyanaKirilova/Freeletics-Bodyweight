@@ -11,11 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.freeletics.dilyana.freeletics.HomeActivity;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.fragments.CurrentExerciseFragment;
 import com.freeletics.dilyana.freeletics.fragments.ExerciseFragment;
+import com.freeletics.dilyana.freeletics.model.actions.Action;
 import com.freeletics.dilyana.freeletics.model.actions.Exercise;
 import com.freeletics.dilyana.freeletics.model.actions.Workout;
 
@@ -45,21 +48,21 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.MyExer
 
     @Override
     public void onBindViewHolder(MyExerciseViewHolder holder, final int position) {
-        Exercise exercise = exerciseList.get(position);
-        holder.excercisesButton.setOnClickListener(new View.OnClickListener() {
+        final Action exercise = exerciseList.get(position);
+
+        holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AppCompatActivity activity = (AppCompatActivity) v.getContext() ;
-                Bundle bagaj = new Bundle();
-                Exercise exercise = exerciseList.get(position);
-                bagaj.putSerializable("exercise", exercise);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("action", exercise);
                 CurrentExerciseFragment fragment = new CurrentExerciseFragment();
-                fragment.setArguments(bagaj);
+                fragment.setArguments(bundle);
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
             }
         });
 
-        holder.excercisesButton.setText(exercise.getName().toString());
+        holder.exerciseName.setText(exercise.getName().toString());
     }
 
     @Override
@@ -69,17 +72,14 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.MyExer
 
     class MyExerciseViewHolder extends RecyclerView.ViewHolder {
 
-        private Button excercisesButton;
-        private View itemView;
+        private TextView exerciseName;
+        private LinearLayout layout;
 
         public MyExerciseViewHolder(View itemView) {
             super(itemView);
-            this.itemView = itemView;
-            excercisesButton = (Button) itemView.findViewById(R.id.excercise_button);
+            exerciseName = (TextView) itemView.findViewById(R.id.exercise_name);
+            layout = (LinearLayout) itemView.findViewById(R.id.exercise_row);
         }
 
-        public Button getExcercisesButton() {
-            return excercisesButton;
-        }
     }
 }

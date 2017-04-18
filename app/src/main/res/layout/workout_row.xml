@@ -2,21 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal">
+    android:layout_height="130dp"
+    android:background="@color/whiteColor"
+    android:layout_marginBottom="1dp"
+    android:gravity="center_horizontal"
+    android:id="@+id/workout_row">
 
     <TextView
         android:id="@+id/title_workout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:gravity="center"
+        android:textColor="@color/black"
         android:textSize="35sp"/>
 
     <TextView
         android:id="@+id/descr_workout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:textSize="20sp"/>
 
     <LinearLayout

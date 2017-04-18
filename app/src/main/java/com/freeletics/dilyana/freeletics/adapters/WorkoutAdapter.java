@@ -1,13 +1,18 @@
 package com.freeletics.dilyana.freeletics.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.freeletics.dilyana.freeletics.R;
+import com.freeletics.dilyana.freeletics.fragments.CurrentExerciseFragment;
+import com.freeletics.dilyana.freeletics.model.actions.Action;
 import com.freeletics.dilyana.freeletics.model.actions.Workout;
 
 import java.util.List;
@@ -36,12 +41,23 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Workout workout = workoutList.get(position);
+        final Action workout = workoutList.get(position);
 
         holder.title.setText(workout.getName().toString());
-
         holder.duration.setText(workout.getDuration()+"");
-        holder.difficylty.setText(workout.getDifficulty()+"");
+        holder.difficulty.setText(workout.getDifficulty()+"");
+
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity) v.getContext() ;
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("action", workout);
+                CurrentExerciseFragment fragment = new CurrentExerciseFragment();
+                fragment.setArguments(bundle);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+            }
+        });
 
     }
 
@@ -52,19 +68,19 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.MyViewHo
 
     class MyViewHolder extends RecyclerView.ViewHolder{
 
-        private View row;
         private TextView title;
         private TextView description;
         private TextView duration;
-        private TextView difficylty;
+        private TextView difficulty;
+        private LinearLayout layout;
 
         public MyViewHolder(View row) {
             super(row);
-            this.row = row;
             title = (TextView) row.findViewById(R.id.title_workout);
             description = (TextView) row.findViewById(R.id.descr_workout);
             duration = (TextView) row.findViewById(R.id.duration_workout);
-            difficylty = (TextView) row.findViewById(R.id.difficylty_workout);
+            difficulty = (TextView) row.findViewById(R.id.difficylty_workout);
+            layout = (LinearLayout) row.findViewById(R.id.workout_row);
         }
     }
 }

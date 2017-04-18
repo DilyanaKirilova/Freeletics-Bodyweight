@@ -16,6 +16,7 @@ public class ActionsManager {
 
     List<Exercise> exercises = new ArrayList<>();
     List<Workout> workouts = new ArrayList<>();
+    public interface ActionName{};
 
     private ActionsManager() {
 

@@ -2,12 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@color/whiteColor"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="90dp"
+    android:layout_marginBottom="1dp"
+    android:id="@+id/exercise_row">
 
-    <Button
-        android:id="@+id/excercise_button"
+    <TextView
+        android:id="@+id/exercise_name"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="35sp"/>
 
 </LinearLayout>

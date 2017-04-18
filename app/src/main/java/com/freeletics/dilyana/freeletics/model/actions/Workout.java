@@ -1,7 +1,9 @@
 package com.freeletics.dilyana.freeletics.model.actions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static com.freeletics.dilyana.freeletics.model.actions.Exercise.ExerciseName.BURPEES;
 import static com.freeletics.dilyana.freeletics.model.actions.Exercise.ExerciseName.CLIMBERS;
@@ -28,7 +30,7 @@ public class Workout implements Action{
 
 
 
-    public enum WorkoutName{
+    public enum WorkoutName implements ActionsManager.ActionName{
         APHRODITE   (500, new ArrayList<>(Arrays.asList(burpee, squat, situp)), noEquipment, 2, 2),
         ARES        (345, new ArrayList<>(Arrays.asList(pullup, situp, squat)), "Pullup Bar & 40 m", 1, 3),
         ATHENA      (305, new ArrayList<>(Arrays.asList(climber, situp, squat)), noEquipment, 1, 1),
@@ -76,7 +78,32 @@ public class Workout implements Action{
         return this.name.difficulty;
     }
 
-    public WorkoutName getName() {
+    @Override
+    public double getPoints() {
+        return this.name.points;
+    }
+
+    @Override
+    public String getEquipment() {
+        return this.name.equipment;
+    }
+
+    @Override
+    public List<Exercise> getExercises() {
+        return this.name.workout;
+    }
+
+    @Override
+    public String getCategory() {
+        return "Workout";
+    }
+
+    @Override
+    public int getRepetitions() {
+        return 0;
+    }
+
+    public ActionsManager.ActionName getName() {
         return name;
     }
 }

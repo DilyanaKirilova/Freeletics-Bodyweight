@@ -107,6 +107,7 @@
         android:id="@+id/btn_fep_save_changes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/blueColor"
         android:hint="Save changes"/>
 
     <TextView
@@ -139,6 +140,7 @@
         android:id="@+id/btn_fep_change_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/blueColor"
         android:hint="Change password"/>
     </LinearLayout>
 

@@ -5,19 +5,50 @@
     android:orientation="vertical"
     tools:context="com.freeletics.dilyana.freeletics.fragments.ActionFragment">
 
-    <ImageView
-        android:id="@+id/iv_fa_img"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"/>
+        android:layout_weight="2"
+        android:background="@color/darkGray">
+
+        <TextView
+            android:id="@+id/tv_fa_num_of_repetitions"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="70dp"
+            android:textColor="@color/whiteColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Repetitions"
+            android:textColor="@color/whiteColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_gravity="bottom"
+            android:text=" DO THEM AS FAST AS POSSIBLE"
+            android:textColor="@color/whiteColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/actions"
         android:layout_width="match_parent"
-        android:layout_height="0dp"></android.support.v7.widget.RecyclerView>
+        android:layout_height="0dp"
+        android:layout_weight="3"></android.support.v7.widget.RecyclerView>
 
     <Button
         android:id="@+id/btn_fa_do_action"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom"/>
+        android:background="@color/blueColor"
+        android:layout_gravity="bottom"
+        android:gravity="center"/>
 </LinearLayout>

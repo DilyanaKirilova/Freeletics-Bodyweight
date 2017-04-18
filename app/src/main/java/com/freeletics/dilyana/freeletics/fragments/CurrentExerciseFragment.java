@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.freeletics.dilyana.freeletics.MainActivity;
 import com.freeletics.dilyana.freeletics.R;
+import com.freeletics.dilyana.freeletics.model.actions.Action;
 import com.freeletics.dilyana.freeletics.model.actions.Exercise;
 
 /**
@@ -23,7 +24,6 @@ import com.freeletics.dilyana.freeletics.model.actions.Exercise;
  */
 public class CurrentExerciseFragment extends Fragment {
 
-    private Exercise exercise;
     private TextView rewardValue;
     private TextView equipmentValue;
     private TextView beatYourValue;
@@ -43,26 +43,27 @@ public class CurrentExerciseFragment extends Fragment {
         nextButton = (Button) root.findViewById(R.id.next_button);
         exerciseImage = (ImageView) root.findViewById(R.id.exercise_image);
 
-        Bundle bundle = this.getArguments();
-        Exercise exercise = null;
+
+        final Bundle bundle = this.getArguments();
+        Action action = null;
         if (bundle != null) {
-            exercise = (Exercise) bundle.getSerializable("exercise");
-            rewardValue.setText(exercise.getName().getPoints() + " Points");
-            if (exercise.getEquipment() == null) {
-                equipmentValue.setText("No Equipment");
-            } else {
-                equipmentValue.setText(exercise.getEquipment());
-            }
+            action = (Action) bundle.getSerializable("action");
+            rewardValue.setText(action.getPoints() + " Points");
+            equipmentValue.setText(action.getEquipment());
         }
 
+        nextButton.setText("Do your first " + action.getName().toString());
 
+        final Action finalAction = action;
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, new VideoFragment()).commit();
+                ActionFragment actionFragment = new ActionFragment();
+                actionFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.fragment_container, actionFragment).commit();
             }
         });
 

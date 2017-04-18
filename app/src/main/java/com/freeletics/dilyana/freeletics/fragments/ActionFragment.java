@@ -4,106 +4,73 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.freeletics.dilyana.freeletics.R;
+import com.freeletics.dilyana.freeletics.adapters.ActionAdapter;
+import com.freeletics.dilyana.freeletics.model.actions.Action;
+import com.freeletics.dilyana.freeletics.model.actions.Exercise;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ActionFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ActionFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
 public class ActionFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
 
     public ActionFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ActionFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ActionFragment newInstance(String param1, String param2) {
-        ActionFragment fragment = new ActionFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private Button btnDoAction;
+    private Action action = null;
+    private TextView tvNumOfRepetitions;
+    private RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_action, container, false);
-    }
+        View root =  inflater.inflate(R.layout.fragment_action, container, false);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+        if(getArguments() != null && getArguments().getSerializable("action") != null){
+            action = (Action) getArguments().getSerializable("action");
         }
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+        btnDoAction = (Button) root.findViewById(R.id.btn_fa_do_action);
+        tvNumOfRepetitions = (TextView) root.findViewById(R.id.tv_fa_num_of_repetitions);
+        recyclerView = (RecyclerView) root.findViewById(R.id.actions);
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+        ActionAdapter actionAdapter = new ActionAdapter((AppCompatActivity)getActivity(), action.getExercises());
+        recyclerView.setAdapter(actionAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        tvNumOfRepetitions.setText(action.getRepetitions() + "");
+
+
+        btnDoAction.setText("Do  " + action.getCategory());
+        btnDoAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                VideoFragment videoFragment = new VideoFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("action", action);
+                videoFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.fragment_container, videoFragment).commit();
+            }
+        });
+
+        return root;
     }
 }

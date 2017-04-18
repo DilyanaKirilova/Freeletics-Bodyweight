@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#191a1e</color>
     <color name="colorPrimaryDark">#0d2f39</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="workoutBackgroun">#bebebe</color>
+    <color name="workoutBackground">#bebebe</color>
     <color name="whiteColor">#FFFFFF</color>
     <color name="blueColor">#0051ff</color>
     <color name="black">#000000</color>
+    <color name="darkGray">#0d0c0c</color>
 </resources>

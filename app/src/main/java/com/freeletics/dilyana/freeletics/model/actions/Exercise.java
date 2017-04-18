@@ -1,12 +1,14 @@
 package com.freeletics.dilyana.freeletics.model.actions;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Dilyana on 3/31/2017.
  */
 
-public class Exercise implements Action, Serializable{
+public class Exercise implements Action{
 
     private static String burpee       = "https://redirector.googlevideo.com/videoplayback?ipbits=0&mm=31&ip=2001%3A19f0%3A7001%3Ad32%3A5400%3Aff%3Afe58%3A19e7&itag=22&ms=au&mt=1492267041&mv=m&id=o-ABJ6tQpkI0MZEok4L0P7y0Q0Wosbh0wnQGprSPqUE2rs&pl=48&source=youtube&sparams=dur%2Cei%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&requiressl=yes&ratebypass=yes&beids=%5B9466591%5D&dur=78.344&mn=sn-a5meknl7&lmt=1471571826948539&ei=ZTDyWPaEPMnQqAG_iYKIDA&upn=MN5OBZGZQF0&expire=1492288710&mime=video%2Fmp4&key=yt6&initcwndbps=696250&signature=1981878CA1704C4082DF0C83E428060C9EF2453C.B1BE64BE6F7259DE2E65DEFB739FF1486666A2C9";
     private static String climber      = "https://redirector.googlevideo.com/videoplayback?ipbits=0&mime=video%2Fmp4&ratebypass=yes&requiressl=yes&ms=au&mt=1492266081&mv=m&dur=66.548&itag=22&key=yt6&mn=sn-n4v7sn7z&id=o-AB6tRMaKPYO_l-Ky7le-Gi6gBM_BQ08iYaQhCivuyH--&expire=1492287753&ei=qCzyWOvVPMXm-QPopLrQCA&ip=2600%3A3c01%3A%3Af03c%3A91ff%3Afe24%3Ab564&lmt=1432796067778186&source=youtube&sparams=dur%2Cei%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&initcwndbps=5975000&pl=33&mm=31&upn=Vc_Jt6WIKVo&signature=94EEB837D10FAE6F6806FFC395076115C82482E6.B96EC3AAAF7B4C81A83C5AE0063EDE19356615B7";
@@ -21,8 +23,16 @@ public class Exercise implements Action, Serializable{
 
     public static String noEquipment = "No Equipment";
 
-    public enum ExerciseName{BURPEES(6, burpee, noEquipment, 10), CLIMBERS(3.5, climber, noEquipment, 10), JUMPS(8, jump, noEquipment, 10), SQUATS(3.5, squat, noEquipment, 10),
-        SITUPS(3.5, situp, noEquipment, 10), PULLUPS(5, pullup, "Pullup Bar", 10), CRUNCHES(6, crunch, noEquipment, 10), FROGGERS(5, frogger, noEquipment, 10), PUSHUPS(5, pushup, noEquipment, 10),
+    public enum ExerciseName implements ActionsManager.ActionName{
+        BURPEES(6, burpee, noEquipment, 10),
+        CLIMBERS(3.5, climber, noEquipment, 10),
+        JUMPS(8, jump, noEquipment, 10),
+        SQUATS(3.5, squat, noEquipment, 10),
+        SITUPS(3.5, situp, noEquipment, 10),
+        PULLUPS(5, pullup, "Pullup Bar", 10),
+        CRUNCHES(6, crunch, noEquipment, 10),
+        FROGGERS(5, frogger, noEquipment, 10),
+        PUSHUPS(5, pushup, noEquipment, 10),
         STANDUPS(3, standups, noEquipment, 10);
 
         private double points;
@@ -49,8 +59,18 @@ public class Exercise implements Action, Serializable{
         }
     }
 
-    public ExerciseName getName() {
+    public ActionsManager.ActionName getName() {
         return name;
+    }
+
+    @Override
+    public int getDuration() {
+        return 0;
+    }
+
+    @Override
+    public int getDifficulty() {
+        return 0;
     }
 
     public int getRepetitions(){
@@ -67,5 +87,18 @@ public class Exercise implements Action, Serializable{
 
     public String getEquipment() {
         return this.name.equipment;
+    }
+
+    @Override
+    public List<Exercise> getExercises() {
+        Exercise e = new Exercise(this.name);
+        List<Exercise> exercise = new ArrayList<>();
+        exercise.add(e);
+        return exercise;
+    }
+
+    @Override
+    public String getCategory() {
+        return "Exercise";
     }
 }

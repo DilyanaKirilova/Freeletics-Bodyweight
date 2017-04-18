@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.fragments.ActionFragment;
+import com.freeletics.dilyana.freeletics.fragments.VideoFragment;
 import com.freeletics.dilyana.freeletics.model.actions.Exercise;
 
 import java.util.List;
@@ -49,17 +50,16 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
             public void onClick(View v) {
                 FragmentManager fragmentManager = activity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                ActionFragment actionFragment = new ActionFragment();
+                VideoFragment videoFragment = new VideoFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("url", exercise.getVideoUrl());
-                actionFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.fragment_container, actionFragment).commit();
+                videoFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.fragment_container, videoFragment).commit();
             }
         });
 
         holder.tvExerciseName.setText(exercise.getName().toString());
         holder.tvExerciseRepetitions.setText(exercise.getRepetitions()+ "");
-
     }
 
     @Override
