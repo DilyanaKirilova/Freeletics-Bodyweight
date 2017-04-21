@@ -52,7 +52,8 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 VideoFragment videoFragment = new VideoFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("url", exercise.getVideoUrl());
+                String url = exercise.getVideoUrl();
+                bundle.putString("url", url);
                 videoFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.fragment_container, videoFragment).commit();
             }
