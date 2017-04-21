@@ -21,10 +21,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.freeletics.dilyana.freeletics.fragments.CategoryFragment;
+import com.freeletics.dilyana.freeletics.fragments.MyProfileFragment;
+import com.freeletics.dilyana.freeletics.fragments.MyProgramFragment;
 import com.freeletics.dilyana.freeletics.model.DownloadImage;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
@@ -37,6 +40,9 @@ public class HomeActivity extends AppCompatActivity
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private ImageView profileImage;
+    private TextView name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,20 +50,41 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        profileImage = (ImageView) findViewById(R.id.imageView);
+        name = (TextView) findViewById(R.id.first_last_name);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header = navigationView.getHeaderView(0);
+        LinearLayout head = (LinearLayout) header.findViewById(R.id.nav_header);
+
+        name = (TextView) header.findViewById(R.id.first_last_name);
+        profileImage = (ImageView) header.findViewById(R.id.imageView);
+        UsersManager usersManager = UsersManager.getInstance();
+        User u = usersManager.getLoggedUser();
+        if(u.getPicture() > 0 ) {
+          profileImage.setImageResource(u.getPicture());
+        }
+        name.setText(u.getFirstName() + " " + u.getLastName());
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, new CategoryFragment(), "Category Fragment").commit();
-        //fragmentTransaction.replace(R.id.fragment_container, new CategoryFragment()).commit();
 
+        head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.fragment_container, new MyProfileFragment()).commit();
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
     }
 
     @Override
@@ -76,23 +103,26 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+
         if (id == R.id.nav_training) {
-           // fragmentTransaction.replace(R.id.fragment_container, ).commit();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, new CategoryFragment()).commit();
 
         } else if (id == R.id.nav_feed) {
-
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, new MyProgramFragment()).commit();
 
         } else if (id == R.id.nav_leaderboards) {
 
 
         } else if (id == R.id.nav_settings) {
 
-            //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-           // fragmentTransaction.replace(R.id.activity_main, new SettingsFragment()).commit();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, new SettingsFragment()).commit();
 
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("request_code", "settings");
-            startActivity(intent);
+          //  Intent intent = new Intent(this, MainActivity.class);
+           // intent.putExtra("request_code", "settings");
+            //startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
