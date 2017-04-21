@@ -63,11 +63,12 @@ public class ActionFragment extends Fragment {
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                VideoFragment videoFragment = new VideoFragment();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("action", action);
-                videoFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.fragment_container, videoFragment).commit();
+                //VideoFragment videoFragment = new VideoFragment();
+                //Bundle bundle = new Bundle();
+                //bundle.putSerializable("action", action);
+                ///videoFragment.setArguments(bundle);
+                ChronometerFragment chronometerFragment = new ChronometerFragment();
+                fragmentTransaction.replace(R.id.fragment_container, chronometerFragment).commit();
             }
         });
 

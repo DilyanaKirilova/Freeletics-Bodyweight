@@ -32,6 +32,7 @@ public class ChronometerFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_chronometer, container, false);
 
+        counter=1;
         chronometer = (Chronometer) root.findViewById(R.id.chronometer);
         start = (Button) root.findViewById(R.id.start_button);
         stop = (Button) root.findViewById(R.id.stop_button);
@@ -42,6 +43,7 @@ public class ChronometerFragment extends Fragment {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                chronometer.setBase(SystemClock.elapsedRealtime());
                 chronometer.start();
             }
         });
@@ -61,10 +63,10 @@ public class ChronometerFragment extends Fragment {
         });
 
         count.setOnClickListener(new View.OnClickListener() {
-            final int i = counter;
+             //int i = 1;
             @Override
             public void onClick(View v) {
-                counerTv.setText(i);
+                counerTv.setText(String.valueOf(counter));
                 counter++;
             }
         });
