@@ -9,13 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.freeletics.dilyana.freeletics.R;
+import com.freeletics.dilyana.freeletics.dialog_fragments.VerificationFragment;
 import com.freeletics.dilyana.freeletics.fragments.ActionFragment;
 import com.freeletics.dilyana.freeletics.fragments.VideoFragment;
+import com.freeletics.dilyana.freeletics.model.actions.Action;
 import com.freeletics.dilyana.freeletics.model.actions.Exercise;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,9 +29,9 @@ import java.util.List;
 public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionViewHolder> {
 
     private AppCompatActivity activity;
-    private List<Exercise> exercises;
+    private List<Action> exercises;
 
-    public ActionAdapter(AppCompatActivity activity, List<Exercise> exercises){
+    public ActionAdapter(AppCompatActivity activity, List<Action> exercises){
 
         this.activity = activity;
         this.exercises = exercises;
@@ -43,28 +47,49 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
     @Override
     public void onBindViewHolder(ActionViewHolder holder, int position) {
 
-        final Exercise exercise = exercises.get(position);
+        final Action exercise = exercises.get(position);
 
-        holder.ibImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                VideoFragment videoFragment = new VideoFragment();
-                Bundle bundle = new Bundle();
-                String url = exercise.getVideoUrl();
-                bundle.putString("url", url);
-                videoFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.fragment_container, videoFragment).commit();
-            }
+        if(exercises.get(position).getTime() != null){
+            holder.tvExerciseTime.setText(exercise.getTime());
+
+            holder.layout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    VerificationFragment verificationFragment = new VerificationFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("action", exercise);
+                    verificationFragment.setArguments(bundle);
+                    verificationFragment.show(activity.getSupportFragmentManager(), "verificationFragment");
+                    return false;
+                }
         });
+        }
+        else {
+            holder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    VideoFragment videoFragment = new VideoFragment();
+                    Bundle bundle = new Bundle();
+                    String url = exercise.getVideoUrl();
+                    bundle.putString("url", url);
+                    videoFragment.setArguments(bundle);
+                    FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container, videoFragment).commit();
+                }
+            });
+        }
         holder.tvExerciseName.setText(exercise.getName().toString());
-        holder.tvExerciseRepetitions.setText(exercise.getRepetitions()+ "");
+        holder.tvExerciseRepetitions.setText(exercise.getRepetitions());
     }
 
     @Override
     public int getItemCount() {
+        if(exercises == null){
+            return 0;
+        }
         return exercises.size();
     }
 
@@ -73,6 +98,8 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
         ImageButton ibImage;
         TextView tvExerciseName;
         TextView tvExerciseRepetitions;
+        TextView tvExerciseTime;
+        LinearLayout layout;
 
         public ActionViewHolder(View itemView) {
             super(itemView);
@@ -80,6 +107,8 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
             ibImage               = (ImageButton) itemView.findViewById(R.id.ib_ar_img);
             tvExerciseName        = (TextView) itemView.findViewById(R.id.tv_ar_exercise_name);
             tvExerciseRepetitions = (TextView) itemView.findViewById(R.id.tv_ar_exercise_repetitions);
+            tvExerciseTime        = (TextView) itemView.findViewById(R.id.tv_ar_action_time);
+            layout                = (LinearLayout) itemView.findViewById(R.id.action_row);
         }
     }
 }

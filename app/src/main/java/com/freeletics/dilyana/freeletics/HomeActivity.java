@@ -20,11 +20,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.freeletics.dilyana.freeletics.fragments.CategoryFragment;
+import com.freeletics.dilyana.freeletics.fragments.ScheduleFragment;
+import com.freeletics.dilyana.freeletics.fragments.WeekScheduleFragment;
 import com.freeletics.dilyana.freeletics.model.DownloadImage;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
@@ -33,7 +36,7 @@ import com.freeletics.dilyana.freeletics.fragments.CategoryFragment;
 import com.freeletics.dilyana.freeletics.fragments.SettingsFragment;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TimePickerDialog.OnTimeSetListener {
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -56,8 +59,6 @@ public class HomeActivity extends AppCompatActivity
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, new CategoryFragment(), "Category Fragment").commit();
-        //fragmentTransaction.replace(R.id.fragment_container, new CategoryFragment()).commit();
-
     }
 
     @Override
@@ -87,13 +88,17 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_settings) {
 
-            //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-           // fragmentTransaction.replace(R.id.activity_main, new SettingsFragment()).commit();
-
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("request_code", "settings");
             startActivity(intent);
+
+        } else if(id == R.id.nav_my_schedule){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, new WeekScheduleFragment()).commit();
+
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -116,12 +121,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        //TODO here use date picker
-    }
-
-    @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        //TODO here use time picker
+        ((TextView) findViewById(R.id.tv_fae_time)).setText( hourOfDay + ":" + minute);
     }
 }

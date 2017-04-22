@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Dilyana on 3/31/2017.
  */
 
-public class Exercise implements Action{
+public class Exercise extends Action{
 
     private static String burpee       = "https://www.youtube.com/watch?v=RLTxXfh7w4c&index=1&list=PLVxsEE_JzUPGiaincSAKSbYVSU_YJLhuM";
     private static String climber      = "https://www.youtube.com/watch?v=u_jJpx6d40s&index=2&list=PLVxsEE_JzUPGiaincSAKSbYVSU_YJLhuM";
@@ -20,7 +20,7 @@ public class Exercise implements Action{
     private static String frogger      = "https://www.youtube.com/watch?v=nddYuZP-kSo&index=26&list=PLVxsEE_JzUPGiaincSAKSbYVSU_YJLhuM";
     private static String pushup       = "https://www.youtube.com/watch?v=Kfu8SKWr1ts&list=PLVxsEE_JzUPGiaincSAKSbYVSU_YJLhuM&index=39";
     private static String standups     = "https://www.youtube.com/watch?v=PY5l4wswlig&list=PLVxsEE_JzUPGiaincSAKSbYVSU_YJLhuM&index=33";
-    public static String noEquipment = "No Equipment";
+    static String noEquipment = "No Equipment";
 
     public enum ExerciseName implements ActionsManager.ActionName{
         BURPEES(6, burpee, noEquipment, 10),
@@ -34,11 +34,13 @@ public class Exercise implements Action{
         PUSHUPS(5, pushup, noEquipment, 10),
         STANDUPS(3, standups, noEquipment, 10);
 
-        private double points;
+
         private String videoUrl;
-        private String equipment;
-        private int repetitions;
-        private ExerciseName(double points, String videoUrl, String equipment, int repetitions){
+        protected double points;
+        protected String equipment;
+        protected int repetitions;
+
+        private ExerciseName (double points, String videoUrl, String equipment, int repetitions){
             this.points = points;
             this.videoUrl = videoUrl;
             this.equipment = equipment;
@@ -52,10 +54,11 @@ public class Exercise implements Action{
 
     private ExerciseName name;
 
-    public Exercise(ExerciseName name) {
-        if(name != null){
-            this.name = name;
+    public Exercise(ActionsManager.ActionName name) {
+        if(name != null && name instanceof ExerciseName){
+            this.name = (ExerciseName) name;
         }
+        this.repetitions = this.name.repetitions;
     }
 
     public ActionsManager.ActionName getName() {
@@ -72,10 +75,6 @@ public class Exercise implements Action{
         return 0;
     }
 
-    public int getRepetitions(){
-        return this.name.repetitions;
-    }
-
     public double getPoints(){
         return this.name.points;
     }
@@ -89,9 +88,9 @@ public class Exercise implements Action{
     }
 
     @Override
-    public List<Exercise> getExercises() {
+    public List<Action> getExercises() {
         Exercise e = new Exercise(this.name);
-        List<Exercise> exercise = new ArrayList<>();
+        List<Action> exercise = new ArrayList<>();
         exercise.add(e);
         return exercise;
     }

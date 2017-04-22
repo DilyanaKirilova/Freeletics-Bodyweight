@@ -18,17 +18,15 @@ import static com.freeletics.dilyana.freeletics.model.actions.Exercise.noEquipme
  * Created by Dilyana on 3/31/2017.
  */
 
-public class Workout implements Action{
+public class Workout extends Action{
 
-    private static Exercise burpee   = new Exercise(BURPEES);
-    private static Exercise squat    = new Exercise(SQUATS);
-    private static Exercise situp    = new Exercise(SITUPS);
-    private static Exercise pullup   = new Exercise(PULLUPS);
-    private static Exercise climber  = new Exercise(CLIMBERS);
-    private static Exercise jump     = new Exercise(JUMPS);
-    private static Exercise pushup   = new Exercise(PUSHUPS);
-
-
+    private static Action burpee   = new Exercise(BURPEES);
+    private static Action squat    = new Exercise(SQUATS);
+    private static Action situp    = new Exercise(SITUPS);
+    private static Action pullup   = new Exercise(PULLUPS);
+    private static Action climber  = new Exercise(CLIMBERS);
+    private static Action jump     = new Exercise(JUMPS);
+    private static Action pushup   = new Exercise(PUSHUPS);
 
     public enum WorkoutName implements ActionsManager.ActionName{
         APHRODITE   (500, new ArrayList<>(Arrays.asList(burpee, squat, situp)), noEquipment, 2, 2),
@@ -44,30 +42,34 @@ public class Workout implements Action{
         ZEUS        (575, new ArrayList<>(Arrays.asList(pushup, pullup, pushup, situp, squat)), "Pull Bar & Wall", 3, 3);
 
 
-        private double points;
-        private ArrayList<Exercise> workout;
-        private String equipment;
+        private ArrayList<Action> workout;
+
         private int duration;
         private int difficulty;
+        private int repetitions;
+        protected double points;
+        protected String equipment;
 
-        private WorkoutName(double points, ArrayList<Exercise> workout, String equipment, int duration, int difficulty){
+
+        private WorkoutName(double points, ArrayList<Action> workout, String equipment, int duration, int difficulty){
+
             this.points = points;
             this.workout = workout;
-            this.equipment = equipment;
             this.duration = duration;
             this.difficulty = difficulty;
+            this.equipment = equipment;
+            this.repetitions = 1;
         }
     }
     private WorkoutName name;
-    private int volume;
 
 
-    public Workout(WorkoutName name) {
+    public Workout(ActionsManager.ActionName name) {
 
-        if(name != null){
-            this.name = name;
+        if(name != null && name instanceof WorkoutName){
+            this.name = (WorkoutName) name;
         }
-        this.volume = 1;
+        this.repetitions = this.name.repetitions;
     }
 
     public int getDuration() {
@@ -89,7 +91,7 @@ public class Workout implements Action{
     }
 
     @Override
-    public List<Exercise> getExercises() {
+    public List<Action> getExercises() {
         return this.name.workout;
     }
 
@@ -99,9 +101,10 @@ public class Workout implements Action{
     }
 
     @Override
-    public int getRepetitions() {
-        return 0;
+    public String getVideoUrl() {
+        return null;
     }
+
 
     public ActionsManager.ActionName getName() {
         return name;

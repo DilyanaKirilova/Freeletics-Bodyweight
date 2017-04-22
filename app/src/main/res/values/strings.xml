@@ -168,4 +168,23 @@
         <item>190</item>
         <item>200</item>
     </string-array>
+
+    <string-array name="workout_repetitions">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="exercise_repetitions">
+        <item>10</item>
+        <item>25</item>
+        <item>50</item>
+        <item>100</item>
+        <item>250</item>
+        <item>500</item>
+        <item>750</item>
+        <item>1000</item>
+        <item>1500</item>
+        <item>2000</item>
+    </string-array>
 </resources>

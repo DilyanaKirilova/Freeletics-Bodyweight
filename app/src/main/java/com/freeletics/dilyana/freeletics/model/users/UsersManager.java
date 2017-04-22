@@ -1,9 +1,12 @@
 package com.freeletics.dilyana.freeletics.model.users;
 
+import com.freeletics.dilyana.freeletics.model.actions.Action;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Dilyana on 8.4.2017 г..
@@ -113,4 +116,8 @@ public class UsersManager {
 
     }
 
+    public List<Action> getUserSchedule(String day) {
+        //TODO
+        return null;
+    }
 }
