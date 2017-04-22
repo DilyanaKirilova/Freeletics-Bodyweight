@@ -9,24 +9,11 @@
     android:background="@color/workoutBackground"
     tools:context="com.freeletics.dilyana.freeletics.fragments.ChronometerFragment">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Chronometer"
-        android:textColor="@color/whiteColor"
-        android:textSize="20dp"
-        android:textStyle="bold" />
-
 
     <Chronometer
         android:id="@+id/chronometer"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="#000000"
@@ -43,6 +30,9 @@
         android:layout_below="@+id/chronometer"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:background="@color/whiteColor"
+        android:textSize="25sp"
+        android:fontFamily="cursive"
         android:text="Start" />
 
     <Button
@@ -51,6 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/start_button"
         android:layout_centerHorizontal="true"
+        android:background="@color/whiteColor"
+        android:textSize="25sp"
+        android:fontFamily="cursive"
         android:layout_marginTop="10dp"
         android:text="Stop" />
 
@@ -61,6 +54,9 @@
         android:layout_below="@+id/stop_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:background="@color/whiteColor"
+        android:textSize="25sp"
+        android:fontFamily="cursive"
         android:text="Restart" />
 
 
@@ -73,7 +69,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="60dp"
-        android:text="Count" />
+        android:text="Count"
+        android:background="@color/whiteColor"
+        android:textSize="25sp"
+        android:fontFamily="cursive"/>
 
     <TextView
         android:id="@+id/counter_tv"
@@ -87,7 +86,19 @@
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginRight="60dp"
+        android:fontFamily="cursive"
         android:textColor="@color/whiteColor"/>
+
+    <Button
+        android:id="@+id/finish_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:layout_marginTop="10dp"
+        android:background="@color/whiteColor"
+        android:textSize="25sp"
+        android:fontFamily="cursive"
+        android:layout_below="@+id/count_button"/>
 
 
 </RelativeLayout>

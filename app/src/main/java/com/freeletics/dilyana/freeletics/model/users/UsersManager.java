@@ -47,6 +47,7 @@ public class UsersManager {
         this.loggedUser = user;
     }
 
+
     public boolean isValidLogin(String email, String password) {
 
         if (registeredUsers.containsKey(email)) {

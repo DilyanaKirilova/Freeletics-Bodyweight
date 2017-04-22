@@ -183,7 +183,6 @@ $                       #   End of the line
                 }
 
                 UsersManager.getInstance().registerUser(firstNameStr, lastNameStr, emailStr, password1Str, weight, height, age, gender);
-
                 Intent intent = new Intent(getActivity(), HomeActivity.class);
                 startActivity(intent);
                 getActivity().finish();

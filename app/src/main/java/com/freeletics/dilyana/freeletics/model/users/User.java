@@ -91,7 +91,7 @@ public class User implements Serializable {
     public enum Day implements Serializable {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY};
     private Gender gender;
     private int picture;//from gallerty or take picture
-    private int level;
+    private int level = 0;
     private ArrayList<Action> workouts;
     private HashMap<Day, TreeSet<Action>> schedule;
 
@@ -142,6 +142,14 @@ public class User implements Serializable {
         return workouts;
     }
 
+    public int getPicture() {
+        return picture;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -164,5 +172,13 @@ public class User implements Serializable {
 
     public BMI getBmi() {
         return bmi;
+    }
+
+    public void addFinishedExc(Action a){
+        this.workouts.add(a);
+    }
+
+    public void setLevel() {
+        this.level++;
     }
 }

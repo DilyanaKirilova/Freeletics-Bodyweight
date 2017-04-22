@@ -1,12 +1,8 @@
 package com.freeletics.dilyana.freeletics;
 
-import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -17,29 +13,28 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.freeletics.dilyana.freeletics.fragments.CategoryFragment;
-import com.freeletics.dilyana.freeletics.fragments.ScheduleFragment;
 import com.freeletics.dilyana.freeletics.fragments.WeekScheduleFragment;
+import com.freeletics.dilyana.freeletics.fragments.MyProfileFragment;
+import com.freeletics.dilyana.freeletics.fragments.MyProgramFragment;
 import com.freeletics.dilyana.freeletics.model.DownloadImage;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
-
-import com.freeletics.dilyana.freeletics.fragments.CategoryFragment;
-import com.freeletics.dilyana.freeletics.fragments.SettingsFragment;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TimePickerDialog.OnTimeSetListener {
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private ImageView profileImage;
+    private TextView name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,14 +42,37 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        profileImage = (ImageView) findViewById(R.id.imageView);
+        name = (TextView) findViewById(R.id.first_last_name);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header = navigationView.getHeaderView(0);
+        LinearLayout head = (LinearLayout) header.findViewById(R.id.nav_header);
+
+        name = (TextView) header.findViewById(R.id.first_last_name);
+        profileImage = (ImageView) header.findViewById(R.id.imageView);
+        UsersManager usersManager = UsersManager.getInstance();
+        User u = usersManager.getLoggedUser();
+        if(u.getPicture() > 0 ) {
+          profileImage.setImageResource(u.getPicture());
+        }
+        name.setText(u.getFirstName() + " " + u.getLastName());
+
+        head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.fragment_container, new MyProfileFragment()).commit();
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -77,11 +95,14 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+
         if (id == R.id.nav_training) {
-           // fragmentTransaction.replace(R.id.fragment_container, ).commit();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, new CategoryFragment()).commit();
 
         } else if (id == R.id.nav_feed) {
-
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, new MyProgramFragment()).commit();
 
         } else if (id == R.id.nav_leaderboards) {
 
@@ -96,7 +117,6 @@ public class HomeActivity extends AppCompatActivity
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, new WeekScheduleFragment()).commit();
-
         }
 
 
