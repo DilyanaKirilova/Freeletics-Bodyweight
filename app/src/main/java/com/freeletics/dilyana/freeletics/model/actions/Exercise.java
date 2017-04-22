@@ -1,5 +1,7 @@
 package com.freeletics.dilyana.freeletics.model.actions;
 
+import com.freeletics.dilyana.freeletics.R;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +83,11 @@ public class Exercise extends Action{
 
     public String getVideoUrl(){
         return this.name.videoUrl;
+    }
+
+    @Override
+    public int getRepetitionsList() {
+        return R.array.exercise_repetitions;
     }
 
     public String getEquipment() {

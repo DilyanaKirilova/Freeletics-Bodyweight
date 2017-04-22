@@ -73,4 +73,6 @@ public abstract class Action implements Serializable, Comparable<Action>{
     public void setDay(User.Day day) {
         this.day = day;
     }
+
+    public abstract int getRepetitionsList();
 }

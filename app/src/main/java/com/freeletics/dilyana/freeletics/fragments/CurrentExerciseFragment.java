@@ -9,9 +9,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.freeletics.dilyana.freeletics.MainActivity;
@@ -27,9 +30,10 @@ public class CurrentExerciseFragment extends Fragment {
     private TextView rewardValue;
     private TextView equipmentValue;
     private TextView beatYourValue;
-    private EditText repetitionsValue;
+    private Spinner spinnerRepetitions;
     private Button nextButton;
     private ImageView exerciseImage;
+    private Action action;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,17 +43,32 @@ public class CurrentExerciseFragment extends Fragment {
         rewardValue = (TextView) root.findViewById(R.id.reward_value);
         equipmentValue = (TextView) root.findViewById(R.id.equipment_value);
         beatYourValue = (TextView) root.findViewById(R.id.beat_your_value);
-        repetitionsValue = (EditText) root.findViewById(R.id.repetitions_value);
+        spinnerRepetitions = (Spinner) root.findViewById(R.id.repetitions_value);
         nextButton = (Button) root.findViewById(R.id.next_button);
         exerciseImage = (ImageView) root.findViewById(R.id.exercise_image);
 
-
         final Bundle bundle = this.getArguments();
-        Action action = null;
+        action = null;
         if (bundle != null) {
             action = (Action) bundle.getSerializable("action");
             rewardValue.setText(action.getPoints() + " Points");
             equipmentValue.setText(action.getEquipment());
+
+            ArrayAdapter adapterRep = ArrayAdapter.createFromResource(getActivity(), action.getRepetitionsList(), R.layout.support_simple_spinner_dropdown_item);
+            spinnerRepetitions.setAdapter(adapterRep);
+
+            spinnerRepetitions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String rep = parent.getItemAtPosition(position).toString();
+                    action.setRepetitions(Integer.parseInt(rep));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
         }
 
         nextButton.setText("Do your first " + action.getName().toString());
