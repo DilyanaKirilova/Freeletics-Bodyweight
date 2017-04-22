@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.fragments.ActionFragment;
 import com.freeletics.dilyana.freeletics.fragments.VideoFragment;
+import com.freeletics.dilyana.freeletics.model.actions.Action;
 import com.freeletics.dilyana.freeletics.model.actions.Exercise;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
     @Override
     public void onBindViewHolder(ActionViewHolder holder, int position) {
 
-        final Exercise exercise = exercises.get(position);
+        final Exercise exercise = (Exercise) exercises.get(position);
 
         holder.ibImage.setOnClickListener(new View.OnClickListener() {
             @Override

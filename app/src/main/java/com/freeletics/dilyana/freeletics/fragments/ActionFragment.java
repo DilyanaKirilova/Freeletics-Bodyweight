@@ -21,6 +21,7 @@ import com.freeletics.dilyana.freeletics.adapters.ActionAdapter;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
 import com.freeletics.dilyana.freeletics.model.actions.Exercise;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ActionFragment extends Fragment {
@@ -44,6 +45,7 @@ public class ActionFragment extends Fragment {
             action = (Action) getArguments().getSerializable("action");
         }
 
+
         btnDoAction = (Button) root.findViewById(R.id.btn_fa_do_action);
         tvNumOfRepetitions = (TextView) root.findViewById(R.id.tv_fa_num_of_repetitions);
         recyclerView = (RecyclerView) root.findViewById(R.id.actions);
@@ -64,10 +66,11 @@ public class ActionFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 //VideoFragment videoFragment = new VideoFragment();
-                //Bundle bundle = new Bundle();
-                //bundle.putSerializable("action", action);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("action", action);
                 ///videoFragment.setArguments(bundle);
                 ChronometerFragment chronometerFragment = new ChronometerFragment();
+                chronometerFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.fragment_container, chronometerFragment).commit();
             }
         });

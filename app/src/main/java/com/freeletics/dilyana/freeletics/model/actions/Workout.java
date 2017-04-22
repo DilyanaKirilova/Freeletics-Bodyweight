@@ -18,7 +18,7 @@ import static com.freeletics.dilyana.freeletics.model.actions.Exercise.noEquipme
  * Created by Dilyana on 3/31/2017.
  */
 
-public class Workout implements Action{
+public class Workout implements Action, Serializable{
 
     private static Exercise burpee   = new Exercise(BURPEES);
     private static Exercise squat    = new Exercise(SQUATS);

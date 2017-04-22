@@ -3,6 +3,7 @@ package com.freeletics.dilyana.freeletics;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -29,6 +30,7 @@ import com.freeletics.dilyana.freeletics.fragments.CategoryFragment;
 import com.freeletics.dilyana.freeletics.fragments.MyProfileFragment;
 import com.freeletics.dilyana.freeletics.fragments.MyProgramFragment;
 import com.freeletics.dilyana.freeletics.model.DownloadImage;
+import com.freeletics.dilyana.freeletics.model.actions.Workout;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
@@ -109,8 +111,14 @@ public class HomeActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, new CategoryFragment()).commit();
 
         } else if (id == R.id.nav_feed) {
+            Bundle bundle = new Bundle();
+            User u = UsersManager.getInstance().getLoggedUser();
+            Workout workout = u.makeProgram();
+            bundle.putSerializable("action", workout);
+            MyProgramFragment myProgramFragment = new MyProgramFragment();
+            myProgramFragment.setArguments(bundle);
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, new MyProgramFragment()).commit();
+            fragmentTransaction.replace(R.id.fragment_container, myProgramFragment).commit();
 
         } else if (id == R.id.nav_leaderboards) {
 
@@ -154,4 +162,5 @@ public class HomeActivity extends AppCompatActivity
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         //TODO here use time picker
     }
+
 }

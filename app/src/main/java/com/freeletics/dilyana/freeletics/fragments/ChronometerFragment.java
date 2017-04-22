@@ -4,6 +4,7 @@ package com.freeletics.dilyana.freeletics.fragments;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.freeletics.dilyana.freeletics.R;
+import com.freeletics.dilyana.freeletics.model.actions.Action;
+import com.freeletics.dilyana.freeletics.model.actions.Exercise;
+import com.freeletics.dilyana.freeletics.model.actions.Workout;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
@@ -94,8 +98,17 @@ public class ChronometerFragment extends Fragment {
                 chronometer.stop();
                //user.addFinishedExc();
                 user.setLevel();
-
+                Bundle bundle = getArguments();
+                if(bundle!=null) {
+                    Workout workout = (Workout) bundle.getSerializable("action");
+                    user.addFinishedAction(workout);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    MyProfileFragment myProfileFragment = new MyProfileFragment();
+                    myProfileFragment.setArguments(bundle);
+                    ft.replace(R.id.fragment_container, myProfileFragment).commit();
+                }
                 Toast.makeText(getActivity(), "Your training time is: "+timeOfExercise, Toast.LENGTH_SHORT).show();
+                timeOfExercise = 0;
 
             }
         });
