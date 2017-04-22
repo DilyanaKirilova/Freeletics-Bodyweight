@@ -6,6 +6,9 @@ import com.freeletics.dilyana.freeletics.model.actions.Workout;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.TreeSet;
 
 /**
  * Created by Ioana on 30.03.2017 г..
@@ -21,6 +24,35 @@ public class User implements Serializable {
     private int weight;
     private int height;
     private int age;
+
+    public void addAction(Action action) {
+
+        Day day = action.getDay();
+        if(!schedule.containsKey(day)){
+            schedule.put(day, new TreeSet<Action>());
+        }
+        schedule.get(day).add(action);
+    }
+
+    public List<Action> getSchedule(Day day) {
+
+        if(!schedule.containsKey(day)){
+            return null;
+        }
+
+        List<Action> list = new ArrayList<>();
+        list.addAll(schedule.get(day));
+
+        return list;
+    }
+
+    public void deleteAction(Day day, Action action) {
+
+        if(!schedule.containsKey(day)){
+            return;
+        }
+        schedule.get(day).remove(action);
+    }
 
     public enum BMI {SLIM, NORMAL, FATTENED};
     private BMI bmi;
@@ -57,11 +89,14 @@ public class User implements Serializable {
     }
 
     public enum Gender {MALE, FEMALE};
+    public enum Day implements Serializable {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY};
     private Gender gender;
     private int picture;//from gallerty or take picture
     private int level = 0;
     private ArrayList<Action> workouts;
+
     private ArrayList<Action> finishedActions;
+    private HashMap<Day, TreeSet<Action>> schedule;
 
     public User(String firstName, String lastName, int picture){
         if(firstName!=null && !firstName.isEmpty()) {
@@ -72,6 +107,7 @@ public class User implements Serializable {
         }
         this.picture = picture;
         this.finishedActions = new ArrayList<>();
+        this.schedule = new HashMap<Day, TreeSet<Action>>();
     }
 
     public User(String firstName, String lastName, String email, String password,
@@ -105,6 +141,7 @@ public class User implements Serializable {
             this.gender = gender;
         }
         this.finishedActions = new ArrayList<>();
+        this.schedule = new HashMap<Day, TreeSet<Action>>();
     }
 
     public void addFinishedAction(Action a){

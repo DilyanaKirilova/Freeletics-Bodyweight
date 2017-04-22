@@ -68,7 +68,7 @@ public class UserInfoFragment extends Fragment {
         spWeight.setAdapter(adapterWeight);
 
         ArrayAdapter adapterHeight = ArrayAdapter.createFromResource(getActivity(), R.array.height, R.layout.support_simple_spinner_dropdown_item);
-         spHeight.setAdapter(adapterHeight);
+        spHeight.setAdapter(adapterHeight);
 
         spGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
