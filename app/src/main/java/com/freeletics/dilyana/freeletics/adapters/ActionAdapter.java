@@ -49,8 +49,8 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
 
         final Action exercise = exercises.get(position);
 
-        if(exercises.get(position).getTime() != null){
-            holder.tvExerciseTime.setText(exercise.getTime());
+        if(exercises.get(position).getHour() != -1){
+            holder.tvExerciseTime.setText(exercise.getHour() + ":" + exercise.getMinute());
 
             holder.layout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

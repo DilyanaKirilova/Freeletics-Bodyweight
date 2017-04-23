@@ -95,11 +95,4 @@ public class UsersManager {
         UsersManager.getInstance().deleteUserRegistration();
         UsersManager.getInstance().registerUser(firstNameStr, lastNameStr, emailStr, password, weight, height, age, gender);
     }
-
-
-
-    public List<Action> getUserSchedule(String day) {
-        //TODO
-        return null;
-    }
 }

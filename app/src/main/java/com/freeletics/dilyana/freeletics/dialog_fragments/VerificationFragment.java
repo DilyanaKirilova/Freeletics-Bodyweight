@@ -47,12 +47,12 @@ public class VerificationFragment extends DialogFragment {
                 Bundle bundle = getArguments();
                 if (bundle.getSerializable("action") != null) {
                     Action action = (Action) bundle.getSerializable("action");
-                    User.Day day = action.getDay();
+                    int day = action.getDay();
                     UsersManager.getInstance().getLoggedUser().deleteAction(day, action);
 
 
                     ScheduleFragment scheduleFragment = new ScheduleFragment();
-                    bundle.putSerializable("day", day);
+                    bundle.putInt("day", day);
                     scheduleFragment.setArguments(bundle);
 
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

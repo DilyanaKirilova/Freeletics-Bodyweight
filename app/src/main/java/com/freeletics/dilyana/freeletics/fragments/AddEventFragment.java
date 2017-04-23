@@ -50,7 +50,7 @@ public class AddEventFragment extends Fragment {
     private int minute = -1;
     private String repetitions;
 
-    private User.Day day;
+    private int day;
 
     private Action action;
     private ActionsManager.ActionName actionName;
@@ -64,7 +64,7 @@ public class AddEventFragment extends Fragment {
         if (getArguments() != null) {
             Bundle bundle = getArguments();
             if (bundle.getSerializable("day") != null) {
-                day = (User.Day) bundle.getSerializable("day");
+                day = (int) bundle.getSerializable("day");
             }
         }
 
@@ -136,9 +136,10 @@ public class AddEventFragment extends Fragment {
                     return;
                 }
 
-                action.setTime(hour + ":" + minute);
-                action.setRepetitions(Integer.parseInt(repetitions));
+                action.setHour(hour);
+                action.setMinute(minute);
                 action.setDay(day);
+                action.setRepetitions(Integer.parseInt(repetitions));
 
                 ScheduleFragment scheduleFragment = new ScheduleFragment();
                 scheduleFragment.setArguments(getArguments());
@@ -191,9 +192,10 @@ public class AddEventFragment extends Fragment {
 
         Calendar calendar = Calendar.getInstance();
 
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, action.getHour());
+        calendar.set(Calendar.MINUTE, action.getMinute());
+        calendar.set(Calendar.DAY_OF_WEEK, action.getDay());
+        calendar.set(Calendar.SECOND, 1);
 
         AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getActivity(), NotificationReceiver.class);

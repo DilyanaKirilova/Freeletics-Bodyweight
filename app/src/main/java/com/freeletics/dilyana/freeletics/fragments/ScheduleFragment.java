@@ -36,7 +36,7 @@ public class ScheduleFragment extends Fragment{
     private RecyclerView dayWorkouts;
     private ActionAdapter actionAdapter;
     private FloatingActionButton floatingActionButton;
-    private User.Day day;
+    private int day;
     private List<Action> list = new ArrayList<>();
 
     @Override
@@ -48,9 +48,9 @@ public class ScheduleFragment extends Fragment{
 
         if(getArguments() != null){
             Bundle bundle = getArguments();
-            if (bundle.getSerializable("day") != null){
+            if (bundle.getInt("day", 0) != 0){
 
-                User.Day day = (User.Day) bundle.getSerializable("day");
+                day = (int) bundle.getInt("day");
 
                 actionAdapter = new ActionAdapter((AppCompatActivity)getActivity(), UsersManager.getInstance().getLoggedUser().getSchedule(day));
                 dayWorkouts.setAdapter(actionAdapter);

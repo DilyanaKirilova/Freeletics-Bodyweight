@@ -27,14 +27,14 @@ public class User implements Serializable {
 
     public void addAction(Action action) {
 
-        Day day = action.getDay();
+        int day = action.getDay();
         if(!schedule.containsKey(day)){
             schedule.put(day, new TreeSet<Action>());
         }
         schedule.get(day).add(action);
     }
 
-    public List<Action> getSchedule(Day day) {
+    public List<Action> getSchedule(int day) {
 
         if(!schedule.containsKey(day)){
             return null;
@@ -46,7 +46,7 @@ public class User implements Serializable {
         return list;
     }
 
-    public void deleteAction(Day day, Action action) {
+    public void deleteAction(int day, Action action) {
 
         if(!schedule.containsKey(day)){
             return;
@@ -89,14 +89,13 @@ public class User implements Serializable {
     }
 
     public enum Gender {MALE, FEMALE};
-    public enum Day implements Serializable {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY};
-    private Gender gender;
+     private Gender gender;
     private int picture;//from gallerty or take picture
     private int level = 0;
     private ArrayList<Action> workouts;
 
     private ArrayList<Action> finishedActions;
-    private HashMap<Day, TreeSet<Action>> schedule;
+    private HashMap<Integer, TreeSet<Action>> schedule;
 
     public User(String firstName, String lastName, int picture){
         if(firstName!=null && !firstName.isEmpty()) {
@@ -107,7 +106,7 @@ public class User implements Serializable {
         }
         this.picture = picture;
         this.finishedActions = new ArrayList<>();
-        this.schedule = new HashMap<Day, TreeSet<Action>>();
+        this.schedule = new HashMap<Integer, TreeSet<Action>>();
     }
 
     public User(String firstName, String lastName, String email, String password,
@@ -141,7 +140,7 @@ public class User implements Serializable {
             this.gender = gender;
         }
         this.finishedActions = new ArrayList<>();
-        this.schedule = new HashMap<Day, TreeSet<Action>>();
+        this.schedule = new HashMap<Integer, TreeSet<Action>>();
     }
 
     public void addFinishedAction(Action a){
