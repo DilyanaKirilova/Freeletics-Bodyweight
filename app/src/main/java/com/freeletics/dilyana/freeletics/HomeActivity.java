@@ -149,7 +149,8 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        ((TextView) findViewById(R.id.tv_fae_time)).setText( hourOfDay + ":" + minute);
+        ((TextView) findViewById(R.id.tv_fae_hour)).setText( hourOfDay + "");
+        ((TextView) findViewById(R.id.tv_fae_minute)).setText( minute + "");
     }
 
 }

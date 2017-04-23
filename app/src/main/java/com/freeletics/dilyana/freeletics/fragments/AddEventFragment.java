@@ -1,5 +1,9 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +17,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.freeletics.dilyana.freeletics.NotificationReceiver;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.dialog_fragments.TimePickerFragment;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
@@ -23,21 +28,26 @@ import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
 public class AddEventFragment extends Fragment {
 
+
+    public static final int DAYS_OF_WEEK = 7;
     private Spinner spinnerAction;
     private Spinner spinnerRepetitions;
     private Button btnSetTime;
-    private TextView tvTime;
+    private TextView tvHour;
+    private TextView tvMinute;
     private Button btnSave;
 
     private ArrayAdapter adapterRep;
     private ArrayAdapter adapterActions;
 
-    private String time;
+    private int hour = -1;
+    private int minute = -1;
     private String repetitions;
 
     private User.Day day;
@@ -62,7 +72,8 @@ public class AddEventFragment extends Fragment {
         spinnerRepetitions = (Spinner) root.findViewById(R.id.spinner_repetitions);
         btnSetTime = (Button) root.findViewById(R.id.btn_fae_time);
         btnSave = (Button) root.findViewById(R.id.btn_fae_save);
-        tvTime = (TextView) root.findViewById(R.id.tv_fae_time);
+        tvHour = (TextView) root.findViewById(R.id.tv_fae_hour);
+        tvMinute = (TextView) root.findViewById(R.id.tv_fae_minute);
 
         final List<String> actionsArray = new ArrayList<>();
         for (Workout.WorkoutName name : Workout.WorkoutName.values()) {
@@ -117,14 +128,15 @@ public class AddEventFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                time = tvTime.getText().toString();
-                if (time == null || time.isEmpty()) {
-                    tvTime.setError("Please, choose time");
-                    tvTime.requestFocus();
+                hour = Integer.parseInt(tvHour.getText().toString());
+                minute = Integer.parseInt(tvMinute.getText().toString());
+                if (hour == -1) {
+                    tvHour.setError("Please, choose time");
+                    tvHour.requestFocus();
                     return;
                 }
 
-                action.setTime(time);
+                action.setTime(hour + ":" + minute);
                 action.setRepetitions(Integer.parseInt(repetitions));
                 action.setDay(day);
 
@@ -136,6 +148,8 @@ public class AddEventFragment extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, scheduleFragment).commit();
+
+                createNotification();
             }
         });
 
@@ -171,5 +185,20 @@ public class AddEventFragment extends Fragment {
         }
 
         return actionName;
+    }
+
+    private void createNotification(){
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+
+        AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getActivity(), NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, 0);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * DAYS_OF_WEEK, pendingIntent);
     }
 }

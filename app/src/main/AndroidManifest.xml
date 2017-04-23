@@ -2,19 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.freeletics.dilyana.freeletics">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera"
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
     <application
         android:allowBackup="true"
-        android:supportsRtl="true"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:icon="@drawable/icon">
-
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -22,9 +23,8 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity android:name=".MainActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".WelcomeActivity"
             android:label="@string/title_activity_welcome"
@@ -36,12 +36,12 @@
             </intent-filter>
         </activity>
 
-
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider"
             android:exported="true" />
 
+        <receiver android:name=".NotificationReceiver"></receiver>
     </application>
 
 </manifest>

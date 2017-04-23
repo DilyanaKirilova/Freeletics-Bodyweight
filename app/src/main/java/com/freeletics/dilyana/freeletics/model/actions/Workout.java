@@ -22,13 +22,13 @@ import static com.freeletics.dilyana.freeletics.model.actions.Exercise.noEquipme
 
 public class Workout extends Action implements Serializable{
 
-    private static Exercise burpee   = new Exercise(BURPEES);
-    private static Exercise squat    = new Exercise(SQUATS);
-    private static Exercise situp    = new Exercise(SITUPS);
-    private static Exercise pullup   = new Exercise(PULLUPS);
-    private static Exercise climber  = new Exercise(CLIMBERS);
-    private static Exercise jump     = new Exercise(JUMPS);
-    private static Exercise pushup   = new Exercise(PUSHUPS);
+    private static Action burpee   = new Exercise(BURPEES);
+    private static Action squat    = new Exercise(SQUATS);
+    private static Action situp    = new Exercise(SITUPS);
+    private static Action pullup   = new Exercise(PULLUPS);
+    private static Action climber  = new Exercise(CLIMBERS);
+    private static Action jump     = new Exercise(JUMPS);
+    private static Action pushup   = new Exercise(PUSHUPS);
 
 
     public enum WorkoutName implements ActionsManager.ActionName{
