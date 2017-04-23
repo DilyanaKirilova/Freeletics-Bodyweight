@@ -53,25 +53,34 @@ public class ChronometerFragment extends Fragment {
 
         UsersManager manager = UsersManager.getInstance();
         final User user = manager.getLoggedUser();
-
+        final boolean[] flag = {false};
+        final boolean[] flag2 = {false};
 
         timeOfExercise = SystemClock.elapsedRealtime() - chronometer.getBase();
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chronometer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
-                chronometer.start();
-                showElapsedTime();
+                if(flag2[0] == false) {
+                    chronometer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+                    chronometer.start();
+                    flag[0] = false;
+                    flag2[0] = true;
+                    showElapsedTime();
+                }
             }
         });
 
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                timeWhenStopped = chronometer.getBase() - SystemClock.elapsedRealtime();
-                chronometer.stop();
-                showElapsedTime();
+                if(flag[0] ==false) {
+                    timeWhenStopped = chronometer.getBase() - SystemClock.elapsedRealtime();
+                    chronometer.stop();
+                    flag[0] =true;
+                    flag2[0] = false;
+                    showElapsedTime();
+                }
             }
         });
 
@@ -80,6 +89,7 @@ public class ChronometerFragment extends Fragment {
             public void onClick(View v) {
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 timeWhenStopped=0;
+                flag[0]=false;
                 showElapsedTime();
             }
         });
