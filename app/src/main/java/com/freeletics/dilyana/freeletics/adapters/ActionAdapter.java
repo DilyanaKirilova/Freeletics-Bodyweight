@@ -11,11 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.dialog_fragments.VerificationFragment;
 import com.freeletics.dilyana.freeletics.fragments.ActionFragment;
 import com.freeletics.dilyana.freeletics.fragments.VideoFragment;
+import com.freeletics.dilyana.freeletics.fragments.VideoInfoFragment;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
 import com.freeletics.dilyana.freeletics.model.actions.Exercise;
 
@@ -49,7 +51,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
 
         final Action exercise = exercises.get(position);
 
-        if(exercises.get(position).getHour() != -1){
+        if(exercise.isEvent()){
             holder.tvExerciseTime.setText(exercise.getHour() + ":" + exercise.getMinute());
 
             holder.layout.setOnLongClickListener(new View.OnLongClickListener() {
@@ -67,6 +69,21 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
         }
         else {
             holder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    VideoInfoFragment videoFragment = new VideoInfoFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("url", exercise.getVideoUrl());
+                    bundle.putString("name", exercise.getName().toString());
+                    videoFragment.setArguments(bundle);
+                    FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container, videoFragment).commit();
+                }
+            });
+
+            holder.ibImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 

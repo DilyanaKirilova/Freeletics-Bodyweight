@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/black"
+    tools:context="com.freeletics.dilyana.freeletics.fragments.VideoInfoFragment">
+
+
+    <ImageButton
+        android:id="@+id/ib_fvi_img"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:background="@drawable/video"/>
+
+    <TextView
+        android:id="@+id/tv_fvi_action_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textColor="@color/whiteColor"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textColor="@color/whiteColor"
+        android:gravity="center"
+        android:text="@string/motivation"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textColor="@color/whiteColor"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="@string/alternative"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textColor="@color/whiteColor"
+        android:gravity="center"
+        android:text="@string/description"/>
+
+</LinearLayout>

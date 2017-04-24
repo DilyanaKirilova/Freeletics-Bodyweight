@@ -16,11 +16,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.freeletics.dilyana.freeletics.MainActivity;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
 import com.freeletics.dilyana.freeletics.model.actions.Exercise;
+
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.

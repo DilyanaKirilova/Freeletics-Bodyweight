@@ -11,10 +11,11 @@ import java.util.List;
 public abstract class Action implements Serializable, Comparable<Action>{
 
     protected ActionsManager.ActionName name;
-    protected double points;
-    protected String equipment;
+    private double points;
+    private String equipment;
     protected int repetitions;
-    protected Calendar calendar;
+    private Calendar calendar;
+    private boolean isEvent;
 
     public Action(){
         this.points = 0.0;
@@ -24,6 +25,7 @@ public abstract class Action implements Serializable, Comparable<Action>{
         this.calendar.set(Calendar.HOUR_OF_DAY, -1);
         this.calendar.set(Calendar.MINUTE, -1);
         this.calendar.set(Calendar.DAY_OF_WEEK, -1);
+        this.isEvent = false;
     }
 
     public abstract ActionsManager.ActionName getName();
@@ -84,4 +86,12 @@ public abstract class Action implements Serializable, Comparable<Action>{
     public abstract String getVideoUrl();
 
     public abstract int getRepetitionsList();
+
+    public void setAsEvent() {
+        this.isEvent = true;
+    }
+
+    public boolean isEvent() {
+        return this.isEvent;
+    }
 }

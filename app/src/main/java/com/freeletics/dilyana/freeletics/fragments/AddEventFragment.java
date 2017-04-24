@@ -140,6 +140,7 @@ public class AddEventFragment extends Fragment {
                 action.setMinute(minute);
                 action.setDay(day);
                 action.setRepetitions(Integer.parseInt(repetitions));
+                action.setAsEvent();
 
                 ScheduleFragment scheduleFragment = new ScheduleFragment();
                 scheduleFragment.setArguments(getArguments());

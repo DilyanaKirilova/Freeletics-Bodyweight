@@ -19,6 +19,10 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_one_page_1">GET IN THE SHAPE OF YOUR LIFE</string>
 
+    <string name="motivation">Follow exactly the predefined range of motion in every single repetition to get a star.</string>
+    <string name="alternative">Training alternative</string>
+    <string name="description">If the movement becomes too hard during your training, you can do the following movement. However, your goal is to always do the movement above and progress towards its full range of motion.</string>
+
     <string-array name="gender">
         <item>Male</item>
         <item>Female</item>
