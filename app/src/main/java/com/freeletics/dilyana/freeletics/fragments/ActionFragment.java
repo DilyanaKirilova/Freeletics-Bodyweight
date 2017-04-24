@@ -57,13 +57,16 @@ public class ActionFragment extends Fragment {
             public void onClick(View v) {
 
 
+
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("action", action);
-                ChronometerFragment chronometerFragment = new ChronometerFragment();
-                chronometerFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.fragment_container, chronometerFragment).commit();
+                CountDownFragment countDownFragment = new CountDownFragment();
+                countDownFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.fragment_container, countDownFragment).commit();
+
+
             }
         });
 

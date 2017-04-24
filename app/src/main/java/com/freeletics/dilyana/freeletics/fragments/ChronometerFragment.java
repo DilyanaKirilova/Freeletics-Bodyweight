@@ -1,6 +1,8 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -109,7 +111,7 @@ public class ChronometerFragment extends Fragment {
                 if(bundle!= null) {
                     Action action = (Action) bundle.getSerializable("action");
                     user.addFinishedAction(action);
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                     MyProfileFragment myProfileFragment = new MyProfileFragment();
                     myProfileFragment.setArguments(bundle);
                     ft.replace(R.id.fragment_container, myProfileFragment).commit();

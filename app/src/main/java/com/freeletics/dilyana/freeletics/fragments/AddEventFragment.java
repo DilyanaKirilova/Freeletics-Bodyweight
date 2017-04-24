@@ -67,12 +67,11 @@ public class AddEventFragment extends Fragment {
 
         if (getArguments() != null) {
             Bundle bundle = getArguments();
-            if (bundle.getSerializable("day") != null) {
-                day = (int) bundle.getSerializable("day");
-            }
+            day = (int) bundle.getInt("day");
 
             if(bundle.getSerializable("action") != null){
                 oldAction = (Action) bundle.getSerializable("action");
+                day = oldAction.getDay();
             }
         }
 
@@ -179,8 +178,7 @@ public class AddEventFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-
-                if(oldAction != null) {                 //TODO deleteAction(action)
+                if(oldAction != null) {
                     UsersManager.getInstance().getLoggedUser().deleteAction(oldAction.getDay(), oldAction);
                 }
 
@@ -220,7 +218,9 @@ public class AddEventFragment extends Fragment {
                 }
 
                 ScheduleFragment scheduleFragment = new ScheduleFragment();
-                scheduleFragment.setArguments(getArguments());
+                Bundle bundle = new Bundle();
+                bundle.putInt("day", day);
+                scheduleFragment.setArguments(bundle);
 
                 UsersManager.getInstance().getLoggedUser().addAction(action);
 
