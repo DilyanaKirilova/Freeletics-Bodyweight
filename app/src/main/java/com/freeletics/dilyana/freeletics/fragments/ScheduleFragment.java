@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.adapters.ActionAdapter;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
-import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
 import java.util.ArrayList;
@@ -27,11 +26,6 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ScheduleFragment extends Fragment{
-
-
-    public ScheduleFragment() {
-        // Required empty public constructor
-    }
 
     private RecyclerView dayWorkouts;
     private ActionAdapter actionAdapter;

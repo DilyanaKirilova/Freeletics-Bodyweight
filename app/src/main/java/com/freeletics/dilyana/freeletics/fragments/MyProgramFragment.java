@@ -2,23 +2,15 @@ package com.freeletics.dilyana.freeletics.fragments;
 
 
 import android.os.Bundle;
-import android.os.UserManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.freeletics.dilyana.freeletics.R;
-import com.freeletics.dilyana.freeletics.adapters.ActionAdapter;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
-import com.freeletics.dilyana.freeletics.model.actions.Exercise;
 import com.freeletics.dilyana.freeletics.model.actions.Workout;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;

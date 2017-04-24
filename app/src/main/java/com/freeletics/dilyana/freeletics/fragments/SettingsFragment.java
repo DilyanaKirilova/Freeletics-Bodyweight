@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.freeletics.dilyana.freeletics.MainActivity;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.WelcomeActivity;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
@@ -20,11 +19,6 @@ import com.freeletics.dilyana.freeletics.model.users.UsersManager;
  * A simple {@link Fragment} subclass.
  */
 public class SettingsFragment extends Fragment {
-
-
-    public SettingsFragment() {
-        // Required empty public constructor
-    }
 
     private Button btnEditProfile;
     private Button btnLogOut;

@@ -69,7 +69,6 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.MyViewHo
     class MyViewHolder extends RecyclerView.ViewHolder{
 
         private TextView title;
-        private TextView description;
         private TextView duration;
         private TextView difficulty;
         private LinearLayout layout;
@@ -77,7 +76,6 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.MyViewHo
         public MyViewHolder(View row) {
             super(row);
             title = (TextView) row.findViewById(R.id.title_workout);
-            description = (TextView) row.findViewById(R.id.descr_workout);
             duration = (TextView) row.findViewById(R.id.duration_workout);
             difficulty = (TextView) row.findViewById(R.id.difficylty_workout);
             layout = (LinearLayout) row.findViewById(R.id.workout_row);

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/get_started_1"
     tools:context="com.freeletics.dilyana.freeletics.fragments.FragmentLogin">
 
     <com.facebook.login.widget.LoginButton

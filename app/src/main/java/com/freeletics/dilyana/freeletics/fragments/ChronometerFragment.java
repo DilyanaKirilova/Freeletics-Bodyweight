@@ -1,6 +1,5 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
-
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
@@ -15,8 +14,6 @@ import android.widget.Toast;
 
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
-import com.freeletics.dilyana.freeletics.model.actions.Exercise;
-import com.freeletics.dilyana.freeletics.model.actions.Workout;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 

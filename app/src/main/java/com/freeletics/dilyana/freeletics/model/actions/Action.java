@@ -16,6 +16,7 @@ public abstract class Action implements Serializable, Comparable<Action>{
     protected int repetitions;
     private Calendar calendar;
     private boolean isEvent;
+    private boolean hasNotification;
 
     public Action(){
         this.points = 0.0;
@@ -26,6 +27,7 @@ public abstract class Action implements Serializable, Comparable<Action>{
         this.calendar.set(Calendar.MINUTE, -1);
         this.calendar.set(Calendar.DAY_OF_WEEK, -1);
         this.isEvent = false;
+        this.hasNotification = false;
     }
 
     public abstract ActionsManager.ActionName getName();
@@ -72,10 +74,9 @@ public abstract class Action implements Serializable, Comparable<Action>{
     @Override
     public int compareTo(Action o) {
 
-        if(this.calendar.get(Calendar.HOUR_OF_DAY) > o.calendar.get(Calendar.HOUR_OF_DAY)){
+        if(this.calendar.get(Calendar.HOUR_OF_DAY) == o.calendar.get(Calendar.HOUR_OF_DAY)){
             return this.calendar.get(Calendar.MINUTE) - o.calendar.get(Calendar.MINUTE);
         }
-
         return this.calendar.get(Calendar.HOUR_OF_DAY) - o.calendar.get(Calendar.HOUR_OF_DAY);
     }
 
@@ -93,5 +94,13 @@ public abstract class Action implements Serializable, Comparable<Action>{
 
     public boolean isEvent() {
         return this.isEvent;
+    }
+
+    public void setNotification(boolean notification) {
+        this.hasNotification = notification;
+    }
+
+    public boolean hasNotification() {
+        return this.hasNotification;
     }
 }

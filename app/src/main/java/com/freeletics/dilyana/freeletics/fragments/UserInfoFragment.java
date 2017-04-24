@@ -12,22 +12,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.freeletics.dilyana.freeletics.R;
-import com.freeletics.dilyana.freeletics.model.users.User;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class UserInfoFragment extends Fragment {
-
-
-    public UserInfoFragment() {
-        // Required empty public constructor
-    }
 
     private Spinner spGender;
     private Spinner spAge;

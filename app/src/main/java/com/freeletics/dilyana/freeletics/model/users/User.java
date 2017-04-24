@@ -54,6 +54,10 @@ public class User implements Serializable {
         schedule.get(day).remove(action);
     }
 
+    public boolean isMale() {
+        return this.gender.equals(Gender.MALE);
+    }
+
     public enum BMI {SLIM, NORMAL, FATTENED};
     private BMI bmi;
 

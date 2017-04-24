@@ -14,8 +14,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.freeletics.dilyana.freeletics.NotificationReceiver;
 import com.freeletics.dilyana.freeletics.R;
@@ -24,7 +27,6 @@ import com.freeletics.dilyana.freeletics.model.actions.Action;
 import com.freeletics.dilyana.freeletics.model.actions.ActionsManager;
 import com.freeletics.dilyana.freeletics.model.actions.Exercise;
 import com.freeletics.dilyana.freeletics.model.actions.Workout;
-import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
 import java.util.ArrayList;
@@ -37,22 +39,24 @@ public class AddEventFragment extends Fragment {
 
     public static final int DAYS_OF_WEEK = 7;
     private Spinner spinnerAction;
-    private Spinner spinnerRepetitions;
+    private Spinner spinnerRep;
     private Button btnSetTime;
     private TextView tvHour;
     private TextView tvMinute;
     private Button btnSave;
+    private Switch aSwitch;
 
     private ArrayAdapter adapterRep;
     private ArrayAdapter adapterActions;
 
-    private int hour = -1;
-    private int minute = -1;
+    private String hour;
+    private String minute;
     private String repetitions;
 
     private int day;
 
     private Action action;
+    private Action oldAction;
     private ActionsManager.ActionName actionName;
 
     @Override
@@ -66,14 +70,19 @@ public class AddEventFragment extends Fragment {
             if (bundle.getSerializable("day") != null) {
                 day = (int) bundle.getSerializable("day");
             }
+
+            if(bundle.getSerializable("action") != null){
+                oldAction = (Action) bundle.getSerializable("action");
+            }
         }
 
         spinnerAction = (Spinner) root.findViewById(R.id.spinner_action);
-        spinnerRepetitions = (Spinner) root.findViewById(R.id.spinner_repetitions);
-        btnSetTime = (Button) root.findViewById(R.id.btn_fae_time);
-        btnSave = (Button) root.findViewById(R.id.btn_fae_save);
-        tvHour = (TextView) root.findViewById(R.id.tv_fae_hour);
-        tvMinute = (TextView) root.findViewById(R.id.tv_fae_minute);
+        spinnerRep    = (Spinner) root.findViewById(R.id.spinner_repetitions);
+        btnSetTime    = (Button) root.findViewById(R.id.btn_fae_time);
+        btnSave       = (Button) root.findViewById(R.id.btn_fae_save);
+        tvHour        = (TextView) root.findViewById(R.id.tv_fae_hour);
+        tvMinute      = (TextView) root.findViewById(R.id.tv_fae_minute);
+        aSwitch       = (Switch) root.findViewById(R.id.switch_notification);
 
         final List<String> actionsArray = new ArrayList<>();
         for (Workout.WorkoutName name : Workout.WorkoutName.values()) {
@@ -84,23 +93,51 @@ public class AddEventFragment extends Fragment {
         }
 
         adapterRep = ArrayAdapter.createFromResource(getActivity(), R.array.workout_repetitions, R.layout.support_simple_spinner_dropdown_item);
-        spinnerRepetitions.setAdapter(adapterRep);
+        spinnerRep.setAdapter(adapterRep);
+
 
         adapterActions = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, actionsArray);
         adapterActions.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAction.setAdapter(adapterActions);
+
+        if(oldAction != null) {
+            ActionsManager.ActionName name = oldAction.getName();
+
+            int spinnerPositionRep = adapterRep.getPosition(oldAction.getRepetitions());
+            int spinnerPositionActions = adapterActions.getPosition(name.toString());
+
+            //set the default according to value
+            spinnerRep.setSelection(spinnerPositionRep);
+            spinnerAction.setSelection(spinnerPositionActions);
+
+            if(oldAction.hasNotification()){
+                switchON();
+            }
+
+
+            if(Exercise.ExerciseName.values().toString().contains(name.toString())){
+                action = new Exercise(name);
+            }
+            else{
+                action = new Workout(name);
+            }
+
+
+            tvHour.setText(String.valueOf(oldAction.getHour()));
+            tvMinute.setText(String.valueOf(oldAction.getMinute()));
+        }
 
         spinnerAction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position >= Workout.WorkoutName.values().length) {
                     adapterRep = ArrayAdapter.createFromResource(getActivity(), R.array.exercise_repetitions, R.layout.support_simple_spinner_dropdown_item);
-                    spinnerRepetitions.setAdapter(adapterRep);
+                    spinnerRep.setAdapter(adapterRep);
                     actionName = StringToEnum(parent.getItemAtPosition(position).toString());
                     action = new Exercise(actionName);
                 } else {
                     adapterRep = ArrayAdapter.createFromResource(getActivity(), R.array.workout_repetitions, R.layout.support_simple_spinner_dropdown_item);
-                    spinnerRepetitions.setAdapter(adapterRep);
+                    spinnerRep.setAdapter(adapterRep);
                     actionName = StringToEnum(parent.getItemAtPosition(position).toString());
                     action = new Workout(actionName);
                 }
@@ -112,7 +149,7 @@ public class AddEventFragment extends Fragment {
             }
         });
 
-        spinnerRepetitions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerRep.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 repetitions = parent.getItemAtPosition(position).toString();
@@ -124,23 +161,63 @@ public class AddEventFragment extends Fragment {
             }
         });
 
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+
+                if(isChecked){
+                    switchON();
+                }
+                else{
+                    switchOFF();
+                }
+            }
+        });
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                hour = Integer.parseInt(tvHour.getText().toString());
-                minute = Integer.parseInt(tvMinute.getText().toString());
-                if (hour == -1) {
+
+                if(oldAction != null) {                 //TODO deleteAction(action)
+                    UsersManager.getInstance().getLoggedUser().deleteAction(oldAction.getDay(), oldAction);
+                }
+
+                hour = tvHour.getText().toString();
+                minute = tvMinute.getText().toString();
+
+                if (hour == null || hour.isEmpty())  {
                     tvHour.setError("Please, choose time");
                     tvHour.requestFocus();
                     return;
                 }
 
-                action.setHour(hour);
-                action.setMinute(minute);
+                action.setHour(Integer.parseInt(hour));
+                action.setMinute(Integer.parseInt(minute));
                 action.setDay(day);
                 action.setRepetitions(Integer.parseInt(repetitions));
                 action.setAsEvent();
+
+
+                Calendar calendar = Calendar.getInstance();
+
+                calendar.set(Calendar.DAY_OF_WEEK, action.getDay());
+                calendar.set(Calendar.HOUR_OF_DAY, action.getHour());
+                calendar.set(Calendar.MINUTE, action.getMinute());
+                calendar.set(Calendar.SECOND, 0);
+                AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+                Intent intent = new Intent(getActivity(), NotificationReceiver.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, 0);
+
+                if(aSwitch.isChecked()){
+                    action.setNotification(true);
+                    createNotification(alarmManager, calendar, pendingIntent);
+                }
+                else {
+                    action.setNotification(false);
+                    cancelNotification(alarmManager, pendingIntent);
+                }
 
                 ScheduleFragment scheduleFragment = new ScheduleFragment();
                 scheduleFragment.setArguments(getArguments());
@@ -150,8 +227,6 @@ public class AddEventFragment extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, scheduleFragment).commit();
-
-                createNotification();
             }
         });
 
@@ -189,19 +264,26 @@ public class AddEventFragment extends Fragment {
         return actionName;
     }
 
-    private void createNotification(){
-
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.set(Calendar.HOUR_OF_DAY, action.getHour());
-        calendar.set(Calendar.MINUTE, action.getMinute());
-        calendar.set(Calendar.DAY_OF_WEEK, action.getDay());
-        calendar.set(Calendar.SECOND, 1);
-
-        AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getActivity(), NotificationReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, 0);
+    private void createNotification(AlarmManager alarmManager, Calendar calendar, PendingIntent pendingIntent) {
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * DAYS_OF_WEEK, pendingIntent);
     }
+
+    private void cancelNotification(AlarmManager alarmManager, PendingIntent pendingIntent){
+
+        alarmManager.cancel(pendingIntent);
+    }
+
+    private void switchON(){
+        aSwitch.setChecked(true);
+        aSwitch.setText("ON");
+        Toast.makeText(getActivity(), "Notification ON", Toast.LENGTH_SHORT).show();
+    }
+
+    private void switchOFF(){
+        aSwitch.setChecked(false);
+        aSwitch.setText("OFF");
+        Toast.makeText(getActivity(), "Notification OFF", Toast.LENGTH_SHORT).show();
+    }
+
 }

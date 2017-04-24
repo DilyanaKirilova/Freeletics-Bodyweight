@@ -18,12 +18,6 @@ import com.freeletics.dilyana.freeletics.R;
  */
 public class VideoInfoFragment extends Fragment {
 
-
-    public VideoInfoFragment() {
-        // Required empty public constructor
-    }
-
-
     ImageButton btnImg;
     TextView tvActionName;
     @Override

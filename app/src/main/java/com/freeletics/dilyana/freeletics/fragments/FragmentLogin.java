@@ -1,7 +1,5 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,7 +17,6 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.ProfileTracker;
-import com.freeletics.dilyana.freeletics.MainActivity;
 import com.freeletics.dilyana.freeletics.model.users.*;
 
 import com.facebook.Profile;
@@ -28,10 +25,6 @@ import com.facebook.login.widget.LoginButton;
 import com.freeletics.dilyana.freeletics.HomeActivity;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.model.users.User;
-
-import java.util.ArrayList;
-
-
 
 /**
  * A simple {@link Fragment} subclass.

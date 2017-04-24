@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.freeletics.dilyana.freeletics.R;
-import com.freeletics.dilyana.freeletics.model.users.User;
 
 import java.util.Calendar;
 
@@ -20,10 +19,6 @@ import java.util.Calendar;
  */
 public class WeekScheduleFragment extends Fragment implements View.OnClickListener{
 
-
-    public WeekScheduleFragment() {
-        // Required empty public constructor
-    }
     Button btnMonday;
     Button btnTuesday;
     Button btnWednesday;

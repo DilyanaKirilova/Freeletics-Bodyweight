@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,10 +61,7 @@ public class WelcomeActivity extends AppCompatActivity{
      * A placeholder fragment containing a simple view.
      */
 
-    private static String tOne;
-    private static String tTwo;
-    private static TextView tvTitleOne;
-    private static TextView tvTitleTwo;
+    private static String imgKey = "imgKey1";
 
     public static class PlaceholderFragment extends Fragment{
         /**
@@ -79,21 +78,17 @@ public class WelcomeActivity extends AppCompatActivity{
          * number.
          */
         public static PlaceholderFragment newInstance(int sectionNumber) {
-            tOne = sectionNumber +"1";
-            tTwo = sectionNumber +"2";
+
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             if(sectionNumber == 2){
-                args.putString(tOne, "BECOME A FREE ATHLETE");
-                args.putString(tTwo, "With Freeletics you will become fitter, healthier and more motivated than ever before.");
+                args.putInt(imgKey, R.drawable.ss2);
             }
             else if(sectionNumber == 3){
-                args.putString(tOne, "BE PART OF THE MOVEMENT");
-                args.putString(tTwo, "Join 12 million athletes. Train together, compete, motivate each other. Be pushed to unleash your potential!");
+                args.putInt(imgKey, R.drawable.ss3);
             }
             else if(sectionNumber == 4){
-                args.putString(tOne, "DEVELOP A WHOLE NEW LIFESTYLE");
-                args.putString(tTwo, "The Freeletics Coach is your own personalized training plan that guides you into a new athletic lifestyle.");
+                args.putInt(imgKey, R.drawable.ss4);
             }
             fragment.setArguments(args);
             return fragment;
@@ -104,12 +99,12 @@ public class WelcomeActivity extends AppCompatActivity{
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_welcome, container, false);
 
-            tvTitleOne = (TextView) rootView.findViewById(R.id.tv_fw_first);
-            tvTitleTwo = (TextView) rootView.findViewById(R.id.tv_fw_sec);
-
-            if(getArguments().getString(tOne) != null && getArguments().getString(tTwo) != null) {
-                tvTitleOne.setText(getArguments().getString(tOne));
-                tvTitleTwo.setText(getArguments().getString(tTwo));
+            LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.layout_welcome);
+            if(getArguments() != null && getArguments().getInt(imgKey, 0) != 0) {
+                layout.setBackgroundResource(getArguments().getInt(imgKey));
+            }
+            else{
+                layout.setBackgroundResource(R.drawable.ss1);
             }
 
             Button btnStart = (Button) rootView.findViewById(R.id.btn_fw_start);

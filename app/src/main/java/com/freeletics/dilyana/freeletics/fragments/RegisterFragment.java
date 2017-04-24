@@ -4,8 +4,6 @@ package com.freeletics.dilyana.freeletics.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +19,6 @@ import com.freeletics.dilyana.freeletics.model.users.UsersManager;
  * A simple {@link Fragment} subclass.
  */
 public class RegisterFragment extends Fragment {
-
-    public RegisterFragment() {
-        // Required empty public constructor
-    }
 
     public final static String NAME_REGEX = "^[a-zA-Z]{2,15}$";
     /* Description:
