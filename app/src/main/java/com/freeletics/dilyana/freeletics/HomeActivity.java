@@ -2,12 +2,10 @@ package com.freeletics.dilyana.freeletics;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 
 import android.support.design.widget.NavigationView;
@@ -21,25 +19,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
-import com.facebook.AccessToken;
-import com.facebook.Profile;
 import com.freeletics.dilyana.freeletics.fragments.CategoryFragment;
-import com.freeletics.dilyana.freeletics.fragments.FacebookFragment;
-import com.freeletics.dilyana.freeletics.fragments.SettingsFragment;
 import com.freeletics.dilyana.freeletics.fragments.WeekScheduleFragment;
 import com.freeletics.dilyana.freeletics.fragments.MyProfileFragment;
 import com.freeletics.dilyana.freeletics.fragments.MyProgramFragment;
 import com.freeletics.dilyana.freeletics.model.DownloadImage;
-import com.freeletics.dilyana.freeletics.model.ImageHelper;
-import com.freeletics.dilyana.freeletics.model.actions.Workout;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
-
-import java.io.InputStream;
-
-import static java.security.AccessController.getContext;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TimePickerDialog.OnTimeSetListener {
@@ -65,7 +52,7 @@ public class HomeActivity extends AppCompatActivity
 
         profileImage = (ImageView) findViewById(R.id.imageView);
 
-        name = (TextView) findViewById(R.id.first_last_name);
+        //name = (TextView) findViewById(R.id.first_last_name);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);

@@ -53,62 +53,33 @@ public class FragmentLogin extends Fragment {
         password = (EditText) root.findViewById(R.id.password_login);
         facebookButton = (LoginButton) root.findViewById(R.id.login_button);
         emailButton = (Button) root.findViewById(R.id.email_login_button_login);
-
-
         callbackManager = CallbackManager.Factory.create();
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
 
-            }
-        };
+        facebookButton.registerCallback(callbackManager,new FacebookCallback<LoginResult>() {
+        @Override
+        public void onSuccess (LoginResult loginResult){
 
-        profileTracker = new ProfileTracker() {
-            @Override
-            protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
-                nextActivity(newProfile);
-            }
-        };
-        accessTokenTracker.startTracking();
-        profileTracker.startTracking();
+        Profile profile = Profile.getCurrentProfile();
+        if (profile != null) {
+            UsersManager.getInstance().registerUser(profile.getFirstName().toString(), profile.getLastName().toString());
+            Intent intent = new Intent(getActivity(), HomeActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        } else {
+            Toast.makeText(getActivity(), "NQMA profil", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-        facebookButton.setFragment(this);
-        facebookButton.setReadPermissions("user_friends");
-        facebookButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-           @Override
-            public void onSuccess(LoginResult loginResult) {
+        @Override
+        public void onCancel () {
+        Toast.makeText(getActivity(), "Canceled login with Facebook!", Toast.LENGTH_SHORT).show();
+    }
 
-                Profile profile = Profile.getCurrentProfile();
-
-                if(profile != null) {
-                    Intent i = new Intent(getActivity(), HomeActivity.class);
-                    User u = new User(profile.getFirstName().toString(), profile.getLastName().toString());
-                    UsersManager.getInstance().setLoggedUser(u);
-                    startActivity(i);
-
-                }
-
-
-               // int profilePic = Integer.parseInt(profile.getProfilePictureUri(5,5).toString());
-               // User user = new User(profile.getFirstName().toString(), profile.getLastName(), profilePic);
-               // Intent intent = new Intent(getActivity(), HomeActivity.class);
-               // intent.putExtra("user", user);
-               // startActivity(intent);
-
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
-
-
+        @Override
+        public void onError (FacebookException error){
+            Toast.makeText(getActivity(), "Canceled login with Facebook!", Toast.LENGTH_SHORT).show();
+         }
+    });
 
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,30 +95,7 @@ public class FragmentLogin extends Fragment {
 
         return root;
     }
-    @Override
-    public void onResume() {
-        super.onResume();
-        //Facebook login
-        Profile profile = Profile.getCurrentProfile();
-        nextActivity(profile);
-    }
 
-    public void onStop() {
-        super.onStop();
-        //Facebook login
-        accessTokenTracker.stopTracking();
-        profileTracker.stopTracking();
-    }
-
-    private void nextActivity(Profile profile){
-        if(profile != null){
-            Intent main = new Intent(getActivity(), HomeActivity.class);
-            main.putExtra("name", profile.getFirstName());
-            main.putExtra("surname", profile.getLastName());
-            main.putExtra("imageUrl", profile.getProfilePictureUri(200,200).toString());
-            startActivity(main);
-        }
-    }
 
 
 }

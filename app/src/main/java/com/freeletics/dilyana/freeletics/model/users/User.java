@@ -47,6 +47,32 @@ public class User implements Serializable {
         this.schedule = new HashMap<Integer, TreeSet<Action>>();
     }
 
+
+    public User(String firstName, String lastName, int weight, int height, int age, Gender gender) {
+        if (firstName != null && !firstName.isEmpty()) {
+            this.firstName = firstName;
+        }
+        if (lastName != null && !lastName.isEmpty()) {
+            this.lastName = lastName;
+        }
+        if(weight > 0) {
+            this.weight = weight;
+        }
+
+        if(height > 0) {
+            this.height = height;
+        }
+        if(age > 0) {
+            this.age = age;
+        }
+        if(gender != null) {
+            this.gender = gender;
+        }
+        this.finishedActions = new ArrayList<>();
+        this.schedule = new HashMap<Integer, TreeSet<Action>>();
+        this.picture = R.drawable.avatar_male;
+    }
+
     public User(String firstName, String lastName, String email, String password,
                 int weight, int height, int age, Gender gender) {
         if (firstName != null && !firstName.isEmpty()) {

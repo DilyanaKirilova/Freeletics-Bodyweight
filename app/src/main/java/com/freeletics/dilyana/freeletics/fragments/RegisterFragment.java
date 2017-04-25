@@ -10,10 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.freeletics.dilyana.freeletics.HomeActivity;
+import com.freeletics.dilyana.freeletics.MainActivity;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
@@ -68,6 +75,7 @@ $                       #   End of the line
     private EditText etPassword1;
     private EditText etPassword2;
     private LoginButton loginButton;
+    private CallbackManager callbackManager;
 
 
     private User.Gender gender;
@@ -88,6 +96,30 @@ $                       #   End of the line
         etPassword2 = (EditText) root.findViewById(R.id.et_fr_password_2);
         btnCreateAccount = (Button) root.findViewById(R.id.btn_fr_create_account);
         loginButton = (LoginButton) root.findViewById(R.id.facebook_register_button);
+        callbackManager = CallbackManager.Factory.create();
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Profile profile = Profile.getCurrentProfile();
+                //User user = new User(profile.getFirstName().toString(), profile.getLastName().toString());
+               UsersManager.getInstance().registerUser(profile.getFirstName().toString(), profile.getLastName().toString(), weight, height, age, gender);
+                Intent intent = new Intent(getActivity(), HomeActivity.class);
+                getActivity().startActivity(intent);
+                getActivity().finish();
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(getActivity(), "Login attempt canceled.", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(getActivity(), "Login attempt failed.", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
         // get user info
         if(getArguments() != null){
 
@@ -117,26 +149,26 @@ $                       #   End of the line
                 String password2Str = etPassword2.getText().toString();
                 String emailStr = etEmail.getText().toString();
 
-                if (isEmptyField(firstNameStr, etFirstName)) return;
+                    if (isEmptyField(firstNameStr, etFirstName)) return;
 
-                if (isEmptyField(lastNameStr, etLastName)) return;
+                    if (isEmptyField(lastNameStr, etLastName)) return;
 
 
-                if (!firstNameStr.matches(NAME_REGEX)) {
-                    etFirstName.setError("Name must contains only alphabetic symbols \n" +
-                            "Name must be between 2-15 characters in length");
-                    etFirstName.requestFocus();
-                    return;
-                }
+                    if (!firstNameStr.matches(NAME_REGEX)) {
+                        etFirstName.setError("Name must contains only alphabetic symbols \n" +
+                                "Name must be between 2-15 characters in length");
+                        etFirstName.requestFocus();
+                        return;
+                    }
 
-                if (!lastNameStr.matches(NAME_REGEX)) {
-                    etLastName.setError("Name must contains only alphabetic symbols \n" +
-                            "Name must be between 2-15 characters in length");
-                    etLastName.requestFocus();
-                    return;
-                }
+                    if (!lastNameStr.matches(NAME_REGEX)) {
+                        etLastName.setError("Name must contains only alphabetic symbols \n" +
+                                "Name must be between 2-15 characters in length");
+                        etLastName.requestFocus();
+                        return;
+                    }
 
-                if (isEmptyField(password1Str, etPassword1)) return;
+                    if (isEmptyField(password1Str, etPassword1)) return;
 
                 /*
                 if (!password1Str.matches(PASSWORD_REGEX)) {
@@ -152,16 +184,16 @@ $                       #   End of the line
                 }
                 */
 
-                if (isEmptyField(password2Str, etPassword2)) return;
+                    if (isEmptyField(password2Str, etPassword2)) return;
 
-                if(!password1Str.equals(password2Str)){
+                    if (!password1Str.equals(password2Str)) {
 
-                    etPassword1.setText("");
-                    etPassword2.setText("");
-                    etPassword1.setError("Passwords mismatch");
-                    etPassword1.requestFocus();
-                    return;
-                }
+                        etPassword1.setText("");
+                        etPassword2.setText("");
+                        etPassword1.setError("Passwords mismatch");
+                        etPassword1.requestFocus();
+                        return;
+                    }
 
                 /*
                 if (!emailStr.matches(EMAIL_REGEX)){
@@ -172,19 +204,19 @@ $                       #   End of the line
                 }
                 */
 
-                if (isEmptyField(emailStr, etEmail)) return;
+                    if (isEmptyField(emailStr, etEmail)) return;
 
-                if(UsersManager.getInstance().existsUser(emailStr)){
+                    if (UsersManager.getInstance().existsUser(emailStr)) {
 
-                    etEmail.setError("This user already exists!");
-                    etEmail.requestFocus();
-                    return;
-                }
+                        etEmail.setError("This user already exists!");
+                        etEmail.requestFocus();
+                        return;
+                    }
 
-                UsersManager.getInstance().registerUser(firstNameStr, lastNameStr, emailStr, password1Str, weight, height, age, gender);
-                Intent intent = new Intent(getActivity(), HomeActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+                    UsersManager.getInstance().registerUser(firstNameStr, lastNameStr, emailStr, password1Str, weight, height, age, gender);
+                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
             }
         });
         return root;
@@ -198,4 +230,6 @@ $                       #   End of the line
         }
         return false;
     }
+
+
 }

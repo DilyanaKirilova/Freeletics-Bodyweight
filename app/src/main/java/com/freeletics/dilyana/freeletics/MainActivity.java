@@ -1,16 +1,21 @@
 package com.freeletics.dilyana.freeletics;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 
+import com.facebook.CallbackManager;
 import com.freeletics.dilyana.freeletics.fragments.FragmentLogin;
 import com.freeletics.dilyana.freeletics.fragments.SettingsFragment;
 import com.freeletics.dilyana.freeletics.fragments.UserInfoFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        callbackManager = CallbackManager.Factory.create();
 
         if(getIntent().getStringExtra("request_code")!= null){
 
@@ -44,5 +50,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }

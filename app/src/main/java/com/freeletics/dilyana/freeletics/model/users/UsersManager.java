@@ -44,7 +44,25 @@ public class UsersManager {
         if (!this.registeredUsers.containsKey(email)) {
             this.registeredUsers.put(email, user);
         }
-        this.loggedUser = user;
+        loggedUser = user;
+    }
+    static int i =1;
+    public void registerUser(String firstName, String lastName,
+                             int weight, int height, int age, User.Gender gender) {
+
+
+        User user = new User(firstName, lastName,
+                weight, height, age, gender);
+
+            this.registeredUsers.put(i+"", user);
+        i++;
+        loggedUser = user;
+    }
+    public void registerUser(String firstName, String lastName){
+        User user = new User(firstName, lastName);
+        this.registeredUsers.put(i+"", user);
+                i++;
+        loggedUser = user;
     }
 
     public boolean isValidLogin(String email, String password) {
