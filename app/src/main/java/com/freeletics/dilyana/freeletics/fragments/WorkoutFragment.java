@@ -13,10 +13,6 @@ import android.view.ViewGroup;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.adapters.WorkoutAdapter;
 import com.freeletics.dilyana.freeletics.model.actions.ActionsManager;
-import com.freeletics.dilyana.freeletics.model.actions.Workout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**

@@ -10,18 +10,21 @@
         android:id="@+id/btn_fup_edit_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="35dp"
         android:hint="Edit Profile"/>
 
     <Button
         android:id="@+id/btn_fup_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="35dp"
         android:hint="Log Out"/>
 
     <Button
         android:id="@+id/btn_fup_delete_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="35dp"
         android:hint="Delete Profile"/>
 
 </LinearLayout>

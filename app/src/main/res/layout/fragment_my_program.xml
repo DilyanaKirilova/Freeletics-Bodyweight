@@ -8,16 +8,15 @@
 
 
     <TextView
+        android:gravity="center"
         android:id="@+id/users_bmi"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.freeletics.dilyana.freeletics.fragments.ActionFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textSize="45sp"
+        android:layout_marginBottom="15dp"
+        />
 
 </LinearLayout>

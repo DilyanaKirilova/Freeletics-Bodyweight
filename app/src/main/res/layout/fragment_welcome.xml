@@ -2,61 +2,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_gravity="bottom"
     android:gravity="bottom"
-    android:background="@drawable/pic3"
+    android:orientation="vertical"
+    android:id="@+id/layout_welcome"
     tools:context="com.freeletics.dilyana.freeletics.WelcomeActivity$PlaceholderFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_alignParentBottom="true">
 
-        <TextView
-            android:id="@+id/tv_fw_first"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btn_fw_start"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:background="@color/blueColor"
             android:gravity="center"
-            android:text="@string/title_one_page_1"
-            android:textColor="@color/whiteColor"
-            android:textSize="40dp" />
+            android:hint="Start now"
+            android:textColorHint="@color/whiteColor" />
 
-        <TextView
-            android:id="@+id/tv_fw_sec"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btn_fw_login"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center|bottom"
-            android:textColor="@color/whiteColor"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="60dp"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/btn_fw_start"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:hint="Start now"
-                android:layout_marginRight="0.5dp"
-                android:background="@color/blueColor"
-                android:textColorHint="@color/whiteColor"/>
-
-            <Button
-                android:id="@+id/btn_fw_login"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:hint="Login"
-                android:layout_marginRight="0.5dp"
-                android:background="@color/blueColor"
-                android:textColorHint="@color/whiteColor"/>
-        </LinearLayout>
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:background="@color/blueColor"
+            android:gravity="center"
+            android:hint="Login"
+            android:textColorHint="@color/whiteColor" />
     </LinearLayout>
 
 </LinearLayout>

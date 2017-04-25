@@ -1,13 +1,9 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,15 +13,6 @@ import android.view.ViewGroup;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.adapters.ExerciseAdapter;
 import com.freeletics.dilyana.freeletics.model.actions.ActionsManager;
-import com.freeletics.dilyana.freeletics.model.actions.Exercise;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.freeletics.dilyana.freeletics.model.actions.Exercise.ExerciseName.CRUNCHES;
-import static com.freeletics.dilyana.freeletics.model.actions.Exercise.ExerciseName.PUSHUPS;
-import static com.freeletics.dilyana.freeletics.model.actions.Exercise.ExerciseName.SITUPS;
-import static com.freeletics.dilyana.freeletics.model.actions.Exercise.ExerciseName.SQUATS;
 
 /**
  * A simple {@link Fragment} subclass.

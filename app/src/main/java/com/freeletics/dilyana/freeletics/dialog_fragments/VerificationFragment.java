@@ -14,7 +14,6 @@ import android.widget.Button;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.fragments.ScheduleFragment;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
-import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
 /**
@@ -47,12 +46,12 @@ public class VerificationFragment extends DialogFragment {
                 Bundle bundle = getArguments();
                 if (bundle.getSerializable("action") != null) {
                     Action action = (Action) bundle.getSerializable("action");
-                    User.Day day = action.getDay();
+                    int day = action.getDay();
                     UsersManager.getInstance().getLoggedUser().deleteAction(day, action);
 
 
                     ScheduleFragment scheduleFragment = new ScheduleFragment();
-                    bundle.putSerializable("day", day);
+                    bundle.putInt("day", day);
                     scheduleFragment.setArguments(bundle);
 
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

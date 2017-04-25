@@ -3,8 +3,6 @@ package com.freeletics.dilyana.freeletics;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.Profile;
@@ -65,6 +64,7 @@ public class HomeActivity extends AppCompatActivity
         toggle.syncState();
 
         profileImage = (ImageView) findViewById(R.id.imageView);
+
         name = (TextView) findViewById(R.id.first_last_name);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -73,12 +73,9 @@ public class HomeActivity extends AppCompatActivity
         LinearLayout head = (LinearLayout) header.findViewById(R.id.nav_header);
 
         name = (TextView) header.findViewById(R.id.first_last_name);
-        profileImage = (ImageView) header.findViewById(R.id.imageView);
         UsersManager usersManager = UsersManager.getInstance();
         User u = usersManager.getLoggedUser();
-        if(u.getPicture() > 0 ) {
-          profileImage.setImageResource(u.getPicture());
-        }
+
         name.setText(u.getFirstName() + " " + u.getLastName());
 
         head.setOnClickListener(new View.OnClickListener() {
@@ -116,14 +113,9 @@ public class HomeActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, new CategoryFragment()).commit();
 
         } else if (id == R.id.nav_feed) {
-            Bundle bundle = new Bundle();
-            User u = UsersManager.getInstance().getLoggedUser();
-            Workout workout = u.makeProgram();
-            bundle.putSerializable("action", workout);
-            MyProgramFragment myProgramFragment = new MyProgramFragment();
-            myProgramFragment.setArguments(bundle);
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, myProgramFragment).commit();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.fragment_container, new MyProgramFragment()).commit();
+
 
         } else if (id == R.id.nav_leaderboards) {
 
@@ -152,8 +144,8 @@ public class HomeActivity extends AppCompatActivity
         String surname = inBundle.get("surname").toString();
         String imageUrl = inBundle.get("imageUrl").toString();
         int profilePic = Integer.parseInt(imageUrl);
-        UsersManager usersManager = UsersManager.getInstance();
-        usersManager.setLoggedUser(new User(name, surname, profilePic));
+       // UsersManager usersManager = UsersManager.getInstance();
+        //usersManager.setLoggedUser(new User(name, surname, profilePic));
         new DownloadImage((ImageView)findViewById(R.id.imageView)).execute(imageUrl);
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
         imageView.setImageResource(profilePic);

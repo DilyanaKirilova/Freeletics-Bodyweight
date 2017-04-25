@@ -1,6 +1,7 @@
 package com.freeletics.dilyana.freeletics.model.users;
 
 
+import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
 import com.freeletics.dilyana.freeletics.model.actions.Workout;
 
@@ -25,16 +26,72 @@ public class User implements Serializable {
     private int height;
     private int age;
 
+    public enum Gender {MALE, FEMALE};
+    private Gender gender;
+    private int picture;//from gallerty or take picture
+    private int level = 0;
+    private ArrayList<Action> workouts;
+
+    private ArrayList<Action> finishedActions;
+    private HashMap<Integer, TreeSet<Action>> schedule;
+
+    public User(String firstName, String lastName){
+        if(firstName!=null && !firstName.isEmpty()) {
+            this.firstName = firstName;
+        }
+        if(lastName!=null && !lastName.isEmpty()) {
+            this.lastName = lastName;
+        }
+        this.picture = R.drawable.avatar_male;
+        this.finishedActions = new ArrayList<>();
+        this.schedule = new HashMap<Integer, TreeSet<Action>>();
+    }
+
+    public User(String firstName, String lastName, String email, String password,
+                int weight, int height, int age, Gender gender) {
+        if (firstName != null && !firstName.isEmpty()) {
+            this.firstName = firstName;
+        }
+        if (lastName != null && !lastName.isEmpty()) {
+            this.lastName = lastName;
+        }
+        if (email != null && !email.isEmpty()) {
+            this.email = email;
+        }
+        if (password != null && !password.isEmpty()) {
+            this.password = password;
+        }
+        this.level = 1;
+        this.workouts = new ArrayList<Action>();
+
+        if(weight > 0) {
+            this.weight = weight;
+        }
+
+        if(height > 0) {
+            this.height = height;
+        }
+        if(age > 0) {
+            this.age = age;
+        }
+        if(gender != null) {
+            this.gender = gender;
+        }
+        this.finishedActions = new ArrayList<>();
+        this.schedule = new HashMap<Integer, TreeSet<Action>>();
+        this.picture = R.drawable.avatar_male;
+    }
+
     public void addAction(Action action) {
 
-        Day day = action.getDay();
+        int day = action.getDay();
         if(!schedule.containsKey(day)){
             schedule.put(day, new TreeSet<Action>());
         }
         schedule.get(day).add(action);
     }
 
-    public List<Action> getSchedule(Day day) {
+    public List<Action> getSchedule(int day) {
 
         if(!schedule.containsKey(day)){
             return null;
@@ -46,12 +103,16 @@ public class User implements Serializable {
         return list;
     }
 
-    public void deleteAction(Day day, Action action) {
+    public void deleteAction(int day, Action action) {
 
         if(!schedule.containsKey(day)){
             return;
         }
         schedule.get(day).remove(action);
+    }
+
+    public boolean isMale() {
+        return this.gender.equals(Gender.MALE);
     }
 
     public enum BMI {SLIM, NORMAL, FATTENED};
@@ -88,75 +149,17 @@ public class User implements Serializable {
         return this.weight;
     }
 
-    public enum Gender {MALE, FEMALE};
-    public enum Day implements Serializable {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY};
-    private Gender gender;
-    private int picture;//from gallerty or take picture
-    private int level = 0;
-    private ArrayList<Action> workouts;
-
-    private ArrayList<Action> finishedActions;
-    private HashMap<Day, TreeSet<Action>> schedule;
-
-    public User(String firstName, String lastName, int picture){
-        if(firstName!=null && !firstName.isEmpty()) {
-            this.firstName = firstName;
-        }
-        if(lastName!=null && !lastName.isEmpty()) {
-            this.lastName = lastName;
-        }
-        this.picture = picture;
-        this.finishedActions = new ArrayList<>();
-        this.schedule = new HashMap<Day, TreeSet<Action>>();
-        UsersManager um = UsersManager.getInstance();
-        um.setLoggedUser(this);
-    }
-
-    public User(String firstName, String lastName, String email, String password,
-                int weight, int height, int age, Gender gender) {
-        UsersManager um = UsersManager.getInstance();
-        um.setLoggedUser(this);
-        if (firstName != null && !firstName.isEmpty()) {
-            this.firstName = firstName;
-        }
-        if (lastName != null && !lastName.isEmpty()) {
-            this.lastName = lastName;
-        }
-        if (email != null && !email.isEmpty()) {
-            this.email = email;
-        }
-        if (password != null && !password.isEmpty()) {
-            this.password = password;
-        }
-        this.level = 1;
-        this.workouts = new ArrayList<Action>();
-
-        if(weight > 0) {
-            this.weight = weight;
-        }
-
-        if(height > 0) {
-            this.height = height;
-        }
-        if(age > 0) {
-            this.age = age;
-        }
-        if(gender != null) {
-            this.gender = gender;
-        }
-        this.finishedActions = new ArrayList<>();
-        this.schedule = new HashMap<Day, TreeSet<Action>>();
-    }
-
     public void addFinishedAction(Action a){
-        this.finishedActions.add(a);
+        if(a != null) {
+            this.finishedActions.add(a);
+        }
     }
     public ArrayList<Action> getWorkouts(){
-        return workouts;
+        return this.finishedActions;
     }
 
     public int getPicture() {
-        return picture;
+        return this.picture;
     }
 
     public int getLevel() {
@@ -193,11 +196,9 @@ public class User implements Serializable {
 
 
     public double countBMI(){
-        String pol = this.getStringGender();
         int weight = this.weight;
-        int height = this.height;
+        double height = this.height;
         double heightInMeters = height/10;
-        int age = this.age;
 
         double bmi = weight/(heightInMeters*heightInMeters);
         if(bmi<18.5) {
@@ -212,31 +213,5 @@ public class User implements Serializable {
         return bmi;
     }
 
-    public Workout makeProgram(){
-        this.countBMI();
-        if(this.getStringGender().equals("Female")){
 
-            if(this.bmi == User.BMI.SLIM){
-                return new Workout(Workout.WorkoutName.APHRODITE);
-            }
-            if(this.bmi == User.BMI.NORMAL){
-                return new Workout(Workout.WorkoutName.ATHENA);
-            }
-            if(this.bmi == User.BMI.FATTENED){
-                return new Workout(Workout.WorkoutName.KRIOS);
-            }
-        }
-        if(this.getStringGender().equals("Male")){
-            if(this.bmi == User.BMI.SLIM){
-                return new Workout(Workout.WorkoutName.NYX);
-            }
-            if(this.bmi == User.BMI.NORMAL){
-                return new Workout(Workout.WorkoutName.PERSEPHONE);
-            }
-            if(this.bmi == User.BMI.FATTENED){
-                return new Workout(Workout.WorkoutName.PROMETHEUS);
-            }
-        }
-        return null;
-    }
 }

@@ -26,6 +26,10 @@
     <string name="successfully_posted_post">Successfully posted post</string>
     <string name="ok">OK</string>
 
+    <string name="motivation">Follow exactly the predefined range of motion in every single repetition to get a star.</string>
+    <string name="alternative">Training alternative</string>
+    <string name="description">If the movement becomes too hard during your training, you can do the following movement. However, your goal is to always do the movement above and progress towards its full range of motion.</string>
+
     <string-array name="gender">
         <item>Male</item>
         <item>Female</item>

@@ -1,10 +1,9 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.ProfileTracker;
-import com.freeletics.dilyana.freeletics.MainActivity;
 import com.freeletics.dilyana.freeletics.model.users.*;
 
 import com.facebook.Profile;
@@ -28,10 +26,6 @@ import com.facebook.login.widget.LoginButton;
 import com.freeletics.dilyana.freeletics.HomeActivity;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.model.users.User;
-
-import java.util.ArrayList;
-
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,9 +43,9 @@ public class FragmentLogin extends Fragment {
     public static User u;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        FacebookSdk.sdkInitialize(getContext());
         View root = inflater.inflate(R.layout.fragment_fragment_login, container, false);
 
 
@@ -60,7 +54,7 @@ public class FragmentLogin extends Fragment {
         facebookButton = (LoginButton) root.findViewById(R.id.login_button);
         emailButton = (Button) root.findViewById(R.id.email_login_button_login);
 
-        FacebookSdk.sdkInitialize(getContext());
+
         callbackManager = CallbackManager.Factory.create();
         accessTokenTracker = new AccessTokenTracker() {
             @Override
@@ -81,12 +75,18 @@ public class FragmentLogin extends Fragment {
         facebookButton.setFragment(this);
         facebookButton.setReadPermissions("user_friends");
         facebookButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
+           @Override
             public void onSuccess(LoginResult loginResult) {
-                AccessToken accessToken = loginResult.getAccessToken();
+
                 Profile profile = Profile.getCurrentProfile();
-                nextActivity(profile);
-                Toast.makeText(getContext(), "Logging in...", Toast.LENGTH_SHORT).show();
+
+                if(profile != null) {
+                    Intent i = new Intent(getActivity(), HomeActivity.class);
+                    User u = new User(profile.getFirstName().toString(), profile.getLastName().toString());
+                    UsersManager.getInstance().setLoggedUser(u);
+                    startActivity(i);
+
+                }
 
 
                // int profilePic = Integer.parseInt(profile.getProfilePictureUri(5,5).toString());

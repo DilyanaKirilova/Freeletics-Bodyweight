@@ -1,26 +1,19 @@
 package com.freeletics.dilyana.freeletics.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.freeletics.dilyana.freeletics.HomeActivity;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.fragments.CurrentExerciseFragment;
-import com.freeletics.dilyana.freeletics.fragments.ExerciseFragment;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
 import com.freeletics.dilyana.freeletics.model.actions.Exercise;
-import com.freeletics.dilyana.freeletics.model.actions.Workout;
 
 import java.util.List;
 

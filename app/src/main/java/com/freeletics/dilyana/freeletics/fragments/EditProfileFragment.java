@@ -1,7 +1,10 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,7 +15,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.freeletics.dilyana.freeletics.MainActivity;
@@ -20,6 +25,7 @@ import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
+import static android.app.Activity.RESULT_OK;
 import static com.freeletics.dilyana.freeletics.fragments.RegisterFragment.NAME_REGEX;
 
 /**
@@ -38,6 +44,8 @@ public class EditProfileFragment extends Fragment {
     private EditText etPasswordOld;
     private EditText etPasswordNew;
     private EditText etPasswordNewConfirm;
+    private TextView tvTakePhoto;
+    private ImageView image;
     private Spinner spGender;
     private Spinner spAge;
     private Spinner spWeight;
@@ -63,18 +71,20 @@ public class EditProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
-        etFirstName             = (EditText) root.findViewById(R.id.et_fr_first_name);
-        etLastName              = (EditText) root.findViewById(R.id.et_fr_last_name);
-        etEmail                 = (EditText) root.findViewById(R.id.et_fr_email);
-        etPasswordOld           = (EditText) root.findViewById(R.id.et_fep_old_password);
-        etPasswordNew           = (EditText) root.findViewById(R.id.et_fep_new_password);
-        etPasswordNewConfirm    = (EditText) root.findViewById(R.id.et_fep_confirm_new_password);
-        spGender                = (Spinner) root.findViewById(R.id.spinner_gender);
-        spAge                   = (Spinner) root.findViewById(R.id.spinner_age);
-        spWeight                = (Spinner) root.findViewById(R.id.spinner_weight);
-        spHeight                = (Spinner) root.findViewById(R.id.spinner_height);
-        btnChangePassword       = (Button) root.findViewById(R.id.btn_fep_change_password);
-        btnSaveChanges          = (Button) root.findViewById(R.id.btn_fep_save_changes);
+        etFirstName = (EditText) root.findViewById(R.id.et_fr_first_name);
+        etLastName = (EditText) root.findViewById(R.id.et_fr_last_name);
+        etEmail = (EditText) root.findViewById(R.id.et_fr_email);
+        etPasswordOld = (EditText) root.findViewById(R.id.et_fep_old_password);
+        etPasswordNew = (EditText) root.findViewById(R.id.et_fep_new_password);
+        etPasswordNewConfirm = (EditText) root.findViewById(R.id.et_fep_confirm_new_password);
+        spGender = (Spinner) root.findViewById(R.id.spinner_gender);
+        spAge = (Spinner) root.findViewById(R.id.spinner_age);
+        spWeight = (Spinner) root.findViewById(R.id.spinner_weight);
+        spHeight = (Spinner) root.findViewById(R.id.spinner_height);
+        btnChangePassword = (Button) root.findViewById(R.id.btn_fep_change_password);
+        btnSaveChanges = (Button) root.findViewById(R.id.btn_fep_save_changes);
+        tvTakePhoto = (TextView) root.findViewById(R.id.take_photo);
+        image = (ImageView) root.findViewById(R.id.profile_pic);
 
         adapterGender = ArrayAdapter.createFromResource(getActivity(), R.array.gender, R.layout.support_simple_spinner_dropdown_item);
         spGender.setAdapter(adapterGender);
@@ -133,7 +143,8 @@ public class EditProfileFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         spAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -143,7 +154,8 @@ public class EditProfileFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         spWeight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -153,7 +165,8 @@ public class EditProfileFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         spHeight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -163,7 +176,8 @@ public class EditProfileFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         btnSaveChanges.setOnClickListener(new View.OnClickListener() {
@@ -191,7 +205,7 @@ public class EditProfileFragment extends Fragment {
                     return;
                 }
 
-                if (((MainActivity)getActivity()).isEmptyField(emailStr, etEmail)) return;
+                if (((MainActivity) getActivity()).isEmptyField(emailStr, etEmail)) return;
 
                 /*
                 if (!emailStr.matches(EMAIL_REGEX)){
@@ -202,10 +216,9 @@ public class EditProfileFragment extends Fragment {
                 }
                 */
 
-                if(genderStr.equals("Male")){
+                if (genderStr.equals("Male")) {
                     gender = User.Gender.MALE;
-                }
-                else{
+                } else {
                     gender = User.Gender.FEMALE;
                 }
 
@@ -216,6 +229,22 @@ public class EditProfileFragment extends Fragment {
                 fragmentTransaction.replace(R.id.activity_main, new SettingsFragment()).commit();
             }
         });
+
+
+
+        /*
+        Open camera
+        tvTakePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 10);
+            }
+        });
+        */
+
+
         return root;
     }
 
@@ -228,7 +257,7 @@ public class EditProfileFragment extends Fragment {
 
     }
 
-    private void setLoggedUserDataToSpinner(String userData, Spinner spinner){
+    private void setLoggedUserDataToSpinner(String userData, Spinner spinner) {
 
         ArrayAdapter adapter = (ArrayAdapter) spinner.getAdapter();
         int spinnerPosition = adapter.getPosition(userData);
@@ -237,15 +266,30 @@ public class EditProfileFragment extends Fragment {
         spinner.setSelection(spinnerPosition);
     }
 
-    private void setAllSpinnerValues(){
+    private void setAllSpinnerValues() {
 
         User u = UsersManager.getInstance().getLoggedUser();
 
-        if(u != null) {
+        if (u != null) {
             setLoggedUserDataToSpinner(u.getStringGender(), spGender);
             setLoggedUserDataToSpinner(String.valueOf(u.getAge()), spAge);
             setLoggedUserDataToSpinner(String.valueOf(u.getHeight()), spHeight);
             setLoggedUserDataToSpinner(String.valueOf(u.getWeight()), spWeight);
         }
     }
+
+    /*
+    Set image resource from camera
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (RESULT_OK == resultCode) {
+            Bundle extras = data.getExtras();
+            Bitmap bmp = (Bitmap) extras.get("data");
+            image.setImageBitmap(bmp);
+        }
+    }
+    */
 }

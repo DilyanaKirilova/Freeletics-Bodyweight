@@ -14,12 +14,10 @@ import android.widget.TextView;
 
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.dialog_fragments.VerificationFragment;
-import com.freeletics.dilyana.freeletics.fragments.ActionFragment;
+import com.freeletics.dilyana.freeletics.fragments.AddEventFragment;
 import com.freeletics.dilyana.freeletics.fragments.VideoFragment;
+import com.freeletics.dilyana.freeletics.fragments.VideoInfoFragment;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
-import com.freeletics.dilyana.freeletics.model.actions.Exercise;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,8 +47,9 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
 
         final Action exercise = exercises.get(position);
 
-        if(exercises.get(position).getTime() != null){
-            holder.tvExerciseTime.setText(exercise.getTime());
+        if(exercise.isEvent()){
+            holder.tvExerciseTime.setText(exercise.getHour() + ":" + exercise.getMinute());
+            holder.ibImage.setBackgroundResource(R.drawable.non_video);
 
             holder.layout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -63,10 +62,39 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
                     verificationFragment.show(activity.getSupportFragmentManager(), "verificationFragment");
                     return false;
                 }
-        });
+            });
+
+            holder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("action", exercise);
+                    AddEventFragment addEventFragment = new AddEventFragment();
+                    addEventFragment.setArguments(bundle);
+                    FragmentManager fm = activity.getSupportFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.fragment_container, addEventFragment).commit();
+                }
+            });
         }
         else {
             holder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    VideoInfoFragment videoFragment = new VideoInfoFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("url", exercise.getVideoUrl());
+                    bundle.putString("name", exercise.getName().toString());
+                    videoFragment.setArguments(bundle);
+                    FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container, videoFragment).commit();
+                }
+            });
+
+            holder.ibImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 

@@ -11,18 +11,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.freeletics.dilyana.freeletics.R;
-import com.freeletics.dilyana.freeletics.model.users.User;
+
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class WeekScheduleFragment extends Fragment implements View.OnClickListener{
-
-
-    public WeekScheduleFragment() {
-        // Required empty public constructor
-    }
-
 
     Button btnMonday;
     Button btnTuesday;
@@ -64,25 +59,25 @@ public class WeekScheduleFragment extends Fragment implements View.OnClickListen
         Bundle bundle = new Bundle();
 
         if(v.getId() == btnMonday.getId()){
-            bundle.putSerializable("day", User.Day.MONDAY);
+            bundle.putInt("day", Calendar.MONDAY);
         }
         else if(v.getId() == btnTuesday.getId()){
-            bundle.putSerializable("day", User.Day.TUESDAY);
+            bundle.putInt("day", Calendar.TUESDAY);
         }
         else if(v.getId() == btnWednesday.getId()){
-            bundle.putSerializable("day", User.Day.WEDNESDAY);
+            bundle.putInt("day", Calendar.WEDNESDAY);
         }
         else if(v.getId() == btnThursday.getId()){
-            bundle.putSerializable("day", User.Day.THURSDAY);
+            bundle.putInt("day", Calendar.THURSDAY);
         }
         else if(v.getId() == btnFriday.getId()){
-            bundle.putSerializable("day", User.Day.FRIDAY);
+            bundle.putInt("day", Calendar.FRIDAY);
         }
-        else if(v.getId() == btnSaturday.getId()){
-            bundle.putSerializable("day", User.Day.SATURDAY);
+        else if(v.getId() == btnSaturday.getId()) {
+            bundle.putInt("day", Calendar.SATURDAY);
         }
         else if(v.getId() == btnSunday.getId()){
-            bundle.putSerializable("day", User.Day.SUNDAY);
+            bundle.putInt("day", Calendar.SUNDAY);
         }
 
         scheduleFragment.setArguments(bundle);

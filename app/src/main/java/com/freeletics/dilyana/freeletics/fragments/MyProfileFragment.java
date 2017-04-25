@@ -2,10 +2,10 @@ package com.freeletics.dilyana.freeletics.fragments;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,6 +39,10 @@ public class MyProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_my_profile, container, false);
 
+        MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), R.raw.applause);
+        mediaPlayer.start();
+
+
         profileImage = (ImageView) root.findViewById(R.id.profile_pic_my_profile);
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,16 +62,19 @@ public class MyProfileFragment extends Fragment {
 
         UsersManager usersManager = UsersManager.getInstance();
         User u = usersManager.getLoggedUser();
-        if(u.getPicture()!=0) {
+        if (u.getPicture() != 0) {
             profileImage.setImageResource(u.getPicture());
         }
-        profileName.setText(u.getFirstName()+" "+u.getLastName());
-        level.setText(u.getLevel()+" ");
-        doneWorkouts.setText(u.getWorkouts().size()+"");
 
-        MyProfileAdapter myProfileAdapter = new MyProfileAdapter(u.getWorkouts(), context);
+        profileName.setText(u.getFirstName() + " " + u.getLastName());
+        level.setText(String.valueOf(u.getLevel()));
+        doneWorkouts.setText(String.valueOf(u.getWorkouts().size()));
+
+
+        MyProfileAdapter myProfileAdapter = new MyProfileAdapter(u.getWorkouts(), (AppCompatActivity) getActivity());
         recyclerView.setAdapter(myProfileAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+
         return root;
     }
 

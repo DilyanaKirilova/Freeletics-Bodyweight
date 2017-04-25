@@ -16,7 +16,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/burpees" />
+            android:background="@drawable/video" />
 
         <TextView
             android:id="@+id/tv_ar_exercise_name"

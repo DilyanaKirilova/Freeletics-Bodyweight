@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/get_started_1"
+    android:background="@drawable/reg"
     tools:context="com.freeletics.dilyana.freeletics.fragments.FragmentLogin">
 
     <com.facebook.login.widget.LoginButton
@@ -31,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="1"
+        android:maxLength="35"
         android:hint="@string/email"/>
 
     <EditText
@@ -39,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:maxLines="1"
+        android:maxLength="35"
         android:hint="@string/password"/>
 
     <Button

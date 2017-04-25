@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.adapters.ActionAdapter;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
-import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
 import java.util.ArrayList;
@@ -28,15 +27,10 @@ import java.util.List;
  */
 public class ScheduleFragment extends Fragment{
 
-
-    public ScheduleFragment() {
-        // Required empty public constructor
-    }
-
     private RecyclerView dayWorkouts;
     private ActionAdapter actionAdapter;
     private FloatingActionButton floatingActionButton;
-    private User.Day day;
+    private int day;
     private List<Action> list = new ArrayList<>();
 
     @Override
@@ -48,9 +42,9 @@ public class ScheduleFragment extends Fragment{
 
         if(getArguments() != null){
             Bundle bundle = getArguments();
-            if (bundle.getSerializable("day") != null){
+            if (bundle.getInt("day", 0) != 0){
 
-                User.Day day = (User.Day) bundle.getSerializable("day");
+                day = (int) bundle.getInt("day");
 
                 actionAdapter = new ActionAdapter((AppCompatActivity)getActivity(), UsersManager.getInstance().getLoggedUser().getSchedule(day));
                 dayWorkouts.setAdapter(actionAdapter);

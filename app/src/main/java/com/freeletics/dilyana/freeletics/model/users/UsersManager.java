@@ -21,7 +21,7 @@ public class UsersManager {
     }
 
     private HashMap<String, User> registeredUsers;
-    private User loggedUser;
+    private static User loggedUser;
 
     private UsersManager() {
         this.registeredUsers = new HashMap<String, User>();
@@ -46,7 +46,6 @@ public class UsersManager {
         }
         this.loggedUser = user;
     }
-
 
     public boolean isValidLogin(String email, String password) {
 
@@ -94,12 +93,5 @@ public class UsersManager {
         String password = UsersManager.getInstance().getLoggedUser().getPassword();
         UsersManager.getInstance().deleteUserRegistration();
         UsersManager.getInstance().registerUser(firstNameStr, lastNameStr, emailStr, password, weight, height, age, gender);
-    }
-
-
-
-    public List<Action> getUserSchedule(String day) {
-        //TODO
-        return null;
     }
 }

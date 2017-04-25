@@ -1,9 +1,7 @@
 package com.freeletics.dilyana.freeletics.model.actions;
 
-import com.freeletics.dilyana.freeletics.model.users.User;
-
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -13,19 +11,25 @@ import java.util.List;
 public abstract class Action implements Serializable, Comparable<Action>{
 
     protected ActionsManager.ActionName name;
-    protected String time;
-    protected double points;
-    protected String equipment;
+    private double points;
+    private String equipment;
+    private double bestTime;
     protected int repetitions;
-    protected User.Day day;
+    private Calendar calendar;
+    private boolean isEvent;
+    private boolean hasNotification;
 
     public Action(){
-
-        this.time = null;
         this.points = 0.0;
+        this.bestTime = 0.0;
         this.equipment = null;
         this.repetitions = 0;
-        this.day = null;
+        this.calendar = Calendar.getInstance();
+        this.calendar.set(Calendar.HOUR_OF_DAY, -1);
+        this.calendar.set(Calendar.MINUTE, -1);
+        this.calendar.set(Calendar.DAY_OF_WEEK, -1);
+        this.isEvent = false;
+        this.hasNotification = false;
     }
 
     public abstract ActionsManager.ActionName getName();
@@ -44,20 +48,38 @@ public abstract class Action implements Serializable, Comparable<Action>{
 
     public String getRepetitions() { return String.valueOf(this.repetitions); }
 
-    public String getTime(){
-        return this.time;
+    public int getHour(){
+        return this.calendar.get(Calendar.HOUR_OF_DAY);
     }
+
+    public int getMinute(){
+        return this.calendar.get(Calendar.MINUTE);
+    }
+
+    public int getDay(){
+        return this.calendar.get(Calendar.DAY_OF_WEEK);
+    }
+
+    public void setDay(int day) {
+        this.calendar.set(Calendar.DAY_OF_WEEK, day);
+    }
+
+    public void setHour(int hour) {
+        this.calendar.set(Calendar.HOUR_OF_DAY, hour);
+    }
+
+    public void setMinute(int minute) {
+        this.calendar.set(Calendar.MINUTE, minute);
+    }
+
 
     @Override
     public int compareTo(Action o) {
-        return this.time.compareTo(o.time);
-    }
 
-    public void setTime(String time) {
-        
-        if(time != null) {
-            this.time = time;
+        if(this.calendar.get(Calendar.HOUR_OF_DAY) == o.calendar.get(Calendar.HOUR_OF_DAY)){
+            return this.calendar.get(Calendar.MINUTE) - o.calendar.get(Calendar.MINUTE);
         }
+        return this.calendar.get(Calendar.HOUR_OF_DAY) - o.calendar.get(Calendar.HOUR_OF_DAY);
     }
 
     public void setRepetitions(int repetitions) {
@@ -66,13 +88,29 @@ public abstract class Action implements Serializable, Comparable<Action>{
 
     public abstract String getVideoUrl();
 
-    public User.Day getDay() {
-        return this.day;
-    }
-
-    public void setDay(User.Day day) {
-        this.day = day;
-    }
-
     public abstract int getRepetitionsList();
+
+    public void setAsEvent() {
+        this.isEvent = true;
+    }
+
+    public boolean isEvent() {
+        return this.isEvent;
+    }
+
+    public void setNotification(boolean notification) {
+        this.hasNotification = notification;
+    }
+
+    public boolean hasNotification() {
+        return this.hasNotification;
+    }
+
+    public double getBestTime() {
+        return this.bestTime;
+    }
+
+    public void setBestTime(double bestTime) {
+        this.bestTime = bestTime;
+    }
 }
