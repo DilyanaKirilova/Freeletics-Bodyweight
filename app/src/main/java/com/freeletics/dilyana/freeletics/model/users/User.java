@@ -108,10 +108,14 @@ public class User implements Serializable {
         this.picture = picture;
         this.finishedActions = new ArrayList<>();
         this.schedule = new HashMap<Day, TreeSet<Action>>();
+        UsersManager um = UsersManager.getInstance();
+        um.setLoggedUser(this);
     }
 
     public User(String firstName, String lastName, String email, String password,
                 int weight, int height, int age, Gender gender) {
+        UsersManager um = UsersManager.getInstance();
+        um.setLoggedUser(this);
         if (firstName != null && !firstName.isEmpty()) {
             this.firstName = firstName;
         }

@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.facebook.FacebookSdk;
+import com.facebook.login.widget.LoginButton;
 import com.freeletics.dilyana.freeletics.HomeActivity;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.model.users.User;
@@ -21,10 +23,6 @@ import com.freeletics.dilyana.freeletics.model.users.UsersManager;
  * A simple {@link Fragment} subclass.
  */
 public class RegisterFragment extends Fragment {
-
-    public RegisterFragment() {
-        // Required empty public constructor
-    }
 
     public final static String NAME_REGEX = "^[a-zA-Z]{2,15}$";
     /* Description:
@@ -70,6 +68,8 @@ $                       #   End of the line
     private EditText etEmail;
     private EditText etPassword1;
     private EditText etPassword2;
+    private LoginButton loginButton;
+
 
     private User.Gender gender;
     private int age;
@@ -79,6 +79,7 @@ $                       #   End of the line
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        FacebookSdk.sdkInitialize(getActivity());
         View root = inflater.inflate(R.layout.fragment_register, container, false);
 
         etFirstName = (EditText) root.findViewById(R.id.et_fr_first_name);
@@ -87,8 +88,7 @@ $                       #   End of the line
         etPassword1 = (EditText) root.findViewById(R.id.et_fr_password_1);
         etPassword2 = (EditText) root.findViewById(R.id.et_fr_password_2);
         btnCreateAccount = (Button) root.findViewById(R.id.btn_fr_create_account);
-
-
+        loginButton = (LoginButton) root.findViewById(R.id.facebook_register_button);
         // get user info
         if(getArguments() != null){
 
@@ -105,6 +105,17 @@ $                       #   End of the line
             height = bundle.getInt("height");
             weight = bundle.getInt("weight");
         }
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                Fragment fragment = new FacebookFragment();
+                    fm.beginTransaction()
+                            .replace(R.id.activity_main, fragment)
+                            .commit();
+            }
+        });
+
 
 
         // check for valid registration and make registration

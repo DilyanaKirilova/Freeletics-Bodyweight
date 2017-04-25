@@ -3,10 +3,8 @@ package com.freeletics.dilyana.freeletics.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,8 +18,6 @@ import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.adapters.MyProfileAdapter;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,13 +40,16 @@ public class MyProfileFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_my_profile, container, false);
 
         profileImage = (ImageView) root.findViewById(R.id.profile_pic_my_profile);
-       /* profileImage.setOnClickListener(new View.OnClickListener() {
+        profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//"android.media.action.IMAGE_CAPTURE");
-                getActivity().startActivityForResult(intent, REQUEST_CODE);
+            //    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//"android.media.action.IMAGE_CAPTURE");
+              //  startActivityForResult(intent, 0);
+               // Intent intent = new Intent(getActivity(), PhotoActivity.class);
+                //startActivityForResult(intent, 0);
+
             }
-        }); */
+        });
         profileName = (TextView) root.findViewById(R.id.name_my_profile);
         level = (TextView) root.findViewById(R.id.level_my_profile);
         doneWorkouts = (TextView) root.findViewById(R.id.workouts_my_profile);
@@ -82,4 +81,15 @@ public class MyProfileFragment extends Fragment {
         }
     }*/
 
+  //  @Override
+    //public void onActivityResult(int requestCode, int resultCode, Intent data) {
+      //  super.onActivityResult(requestCode, resultCode, data);
+       //if(requestCode == 0 ){
+         //  if(requestCode == 1){
+           //    Bitmap bitmap = (Bitmap) data.getExtras().get("bitmap");
+             //  profileImage.setImageBitmap(bitmap);
+           //}
+       //}
+
+    //}
 }

@@ -8,8 +8,11 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="log_in_with_email">Log in with Email</string>
-    <string name="facebook_app_id">1869606893278167</string>
+    <string name="facebook_app_id">1267837926665802</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="hello_user">Hello %1$s!</string>
+    <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>
+    <string name="cancelled">Cancelled</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -18,6 +21,10 @@
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_one_page_1">GET IN THE SHAPE OF YOUR LIFE</string>
+    <string name="error">Error msg</string>
+    <string name="success">Successful</string>
+    <string name="successfully_posted_post">Successfully posted post</string>
+    <string name="ok">OK</string>
 
     <string-array name="gender">
         <item>Male</item>

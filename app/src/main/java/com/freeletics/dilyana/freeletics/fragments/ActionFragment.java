@@ -44,10 +44,11 @@ public class ActionFragment extends Fragment {
         tvNumOfRepetitions = (TextView) root.findViewById(R.id.tv_fa_num_of_repetitions);
         recyclerView = (RecyclerView) root.findViewById(R.id.actions);
 
-        ActionAdapter actionAdapter = new ActionAdapter((AppCompatActivity)getActivity(), action.getExercises());
-        recyclerView.setAdapter(actionAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-
+        if(action.getExercises() != null) {
+            ActionAdapter actionAdapter = new ActionAdapter((AppCompatActivity) getActivity(), action.getExercises());
+            recyclerView.setAdapter(actionAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        }
         tvNumOfRepetitions.setText(action.getRepetitions() + "");
 
 
