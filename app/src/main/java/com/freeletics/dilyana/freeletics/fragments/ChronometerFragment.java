@@ -113,6 +113,7 @@ public class ChronometerFragment extends Fragment {
                     user.addFinishedAction(action);
                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                     MyProfileFragment myProfileFragment = new MyProfileFragment();
+                    bundle.putString("fragment", "Chronometer Fragmnet");
                     myProfileFragment.setArguments(bundle);
                     ft.replace(R.id.fragment_container, myProfileFragment).commit();
                 }

@@ -38,10 +38,10 @@ public class MyProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_my_profile, container, false);
-
-        MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), R.raw.applause);
-        mediaPlayer.start();
-
+        if(getArguments()!=null && getArguments().getString("fragment")!=null){
+            MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), R.raw.applause);
+            mediaPlayer.start();
+        }
 
         profileImage = (ImageView) root.findViewById(R.id.profile_pic_my_profile);
         profileImage.setOnClickListener(new View.OnClickListener() {

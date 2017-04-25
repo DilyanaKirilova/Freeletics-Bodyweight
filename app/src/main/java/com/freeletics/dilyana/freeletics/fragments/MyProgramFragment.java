@@ -31,6 +31,7 @@ public class MyProgramFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_my_program, container, false);
 
+
         userBMI = (TextView) root.findViewById(R.id.users_bmi);
         UsersManager um = UsersManager.getInstance();
         User u = um.getLoggedUser();
