@@ -1,6 +1,7 @@
 package com.freeletics.dilyana.freeletics.model.users;
 
 
+import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
 import com.freeletics.dilyana.freeletics.model.actions.Workout;
 
@@ -24,6 +25,65 @@ public class User implements Serializable {
     private int weight;
     private int height;
     private int age;
+
+    public enum Gender {MALE, FEMALE};
+    private Gender gender;
+    private int picture;//from gallerty or take picture
+    private int level = 0;
+    private ArrayList<Action> workouts;
+
+    private ArrayList<Action> finishedActions;
+    private HashMap<Integer, TreeSet<Action>> schedule;
+
+    public User(String firstName, String lastName, int picture){
+        if(firstName!=null && !firstName.isEmpty()) {
+            this.firstName = firstName;
+        }
+        if(lastName!=null && !lastName.isEmpty()) {
+            this.lastName = lastName;
+        }
+        this.picture = R.drawable.avatar_male;
+        if(picture != 0){
+            this.picture = picture;
+        }
+        this.finishedActions = new ArrayList<>();
+        this.schedule = new HashMap<Integer, TreeSet<Action>>();
+    }
+
+    public User(String firstName, String lastName, String email, String password,
+                int weight, int height, int age, Gender gender) {
+        if (firstName != null && !firstName.isEmpty()) {
+            this.firstName = firstName;
+        }
+        if (lastName != null && !lastName.isEmpty()) {
+            this.lastName = lastName;
+        }
+        if (email != null && !email.isEmpty()) {
+            this.email = email;
+        }
+        if (password != null && !password.isEmpty()) {
+            this.password = password;
+        }
+        this.level = 1;
+        this.workouts = new ArrayList<Action>();
+
+        if(weight > 0) {
+            this.weight = weight;
+        }
+
+        if(height > 0) {
+            this.height = height;
+        }
+        if(age > 0) {
+            this.age = age;
+        }
+        if(gender != null) {
+            this.gender = gender;
+        }
+        this.finishedActions = new ArrayList<>();
+        this.schedule = new HashMap<Integer, TreeSet<Action>>();
+        this.picture = R.drawable.avatar_male;
+    }
 
     public void addAction(Action action) {
 
@@ -92,70 +152,17 @@ public class User implements Serializable {
         return this.weight;
     }
 
-    public enum Gender {MALE, FEMALE};
-     private Gender gender;
-    private int picture;//from gallerty or take picture
-    private int level = 0;
-    private ArrayList<Action> workouts;
-
-    private ArrayList<Action> finishedActions;
-    private HashMap<Integer, TreeSet<Action>> schedule;
-
-    public User(String firstName, String lastName, int picture){
-        if(firstName!=null && !firstName.isEmpty()) {
-            this.firstName = firstName;
-        }
-        if(lastName!=null && !lastName.isEmpty()) {
-            this.lastName = lastName;
-        }
-        this.picture = picture;
-        this.finishedActions = new ArrayList<>();
-        this.schedule = new HashMap<Integer, TreeSet<Action>>();
-    }
-
-    public User(String firstName, String lastName, String email, String password,
-                int weight, int height, int age, Gender gender) {
-        if (firstName != null && !firstName.isEmpty()) {
-            this.firstName = firstName;
-        }
-        if (lastName != null && !lastName.isEmpty()) {
-            this.lastName = lastName;
-        }
-        if (email != null && !email.isEmpty()) {
-            this.email = email;
-        }
-        if (password != null && !password.isEmpty()) {
-            this.password = password;
-        }
-        this.level = 1;
-        this.workouts = new ArrayList<Action>();
-
-        if(weight > 0) {
-            this.weight = weight;
-        }
-
-        if(height > 0) {
-            this.height = height;
-        }
-        if(age > 0) {
-            this.age = age;
-        }
-        if(gender != null) {
-            this.gender = gender;
-        }
-        this.finishedActions = new ArrayList<>();
-        this.schedule = new HashMap<Integer, TreeSet<Action>>();
-    }
-
     public void addFinishedAction(Action a){
-        this.finishedActions.add(a);
+        if(a != null) {
+            this.finishedActions.add(a);
+        }
     }
     public ArrayList<Action> getWorkouts(){
-        return workouts;
+        return this.finishedActions;
     }
 
     public int getPicture() {
-        return picture;
+        return this.picture;
     }
 
     public int getLevel() {

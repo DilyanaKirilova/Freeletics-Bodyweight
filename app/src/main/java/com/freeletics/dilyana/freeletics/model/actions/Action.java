@@ -13,6 +13,7 @@ public abstract class Action implements Serializable, Comparable<Action>{
     protected ActionsManager.ActionName name;
     private double points;
     private String equipment;
+    private double bestTime;
     protected int repetitions;
     private Calendar calendar;
     private boolean isEvent;
@@ -20,6 +21,7 @@ public abstract class Action implements Serializable, Comparable<Action>{
 
     public Action(){
         this.points = 0.0;
+        this.bestTime = 0.0;
         this.equipment = null;
         this.repetitions = 0;
         this.calendar = Calendar.getInstance();
@@ -102,5 +104,13 @@ public abstract class Action implements Serializable, Comparable<Action>{
 
     public boolean hasNotification() {
         return this.hasNotification;
+    }
+
+    public double getBestTime() {
+        return this.bestTime;
+    }
+
+    public void setBestTime(double bestTime) {
+        this.bestTime = bestTime;
     }
 }

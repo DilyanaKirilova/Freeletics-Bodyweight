@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
@@ -43,10 +43,12 @@ public class MyProfileAdapter extends RecyclerView.Adapter<MyProfileAdapter.MyPr
     public void onBindViewHolder(MyProfileViewHolder holder, int position) {
         UsersManager manager = UsersManager.getInstance();
         User user = manager.getLoggedUser();
+
         holder.image.setImageResource(user.getPicture());
-        holder.name.setText(user.getFirstName()+" "+user.getLastName());
         holder.exerciseName.setText(exerciseList.get(position).getName().toString());
-        holder.timeOfExercise.setText("");
+        holder.timeOfExercise.setText(exerciseList.get(position).getBestTime() +"");
+        holder.repetitions.setText(exerciseList.get(position).getRepetitions().toString());
+        holder.userName.setText(user.getFirstName() + " " + user.getLastName());
     }
 
     @Override
@@ -57,19 +59,19 @@ public class MyProfileAdapter extends RecyclerView.Adapter<MyProfileAdapter.MyPr
 
     class MyProfileViewHolder extends RecyclerView.ViewHolder{
 
-        private LinearLayout linearLayout;
         private ImageView image;
-        private TextView name;
         private TextView exerciseName;
         private TextView timeOfExercise;
+        private TextView repetitions;
+        private TextView userName;
 
         public MyProfileViewHolder(View itemView) {
             super(itemView);
-            linearLayout = (LinearLayout) itemView.findViewById(R.id.profile_recycler_layout);
-            image = (ImageView) itemView.findViewById(R.id.profile_pic_wall);
-            name = (TextView) itemView.findViewById(R.id.my_name_wall);
-            exerciseName = (TextView) itemView.findViewById(R.id.exercise_name_wall);
+            image          = (ImageView) itemView.findViewById(R.id.profile_pic_wall);
+            exerciseName   = (TextView) itemView.findViewById(R.id.exercise_name_wall);
             timeOfExercise = (TextView) itemView.findViewById(R.id.time_of_exercise_wall);
+            repetitions    = (TextView) itemView.findViewById(R.id.exercise_repetitions_wall);
+            userName       = (TextView) itemView.findViewById(R.id.user_name_wall);
         }
     }
 }

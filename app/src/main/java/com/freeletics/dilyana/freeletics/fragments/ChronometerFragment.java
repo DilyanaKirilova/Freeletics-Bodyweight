@@ -1,8 +1,6 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
@@ -49,6 +46,8 @@ public class ChronometerFragment extends Fragment {
         count = (Button) root.findViewById(R.id.count_button);
         counerTv = (TextView) root.findViewById(R.id.counter_tv);
         finishExcercise = (Button) root.findViewById(R.id.finish_button);
+
+        chronometer.start();
 
         UsersManager manager = UsersManager.getInstance();
         final User user = manager.getLoggedUser();
@@ -110,13 +109,13 @@ public class ChronometerFragment extends Fragment {
                 Bundle bundle = getArguments();
                 if(bundle!= null) {
                     Action action = (Action) bundle.getSerializable("action");
+                    action.setBestTime(((double)(SystemClock.elapsedRealtime() - chronometer.getBase())) / 1000);
                     user.addFinishedAction(action);
                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                     MyProfileFragment myProfileFragment = new MyProfileFragment();
                     myProfileFragment.setArguments(bundle);
                     ft.replace(R.id.fragment_container, myProfileFragment).commit();
                 }
-                Toast.makeText(getActivity(), "Your training time is: "+timeOfExercise, Toast.LENGTH_SHORT).show();
                 timeOfExercise = 0;
 
             }
@@ -126,8 +125,5 @@ public class ChronometerFragment extends Fragment {
     }
     private void showElapsedTime() {
         long elapsedsecond = (SystemClock.elapsedRealtime() - chronometer.getBase())/1000;
-        Toast.makeText(getActivity(), "Training seconds: " + elapsedsecond,
-                Toast.LENGTH_SHORT).show();
     }
-
 }

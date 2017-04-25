@@ -1,48 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:id="@+id/profile_recycler_layout"
-    android:layout_marginTop="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginBottom="10dp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:background="@color/black"
+    android:layout_marginTop="2dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black">
     <ImageView
         android:id="@+id/profile_pic_wall"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="wrap_content" />
+        android:gravity="left"
+        android:layout_height="35dp" />
+
+        <TextView
+            android:id="@+id/user_name_wall"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:textColor="@color/whiteColor" />
+
     <TextView
-        android:id="@+id/my_name_wall"
+        android:id="@+id/exercise_repetitions_wall"
         android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="wrap_content" />
-</LinearLayout>
-    <TextView
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:textColor="@color/whiteColor" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:background="@color/workoutBackground"
-        android:layout_height="5dp" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/whiteColor"
+        android:layout_height="0.1dp"></LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/exercise_name_wall"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        android:background="@color/black">
+
+    <TextView
+        android:id="@+id/exercise_name_wall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:textSize="25sp"
+        android:gravity="left"
+        android:layout_gravity="center"
+        android:textColor="@color/whiteColor" />
+
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/time_of_exercise_wall" />
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:background="@mipmap/ic_timer_white_24dp" />
+
+        <TextView
+        android:id="@+id/time_of_exercise_wall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:textSize="20sp"
+        android:gravity="right"
+        android:layout_gravity="center"
+        android:textColor="@color/whiteColor" />
     </LinearLayout>
-
-
-
 </LinearLayout>
