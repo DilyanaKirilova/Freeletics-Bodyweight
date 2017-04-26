@@ -3,7 +3,6 @@ package com.freeletics.dilyana.freeletics;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -25,7 +24,6 @@ import com.freeletics.dilyana.freeletics.fragments.CategoryFragment;
 import com.freeletics.dilyana.freeletics.fragments.WeekScheduleFragment;
 import com.freeletics.dilyana.freeletics.fragments.MyProfileFragment;
 import com.freeletics.dilyana.freeletics.fragments.MyProgramFragment;
-import com.freeletics.dilyana.freeletics.model.DownloadImage;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
