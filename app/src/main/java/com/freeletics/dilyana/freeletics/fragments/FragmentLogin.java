@@ -19,6 +19,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.ProfileTracker;
 import com.freeletics.dilyana.freeletics.MainActivity;
+import com.freeletics.dilyana.freeletics.data_base.DBManager;
 import com.freeletics.dilyana.freeletics.model.users.*;
 
 import com.facebook.Profile;
@@ -62,11 +63,12 @@ public class FragmentLogin extends Fragment {
 
         Profile profile = Profile.getCurrentProfile();
         if (profile != null) {
-            UsersManager.getInstance().registerUser(profile.getFirstName().toString(), profile.getLastName().toString());
             Intent intent = new Intent(getActivity(), HomeActivity.class);
+            User u = new User(profile.getFirstName().toString(), profile.getLastName() );
+            UsersManager.getInstance().setLoggedUser(u);
             startActivity(intent);
         } else {
-            Toast.makeText(getActivity(), "NQMA profil", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "No profile", Toast.LENGTH_SHORT).show();
         }
     }
 

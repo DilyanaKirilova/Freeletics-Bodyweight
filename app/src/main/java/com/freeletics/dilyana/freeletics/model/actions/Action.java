@@ -11,8 +11,6 @@ import java.util.List;
 public abstract class Action implements Serializable, Comparable<Action>{
 
     protected ActionsManager.ActionName name;
-    private double points;
-    private String equipment;
     private double bestTime;
     protected int repetitions;
     private Calendar calendar;
@@ -20,9 +18,7 @@ public abstract class Action implements Serializable, Comparable<Action>{
     private boolean hasNotification;
 
     public Action(){
-        this.points = 0.0;
         this.bestTime = 0.0;
-        this.equipment = null;
         this.repetitions = 0;
         this.calendar = Calendar.getInstance();
         this.calendar.set(Calendar.HOUR_OF_DAY, -1);

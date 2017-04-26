@@ -21,74 +21,42 @@ public class User implements Serializable {
     private String lastName;
     private String email;
     private String password;
-    private String motivation;
     private int weight;
     private int height;
     private int age;
+    private int id;
+    private static int emailCounter =1;
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public enum Gender {MALE, FEMALE};
     private Gender gender;
     private int picture;//from gallerty or take picture
     private int level = 0;
-    private ArrayList<Action> workouts;
+
 
     private ArrayList<Action> finishedActions;
     private HashMap<Integer, TreeSet<Action>> schedule;
 
-    public User(String firstName, String lastName){
+    public User(String firstName, String lastName, int weight, int height, int age, Gender gender, String email, String password) {
+
         if(firstName!=null && !firstName.isEmpty()) {
             this.firstName = firstName;
         }
         if(lastName!=null && !lastName.isEmpty()) {
             this.lastName = lastName;
         }
-        this.picture = R.drawable.avatar_male;
-        this.finishedActions = new ArrayList<>();
-        this.schedule = new HashMap<Integer, TreeSet<Action>>();
-    }
-
-
-    public User(String firstName, String lastName, int weight, int height, int age, Gender gender) {
-        if (firstName != null && !firstName.isEmpty()) {
-            this.firstName = firstName;
-        }
-        if (lastName != null && !lastName.isEmpty()) {
-            this.lastName = lastName;
-        }
-        if(weight > 0) {
-            this.weight = weight;
-        }
-
-        if(height > 0) {
-            this.height = height;
-        }
-        if(age > 0) {
-            this.age = age;
-        }
-        if(gender != null) {
-            this.gender = gender;
-        }
-        this.finishedActions = new ArrayList<>();
-        this.schedule = new HashMap<Integer, TreeSet<Action>>();
-        this.picture = R.drawable.avatar_male;
-    }
-
-    public User(String firstName, String lastName, String email, String password,
-                int weight, int height, int age, Gender gender) {
-        if (firstName != null && !firstName.isEmpty()) {
-            this.firstName = firstName;
-        }
-        if (lastName != null && !lastName.isEmpty()) {
-            this.lastName = lastName;
-        }
         if (email != null && !email.isEmpty()) {
             this.email = email;
         }
-        if (password != null && !password.isEmpty()) {
-            this.password = password;
+        else{
+            this.email = emailCounter +"";
+            ++emailCounter;
+
         }
         this.level = 1;
-        this.workouts = new ArrayList<Action>();
 
         if(weight > 0) {
             this.weight = weight;
@@ -100,12 +68,17 @@ public class User implements Serializable {
         if(age > 0) {
             this.age = age;
         }
-        if(gender != null) {
-            this.gender = gender;
-        }
+        this.gender = gender;
+        this.password = password;
+
+        this.picture = R.drawable.avatar_male;
         this.finishedActions = new ArrayList<>();
         this.schedule = new HashMap<Integer, TreeSet<Action>>();
-        this.picture = R.drawable.avatar_male;
+    }
+
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public void addAction(Action action) {
@@ -144,16 +117,9 @@ public class User implements Serializable {
         return this.gender.equals(Gender.MALE);
     }
 
-    public enum BMI {SLIM, NORMAL, FATTENED};
-    private BMI bmi;
-
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Gender getGender() {
-        return this.gender;
     }
 
     public String getStringGender() {
@@ -211,34 +177,17 @@ public class User implements Serializable {
         return password;
     }
 
-    public void setBmi(BMI bmi) {
-        this.bmi = bmi;
-    }
-
-    public BMI getBmi() {
-        return bmi;
-    }
-
     public void setLevel() {
         this.level++;
     }
+
 
 
     public double countBMI(){
         int weight = this.weight;
         double height = this.height;
         double heightInMeters = height/10;
-
         double bmi = weight/(heightInMeters*heightInMeters);
-        if(bmi<18.5) {
-            this.bmi = BMI.SLIM;
-        }
-        if(bmi>=18.5 && bmi<30){
-            this.bmi = BMI.NORMAL;
-        }
-        if(bmi>=30){
-            this.bmi = BMI.FATTENED;
-        }
         return bmi;
     }
 

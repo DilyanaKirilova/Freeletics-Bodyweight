@@ -15,13 +15,12 @@ import java.util.List;
 public class UsersManager {
     private static final UsersManager ourInstance = new UsersManager();
 
-
     public static UsersManager getInstance() {
         return ourInstance;
     }
 
     private HashMap<String, User> registeredUsers;
-    private static User loggedUser;
+    private User loggedUser;
 
     private UsersManager() {
         this.registeredUsers = new HashMap<String, User>();
@@ -35,38 +34,17 @@ public class UsersManager {
         return true;
     }
 
-    public void registerUser(String firstName, String lastName, String email, String password,
-                             int weight, int height, int age, User.Gender gender) {
+    public void registerUser(User u) {
 
-        User user = new User(firstName, lastName, email, password,
-                weight, height, age, gender);
-
-        if (!this.registeredUsers.containsKey(email)) {
-            this.registeredUsers.put(email, user);
+        if(u.getPassword() != null) {
+            if (!this.registeredUsers.containsKey(u.getEmail())) {
+                this.registeredUsers.put(u.getEmail(), u);
+            }
         }
-        loggedUser = user;
-    }
-    static int i =1;
-    public void registerUser(String firstName, String lastName,
-                             int weight, int height, int age, User.Gender gender) {
-
-
-        User user = new User(firstName, lastName,
-                weight, height, age, gender);
-
-            this.registeredUsers.put(i+"", user);
-        i++;
-        loggedUser = user;
-    }
-    public void registerUser(String firstName, String lastName){
-        User user = new User(firstName, lastName);
-        this.registeredUsers.put(i+"", user);
-                i++;
-        loggedUser = user;
+        loggedUser = u;
     }
 
     public boolean isValidLogin(String email, String password) {
-
         if (registeredUsers.containsKey(email)) {
             User user = registeredUsers.get(email);
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
@@ -79,6 +57,10 @@ public class UsersManager {
 
     public void logOutUser() {
         this.loggedUser = null;
+    }
+
+    public void setLoggedUser(User loggedUser) {
+        this.loggedUser = loggedUser;
     }
 
     public void deleteUserRegistration() {
@@ -99,17 +81,9 @@ public class UsersManager {
         registeredUsers.get(loggedUser.getEmail()).setPassword(newPassword);
     }
 
-
-    public void setLoggedUser(User user){
-        if(user != null){
-            this.loggedUser = user;
-        }
-    }
-
-    public void updateUserInfo(String firstNameStr, String lastNameStr, String emailStr, int weight, int height, int age, User.Gender gender) {
-
-        String password = UsersManager.getInstance().getLoggedUser().getPassword();
+    public void updateUserInfo(User u) {
         UsersManager.getInstance().deleteUserRegistration();
-        UsersManager.getInstance().registerUser(firstNameStr, lastNameStr, emailStr, password, weight, height, age, gender);
+        UsersManager.getInstance().registerUser(u);
+        //todo delete from DB and add to DB
     }
 }

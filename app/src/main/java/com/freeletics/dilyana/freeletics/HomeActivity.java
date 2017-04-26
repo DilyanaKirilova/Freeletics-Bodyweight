@@ -27,6 +27,9 @@ import com.freeletics.dilyana.freeletics.fragments.MyProgramFragment;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
+import static com.freeletics.dilyana.freeletics.R.array.gender;
+import static com.freeletics.dilyana.freeletics.R.array.weight;
+
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TimePickerDialog.OnTimeSetListener {
 
@@ -100,16 +103,11 @@ public class HomeActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, new CategoryFragment()).commit();
 
-        } else if (id == R.id.nav_feed) {
+        } else if (id == R.id.nav_my_bmi) {
             FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.replace(R.id.fragment_container, new MyProgramFragment()).commit();
 
-
-        } else if (id == R.id.nav_leaderboards) {
-
-
-        } else if (id == R.id.nav_settings) {
-
+        }  else if (id == R.id.nav_settings) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("request_code", "settings");
             startActivity(intent);
@@ -120,25 +118,9 @@ public class HomeActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, new WeekScheduleFragment()).commit();
         }
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void setFacebookInfo(){
-        Bundle inBundle = getIntent().getExtras();
-        String name = inBundle.get("name").toString();
-        String surname = inBundle.get("surname").toString();
-        String imageUrl = inBundle.get("imageUrl").toString();
-        int profilePic = Integer.parseInt(imageUrl);
-       // UsersManager usersManager = UsersManager.getInstance();
-        //usersManager.setLoggedUser(new User(name, surname, profilePic));
-        new DownloadImage((ImageView)findViewById(R.id.imageView)).execute(imageUrl);
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        imageView.setImageResource(profilePic);
-        TextView names = (TextView) findViewById(R.id.first_last_name);
-        names.setText(name+" "+surname);
     }
 
     @Override

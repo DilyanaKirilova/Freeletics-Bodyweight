@@ -22,6 +22,7 @@ import com.facebook.login.widget.LoginButton;
 import com.freeletics.dilyana.freeletics.HomeActivity;
 import com.freeletics.dilyana.freeletics.MainActivity;
 import com.freeletics.dilyana.freeletics.R;
+import com.freeletics.dilyana.freeletics.data_base.DBManager;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
@@ -75,7 +76,6 @@ $                       #   End of the line
     private EditText etPassword1;
     private EditText etPassword2;
     private LoginButton loginButton;
-    private CallbackManager callbackManager;
 
 
     private User.Gender gender;
@@ -95,30 +95,6 @@ $                       #   End of the line
         etPassword1 = (EditText) root.findViewById(R.id.et_fr_password_1);
         etPassword2 = (EditText) root.findViewById(R.id.et_fr_password_2);
         btnCreateAccount = (Button) root.findViewById(R.id.btn_fr_create_account);
-        loginButton = (LoginButton) root.findViewById(R.id.facebook_register_button);
-        callbackManager = MainActivity.callbackManager;
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Profile profile = Profile.getCurrentProfile();
-               UsersManager.getInstance().registerUser(profile.getFirstName().toString(), profile.getLastName().toString(), weight, height, age, gender);
-                Intent intent = new Intent(getActivity(), HomeActivity.class);
-                startActivity(intent);
-
-            }
-
-            @Override
-            public void onCancel() {
-                Toast.makeText(getActivity(), "Login attempt canceled.", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Toast.makeText(getActivity(), "Login attempt failed.", Toast.LENGTH_SHORT).show();
-            }
-
-        });
-
         // get user info
         if(getArguments() != null){
 
@@ -212,7 +188,9 @@ $                       #   End of the line
                         return;
                     }
 
-                    UsersManager.getInstance().registerUser(firstNameStr, lastNameStr, emailStr, password1Str, weight, height, age, gender);
+                    User u = new User(firstNameStr, lastNameStr,  weight, height, age, gender, emailStr, password1Str);
+                    DBManager.getInstance(getContext()).addUser(u);
+
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     startActivity(intent);
                     getActivity().finish();

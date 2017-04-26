@@ -222,8 +222,8 @@ public class EditProfileFragment extends Fragment {
                     gender = User.Gender.FEMALE;
                 }
 
-
-                UsersManager.getInstance().updateUserInfo(firstNameStr, lastNameStr, emailStr, weight, height, age, gender);
+                User u = new User(firstNameStr, lastNameStr, weight, height, age, gender, emailStr, UsersManager.getInstance().getLoggedUser().getPassword());
+                UsersManager.getInstance().updateUserInfo(u);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.activity_main, new SettingsFragment()).commit();

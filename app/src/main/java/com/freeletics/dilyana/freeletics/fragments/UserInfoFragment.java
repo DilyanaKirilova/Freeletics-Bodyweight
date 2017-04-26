@@ -1,6 +1,7 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,7 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.freeletics.dilyana.freeletics.HomeActivity;
 import com.freeletics.dilyana.freeletics.R;
+import com.freeletics.dilyana.freeletics.data_base.DBManager;
+import com.freeletics.dilyana.freeletics.model.users.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,8 +44,6 @@ public class UserInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root =  inflater.inflate(R.layout.fragment_info_user, container, false);
-
-
 
         spGender = (Spinner) root.findViewById(R.id.spinner_gender);
         spAge    = (Spinner) root.findViewById(R.id.spinner_age);
@@ -107,19 +109,19 @@ public class UserInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                Bundle bundle = new Bundle();
-                bundle.putString("gender", gender);
-                bundle.putInt("age", age);
-                bundle.putInt("weight", weight);
-                bundle.putInt("height", height);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("gender", gender);
+                    bundle.putInt("age", age);
+                    bundle.putInt("weight", weight);
+                    bundle.putInt("height", height);
 
-                RegisterFragment registerFragment = new RegisterFragment();
-                registerFragment.setArguments(bundle);
+                    RegisterFragment registerFragment = new RegisterFragment();
+                    registerFragment.setArguments(bundle);
 
-                fragmentTransaction.replace(R.id.activity_main, registerFragment).commit();
+                    fragmentTransaction.replace(R.id.activity_main, registerFragment).commit();
             }
         });
 
