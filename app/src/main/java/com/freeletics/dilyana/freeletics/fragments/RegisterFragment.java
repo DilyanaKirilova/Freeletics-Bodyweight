@@ -96,16 +96,15 @@ $                       #   End of the line
         etPassword2 = (EditText) root.findViewById(R.id.et_fr_password_2);
         btnCreateAccount = (Button) root.findViewById(R.id.btn_fr_create_account);
         loginButton = (LoginButton) root.findViewById(R.id.facebook_register_button);
-        callbackManager = CallbackManager.Factory.create();
+        callbackManager = MainActivity.callbackManager;
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Profile profile = Profile.getCurrentProfile();
-                //User user = new User(profile.getFirstName().toString(), profile.getLastName().toString());
                UsersManager.getInstance().registerUser(profile.getFirstName().toString(), profile.getLastName().toString(), weight, height, age, gender);
                 Intent intent = new Intent(getActivity(), HomeActivity.class);
-                getActivity().startActivity(intent);
-                getActivity().finish();
+                startActivity(intent);
+
             }
 
             @Override

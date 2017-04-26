@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.facebook.CallbackManager;
 import com.freeletics.dilyana.freeletics.fragments.CategoryFragment;
 import com.freeletics.dilyana.freeletics.fragments.WeekScheduleFragment;
 import com.freeletics.dilyana.freeletics.fragments.MyProfileFragment;
@@ -36,6 +37,7 @@ public class HomeActivity extends AppCompatActivity
     private ImageView profileImage;
     private TextView name;
     private com.facebook.login.widget.LoginButton loginButton;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class HomeActivity extends AppCompatActivity
         toggle.syncState();
 
         profileImage = (ImageView) findViewById(R.id.imageView);
+        callbackManager =  CallbackManager.Factory.create();
 
         //name = (TextView) findViewById(R.id.first_last_name);
 
@@ -147,10 +150,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-           fragment.onActivityResult(requestCode, resultCode, data); 
-        }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }

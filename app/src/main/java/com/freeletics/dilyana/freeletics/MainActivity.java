@@ -15,7 +15,7 @@ import com.freeletics.dilyana.freeletics.fragments.UserInfoFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    CallbackManager callbackManager;
+    public static CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

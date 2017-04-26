@@ -138,6 +138,9 @@ public class User implements Serializable {
     }
 
     public boolean isMale() {
+        if(this.gender == null){
+            return false;
+        }
         return this.gender.equals(Gender.MALE);
     }
 

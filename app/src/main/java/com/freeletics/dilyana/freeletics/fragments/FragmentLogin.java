@@ -18,6 +18,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.ProfileTracker;
+import com.freeletics.dilyana.freeletics.MainActivity;
 import com.freeletics.dilyana.freeletics.model.users.*;
 
 import com.facebook.Profile;
@@ -53,7 +54,7 @@ public class FragmentLogin extends Fragment {
         password = (EditText) root.findViewById(R.id.password_login);
         facebookButton = (LoginButton) root.findViewById(R.id.login_button);
         emailButton = (Button) root.findViewById(R.id.email_login_button_login);
-        callbackManager = CallbackManager.Factory.create();
+        callbackManager = MainActivity.callbackManager;
 
         facebookButton.registerCallback(callbackManager,new FacebookCallback<LoginResult>() {
         @Override
@@ -64,7 +65,6 @@ public class FragmentLogin extends Fragment {
             UsersManager.getInstance().registerUser(profile.getFirstName().toString(), profile.getLastName().toString());
             Intent intent = new Intent(getActivity(), HomeActivity.class);
             startActivity(intent);
-            getActivity().finish();
         } else {
             Toast.makeText(getActivity(), "NQMA profil", Toast.LENGTH_SHORT).show();
         }
