@@ -57,15 +57,13 @@ public class ActionFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-
-
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("action", action);
                 CountDownFragment countDownFragment = new CountDownFragment();
                 countDownFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.fragment_container, countDownFragment).commit();
+                fragmentTransaction.replace(R.id.fragment_container, countDownFragment).addToBackStack("action").commit();
 
 
             }

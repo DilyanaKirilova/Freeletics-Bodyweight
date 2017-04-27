@@ -2,6 +2,7 @@ package com.freeletics.dilyana.freeletics;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -21,11 +22,15 @@ import android.widget.TimePicker;
 
 import com.facebook.CallbackManager;
 import com.freeletics.dilyana.freeletics.fragments.CategoryFragment;
+import com.freeletics.dilyana.freeletics.fragments.SettingsFragment;
 import com.freeletics.dilyana.freeletics.fragments.WeekScheduleFragment;
 import com.freeletics.dilyana.freeletics.fragments.MyProfileFragment;
 import com.freeletics.dilyana.freeletics.fragments.MyProgramFragment;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
+
+import java.io.Serializable;
+import java.net.URL;
 
 import static com.freeletics.dilyana.freeletics.R.array.gender;
 import static com.freeletics.dilyana.freeletics.R.array.weight;
@@ -39,6 +44,7 @@ public class HomeActivity extends AppCompatActivity
     private TextView name;
     private com.facebook.login.widget.LoginButton loginButton;
     private CallbackManager callbackManager;
+    private Uri photoUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,9 @@ public class HomeActivity extends AppCompatActivity
 
         profileImage = (ImageView) findViewById(R.id.imageView);
         callbackManager =  CallbackManager.Factory.create();
+
+
+
 
         //name = (TextView) findViewById(R.id.first_last_name);
 
@@ -73,7 +82,16 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_container, new MyProfileFragment()).commit();
+                Bundle b = getIntent().getExtras();
+                MyProfileFragment myProfileFragment = new MyProfileFragment();
+                if (b != null) {
+                    photoUri = Uri.parse(b.getString("photoUri"));
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("uri", (Serializable) photoUri);
+                    myProfileFragment.setArguments(bundle);
+
+                }
+                ft.replace(R.id.fragment_container, myProfileFragment).addToBackStack("my_profile_frag").commit();
                 drawer.closeDrawer(GravityCompat.START);
             }
         });
@@ -101,21 +119,20 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_training) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, new CategoryFragment()).commit();
+            fragmentTransaction.replace(R.id.fragment_container, new CategoryFragment()).addToBackStack("category").commit();
 
         } else if (id == R.id.nav_my_bmi) {
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.fragment_container, new MyProgramFragment()).commit();
+            ft.replace(R.id.fragment_container, new MyProgramFragment()).addToBackStack("my_program").commit();
 
         }  else if (id == R.id.nav_settings) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("request_code", "settings");
-            startActivity(intent);
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.fragment_container, new SettingsFragment()).addToBackStack("settings").commit();
 
         } else if(id == R.id.nav_my_schedule){
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, new WeekScheduleFragment()).commit();
+            fragmentTransaction.replace(R.id.fragment_container, new WeekScheduleFragment()).addToBackStack("schedule").commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -133,4 +150,6 @@ public class HomeActivity extends AppCompatActivity
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
+
 }

@@ -1,12 +1,16 @@
 package com.freeletics.dilyana.freeletics.model.users;
 
 
+import android.support.annotation.NonNull;
+
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
+import com.freeletics.dilyana.freeletics.model.actions.ActionsManager;
 import com.freeletics.dilyana.freeletics.model.actions.Workout;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
@@ -25,10 +29,27 @@ public class User implements Serializable {
     private int height;
     private int age;
     private int id;
+
     private static int emailCounter =1;
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isLogged() {
+        return this == UsersManager.getInstance().getLoggedUser();
+    }
+
+    public boolean hasNotificationAction(Action action) {
+
+        for(int i = 0; i < 7; i++) {
+            for (Action a : this.schedule.get(i)){
+                if (a.equals(action)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public enum Gender {MALE, FEMALE};
@@ -37,48 +58,50 @@ public class User implements Serializable {
     private int level = 0;
 
 
-    private ArrayList<Action> finishedActions;
+    private HashMap<ActionsManager.ActionName, TreeSet<Action>> finishedActions;
     private HashMap<Integer, TreeSet<Action>> schedule;
 
     public User(String firstName, String lastName, int weight, int height, int age, Gender gender, String email, String password) {
 
-        if(firstName!=null && !firstName.isEmpty()) {
+        if (firstName != null && !firstName.isEmpty()) {
             this.firstName = firstName;
         }
-        if(lastName!=null && !lastName.isEmpty()) {
+        if (lastName != null && !lastName.isEmpty()) {
             this.lastName = lastName;
         }
         if (email != null && !email.isEmpty()) {
             this.email = email;
-        }
-        else{
-            this.email = emailCounter +"";
+        } else {
+            this.email = emailCounter + "";
             ++emailCounter;
 
         }
         this.level = 1;
 
-        if(weight > 0) {
+        if (weight > 0) {
             this.weight = weight;
         }
 
-        if(height > 0) {
+        if (height > 0) {
             this.height = height;
         }
-        if(age > 0) {
+        if (age > 0) {
             this.age = age;
         }
         this.gender = gender;
         this.password = password;
 
         this.picture = R.drawable.avatar_male;
-        this.finishedActions = new ArrayList<>();
+        this.finishedActions = new HashMap<ActionsManager.ActionName, TreeSet<Action>>();
         this.schedule = new HashMap<Integer, TreeSet<Action>>();
     }
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+
+        this.finishedActions = new HashMap<ActionsManager.ActionName, TreeSet<Action>>();
+        this.schedule = new HashMap<Integer, TreeSet<Action>>();
     }
 
     public void addAction(Action action) {
@@ -145,12 +168,22 @@ public class User implements Serializable {
     }
 
     public void addFinishedAction(Action a){
-        if(a != null) {
-            this.finishedActions.add(a);
+        if(a == null) {
+            return;
         }
+        if(!this.finishedActions.containsKey(a.getName())){
+            this.finishedActions.put(a.getName(), new TreeSet<Action>(new ActionTimeComparator()));
+        }
+        this.finishedActions.get(a.getName()).add(a);
     }
-    public ArrayList<Action> getWorkouts(){
-        return this.finishedActions;
+
+    public List<Action> getWorkouts(ActionsManager.ActionName name){
+
+
+        if(this.finishedActions.containsKey(name)){
+            return new ArrayList<Action> (this.finishedActions.get(name));
+        }
+        return null;
     }
 
     public int getPicture() {
@@ -181,7 +214,13 @@ public class User implements Serializable {
         this.level++;
     }
 
+    public void setPicture(int picture) {
+        this.picture = picture;
+    }
 
+    public void deleteExcercise(Action a){
+        this.finishedActions.remove(a);
+    }
 
     public double countBMI(){
         int weight = this.weight;
@@ -191,5 +230,14 @@ public class User implements Serializable {
         return bmi;
     }
 
+    class ActionTimeComparator implements Comparator<Action>{
 
+        @Override
+        public int compare(Action o1, Action o2) {
+            if(o1.getBestTime() >= o2.getBestTime()){
+                return 1;
+            }
+            return -1;
+        }
+    }
 }

@@ -226,7 +226,7 @@ public class EditProfileFragment extends Fragment {
                 UsersManager.getInstance().updateUserInfo(u);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.activity_main, new SettingsFragment()).commit();
+                fragmentTransaction.replace(R.id.activity_main, new SettingsFragment()).addToBackStack("edit_profile").commit();
             }
         });
 

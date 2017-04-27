@@ -16,6 +16,7 @@ public abstract class Action implements Serializable, Comparable<Action>{
     private Calendar calendar;
     private boolean isEvent;
     private boolean hasNotification;
+    private int id;
 
     public Action(){
         this.bestTime = 0.0;
@@ -108,5 +109,9 @@ public abstract class Action implements Serializable, Comparable<Action>{
 
     public void setBestTime(double bestTime) {
         this.bestTime = bestTime;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

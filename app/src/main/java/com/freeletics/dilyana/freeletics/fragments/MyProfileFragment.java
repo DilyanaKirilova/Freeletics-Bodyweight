@@ -3,8 +3,10 @@ package com.freeletics.dilyana.freeletics.fragments;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +18,8 @@ import android.widget.TextView;
 
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.adapters.MyProfileAdapter;
+import com.freeletics.dilyana.freeletics.dialog_fragments.GalleryFragment;
+import com.freeletics.dilyana.freeletics.model.actions.Action;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
@@ -47,10 +51,8 @@ public class MyProfileFragment extends Fragment {
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//"android.media.action.IMAGE_CAPTURE");
-              //  startActivityForResult(intent, 0);
-               // Intent intent = new Intent(getActivity(), PhotoActivity.class);
-                //startActivityForResult(intent, 0);
+                GalleryFragment galleryFragment = new GalleryFragment();
+                galleryFragment.show(getActivity().getSupportFragmentManager(), "my_gallery");
 
             }
         });
@@ -66,37 +68,26 @@ public class MyProfileFragment extends Fragment {
             profileImage.setImageResource(u.getPicture());
         }
 
+        Uri profile;
+        if(getArguments()!=null && getArguments().getSerializable("uri")!=null) {
+            profile = (Uri) getArguments().getSerializable("uri");
+            String prof = profile.toString();
+            int pic = Integer.parseInt(prof);
+            u.setPicture(pic);
+            profileImage.setImageResource(pic);
+        }
         profileName.setText(u.getFirstName() + " " + u.getLastName());
         level.setText(String.valueOf(u.getLevel()));
-        doneWorkouts.setText(String.valueOf(u.getWorkouts().size()));
+        if(getArguments() != null && getArguments().getSerializable("action") != null){
 
+            Action a = (Action) getArguments().getSerializable("action");
+            doneWorkouts.setText(String.valueOf(u.getWorkouts(a.getName()).size()));
 
-        MyProfileAdapter myProfileAdapter = new MyProfileAdapter(u.getWorkouts(), (AppCompatActivity) getActivity());
-        recyclerView.setAdapter(myProfileAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            MyProfileAdapter myProfileAdapter = new MyProfileAdapter(u.getWorkouts(a.getName()), (AppCompatActivity) getActivity());
+            recyclerView.setAdapter(myProfileAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        }
 
         return root;
     }
-
-   /* @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if( requestCode == REQUEST_CODE && resultCode == RESULT_OK){
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            profileImage.setImageBitmap(bitmap);
-        }
-    }*/
-
-  //  @Override
-    //public void onActivityResult(int requestCode, int resultCode, Intent data) {
-      //  super.onActivityResult(requestCode, resultCode, data);
-       //if(requestCode == 0 ){
-         //  if(requestCode == 1){
-           //    Bitmap bitmap = (Bitmap) data.getExtras().get("bitmap");
-             //  profileImage.setImageBitmap(bitmap);
-           //}
-       //}
-
-    //}
 }

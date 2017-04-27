@@ -71,7 +71,7 @@ public class ScheduleFragment extends Fragment{
                 }
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.fragment_container, addEventFragment).commit();
+                ft.replace(R.id.fragment_container, addEventFragment).addToBackStack("shecule_fragment").commit();
             }
         });
 

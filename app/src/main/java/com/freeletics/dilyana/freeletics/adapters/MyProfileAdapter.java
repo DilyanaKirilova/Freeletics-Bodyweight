@@ -53,6 +53,9 @@ public class MyProfileAdapter extends RecyclerView.Adapter<MyProfileAdapter.MyPr
 
     @Override
     public int getItemCount() {
+        if(exerciseList == null){
+            return 0;
+        }
         return exerciseList.size();
     }
 

@@ -84,6 +84,6 @@ public class WeekScheduleFragment extends Fragment implements View.OnClickListen
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, scheduleFragment).commit();
+        fragmentTransaction.replace(R.id.fragment_container, scheduleFragment).addToBackStack("week_shedule").commit();
     }
 }

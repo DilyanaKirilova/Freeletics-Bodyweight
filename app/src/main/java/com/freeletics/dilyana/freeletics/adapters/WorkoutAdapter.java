@@ -55,7 +55,7 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.MyViewHo
                 bundle.putSerializable("action", workout);
                 CurrentExerciseFragment fragment = new CurrentExerciseFragment();
                 fragment.setArguments(bundle);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack("workout_recview").commit();
             }
         });
 

@@ -74,7 +74,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
                     addEventFragment.setArguments(bundle);
                     FragmentManager fm = activity.getSupportFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.fragment_container, addEventFragment).commit();
+                    ft.replace(R.id.fragment_container, addEventFragment).addToBackStack("video").commit();
                 }
             });
         }
@@ -90,7 +90,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
                     videoFragment.setArguments(bundle);
                     FragmentManager fragmentManager = activity.getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_container, videoFragment).commit();
+                    fragmentTransaction.replace(R.id.fragment_container, videoFragment).addToBackStack("video1").commit();
                 }
             });
 
@@ -105,7 +105,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
                     videoFragment.setArguments(bundle);
                     FragmentManager fragmentManager = activity.getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_container, videoFragment).commit();
+                    fragmentTransaction.replace(R.id.fragment_container, videoFragment).addToBackStack("start_video").commit();
                 }
             });
         }

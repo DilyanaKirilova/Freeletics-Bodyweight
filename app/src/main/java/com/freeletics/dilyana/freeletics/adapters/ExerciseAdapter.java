@@ -51,7 +51,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.MyExer
                 bundle.putSerializable("action", exercise);
                 CurrentExerciseFragment fragment = new CurrentExerciseFragment();
                 fragment.setArguments(bundle);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack("exercise_recview").commit();
             }
         });
 

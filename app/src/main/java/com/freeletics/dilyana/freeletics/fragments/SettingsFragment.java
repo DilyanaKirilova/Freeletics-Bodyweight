@@ -59,7 +59,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 UsersManager.getInstance().logOutUser();
-                fragmentTransaction.replace(R.id.activity_main, new FragmentLogin()).commit();
+                fragmentTransaction.replace(R.id.activity_main, new FragmentLogin()).addToBackStack("settings").commit();
             }
         });
 

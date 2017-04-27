@@ -89,6 +89,7 @@ public class FragmentLogin extends Fragment {
                 if(UsersManager.getInstance().isValidLogin(email.getText().toString(), password.getText().toString())){
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });

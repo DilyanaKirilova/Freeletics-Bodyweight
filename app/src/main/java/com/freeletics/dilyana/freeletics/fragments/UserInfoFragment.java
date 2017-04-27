@@ -121,7 +121,7 @@ public class UserInfoFragment extends Fragment {
                     RegisterFragment registerFragment = new RegisterFragment();
                     registerFragment.setArguments(bundle);
 
-                    fragmentTransaction.replace(R.id.activity_main, registerFragment).commit();
+                    fragmentTransaction.replace(R.id.activity_main, registerFragment).addToBackStack("info_user").commit();
             }
         });
 

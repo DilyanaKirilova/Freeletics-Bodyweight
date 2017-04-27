@@ -88,6 +88,12 @@
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/current_action_recycler_view"
+        android:layout_below="@id/beat_your"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
     <Button
         android:layout_marginTop="20dp"
         android:id="@+id/next_button"
@@ -97,14 +103,5 @@
         android:background="@color/blueColor"
         android:text="Do your first exercise"
         android:textColor="@color/whiteColor"/>
-
-    <ImageView
-        android:id="@+id/exercise_image"
-        android:layout_below="@id/beat_your"
-        android:layout_above="@id/next_button"
-        android:layout_width="match_parent"
-        android:layout_height= "wrap_content" />
-
-
 
 </RelativeLayout>

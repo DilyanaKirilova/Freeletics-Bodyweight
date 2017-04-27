@@ -47,7 +47,7 @@ public class VideoInfoFragment extends Fragment {
                     videoFragment.setArguments(bundle);
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_container, videoFragment).commit();
+                    fragmentTransaction.replace(R.id.fragment_container, videoFragment).addToBackStack("video_info").commit();
                 }
             });
         }
