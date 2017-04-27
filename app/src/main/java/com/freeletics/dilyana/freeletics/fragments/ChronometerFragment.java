@@ -104,7 +104,6 @@ public class ChronometerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 chronometer.stop();
-               //user.addFinishedExc();
                 user.setLevel();
                 Bundle bundle = getArguments();
                 if(bundle!= null) {

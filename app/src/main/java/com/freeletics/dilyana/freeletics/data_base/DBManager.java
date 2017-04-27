@@ -74,7 +74,7 @@ public class DBManager extends SQLiteOpenHelper {
             " USER_NOTIFICATION_ID INTEGER,\n"+
             " USER_ACTION_ID INTEGER,\n"+
             " FOREIGN KEY(USER_NOTIFICATION_ID) REFERENCES NotificationActions(NOTIFICATION_ACTION_ID),\n"+
-            " FOREIGN KEY(USER_ACTION_ID) REFERENCES Actions(ACTION_ID),\n"+
+            " FOREIGN KEY(USER_ACTION_ID) REFERENCES Actions(ACTION_ID)\n"+
             ");";
 
     private static final String SQL_CREATE_NOTIFICATION_ACTIONS = "CREATE TABLE NotificationActions (\n" +
@@ -85,7 +85,7 @@ public class DBManager extends SQLiteOpenHelper {
             " NOTIFICATION_ACTION_MINUTE INTEGER NOT NULL,\n" +
             " NOTIFICATION_ACTION_DAY INTEGER NOT NULL,\n" +
             " NOTIFICATION_ACTION_REPETITIONS INTEGER NOT NULL,\n" +
-            " NOTIFICATION_ACTION_HAS_NOTIFICATIONS BOOLEAN NOT NULL,\n" +
+            " NOTIFICATION_ACTION_HAS_NOTIFICATIONS BOOLEAN NOT NULL\n" +
             ");";
 
     private static final String SQL_CREATE_ACTIONS = "CREATE TABLE Actions (\n" +
@@ -93,7 +93,7 @@ public class DBManager extends SQLiteOpenHelper {
             " ACTION_ID PRIMARY KEY AUTOINCREMENT,\n" +
             " ACTION_NAME text NOT NULL,\n" +
             " ACTION_TIME  NOT NULL,\n" +
-            " ACTION_REPETITIONS INTEGER NOT NULL,\n" +
+            " ACTION_REPETITIONS INTEGER NOT NULL\n" +
             ");";
 
     //TODO FINISHED ACTIONS AND SCHEDULE

@@ -38,7 +38,7 @@ public class MyProgramFragment extends Fragment {
         double usersBmi;
         if(u.getHeight()!=0 && u.getWeight()!=0) {
             usersBmi = u.countBMI();
-            userBMI.setText("Your BMI is: " + String.format("%.2f",usersBmi)+". /n You can start your exercises with perfect repetitions for you!");
+            userBMI.setText("Your BMI is: " + String.format("%.2f",usersBmi)+". You can start your exercises with perfect repetitions for you!");
         }
         else {
             userBMI.setText("Please add your weight and height in 'SETTINGS' ");

@@ -223,9 +223,9 @@ public class User implements Serializable {
     }
 
     public double countBMI(){
-        int weight = this.weight;
+        double weight = this.weight;
         double height = this.height;
-        double heightInMeters = height/10;
+        double heightInMeters = height/100;
         double bmi = weight/(heightInMeters*heightInMeters);
         return bmi;
     }
