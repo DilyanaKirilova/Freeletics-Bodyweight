@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/com_facebook_button_login_silver_background_color_pressed"
     tools:context="com.freeletics.dilyana.freeletics.fragments.AddEventFragment">
 
 
@@ -15,38 +17,47 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:layout_marginLeft="10dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_fae_action"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:text="Choose action:" />
+                android:gravity="center"
+                android:text="Choose action:"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/btn_fae_time"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_margin="5dp"
                 android:background="@color/blueColor"
                 android:textColor="@color/whiteColor"
-                android:text="Choose time:" />
+                android:layout_marginTop="10dp"
+                android:text="Choose time:"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/tv_fae_rep"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:text="Choose repetitions:" />
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:text="Choose repetitions:"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="Notification"/>
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Notification"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
 
         </LinearLayout>
 
@@ -55,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <Spinner
@@ -95,7 +107,8 @@
                 android:id="@+id/switch_notification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
                 android:text="OFF"/>
         </LinearLayout>
     </LinearLayout>

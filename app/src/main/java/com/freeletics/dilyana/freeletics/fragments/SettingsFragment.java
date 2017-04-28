@@ -42,7 +42,7 @@ public class SettingsFragment extends Fragment {
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentTransaction.replace(R.id.activity_main, new EditProfileFragment()).commit();
+                fragmentTransaction.replace(R.id.fragment_container, new EditProfileFragment()).commit();
             }
         });
 

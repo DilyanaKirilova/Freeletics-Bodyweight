@@ -7,18 +7,29 @@
     android:background="@drawable/bmi"
     tools:context="com.freeletics.dilyana.freeletics.fragments.MyProgramFragment">
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_margin="15dp">
     <TextView
         android:gravity="center"
         android:id="@+id/users_bmi"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_height="wrap_content"
         android:textSize="35sp"
+        android:textStyle="bold"
         android:textColor="@color/darkGray"
-        android:layout_marginBottom="15dp"
         />
+    <TextView
+        android:id="@+id/users_bmi_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textColor="@color/darkGray"
+        />
+</LinearLayout>
 
 </LinearLayout>

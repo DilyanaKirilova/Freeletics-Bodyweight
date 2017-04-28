@@ -28,6 +28,7 @@ public class User implements Serializable {
     private int weight;
     private int height;
     private int age;
+    private double points;
     private int id;
 
     private static int emailCounter =1;
@@ -90,7 +91,7 @@ public class User implements Serializable {
         }
         this.gender = gender;
         this.password = password;
-
+        this.points = 0;
         this.picture = R.drawable.avatar_male;
         this.finishedActions = new HashMap<ActionsManager.ActionName, TreeSet<Action>>();
         this.schedule = new HashMap<Integer, TreeSet<Action>>();
@@ -99,7 +100,7 @@ public class User implements Serializable {
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-
+        this.points = 0;
         this.finishedActions = new HashMap<ActionsManager.ActionName, TreeSet<Action>>();
         this.schedule = new HashMap<Integer, TreeSet<Action>>();
     }
@@ -220,6 +221,14 @@ public class User implements Serializable {
 
     public void deleteExcercise(Action a){
         this.finishedActions.remove(a);
+    }
+
+    public double getPoints() {
+        return points;
+    }
+
+    public void setPoints(double points) {
+        this.points = points;
     }
 
     public double countBMI(){

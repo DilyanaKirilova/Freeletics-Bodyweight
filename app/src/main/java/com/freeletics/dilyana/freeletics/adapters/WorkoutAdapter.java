@@ -44,8 +44,8 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.MyViewHo
         final Action workout = workoutList.get(position);
 
         holder.title.setText(workout.getName().toString());
-        holder.duration.setText(workout.getDuration()+"");
-        holder.difficulty.setText(workout.getDifficulty()+"");
+        holder.duration.setText("Duration: " +workout.getDuration());
+        holder.difficulty.setText("Difficulty: " + workout.getDifficulty());
 
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override

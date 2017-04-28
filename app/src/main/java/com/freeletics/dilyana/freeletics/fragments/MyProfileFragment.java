@@ -32,9 +32,10 @@ public class MyProfileFragment extends Fragment {
     private TextView profileName;
     private TextView level;
     private TextView doneWorkouts;
+    private TextView points;
     private RecyclerView recyclerView;
     private Context context;
-    private static final int REQUEST_CODE = 1313;
+    private MediaPlayer mediaPlayer;
 
 
     @Override
@@ -43,22 +44,23 @@ public class MyProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_my_profile, container, false);
         if(getArguments()!=null && getArguments().getString("fragment")!=null){
-            MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), R.raw.applause);
+            mediaPlayer = MediaPlayer.create(getActivity(), R.raw.applause);
             mediaPlayer.start();
         }
 
         profileImage = (ImageView) root.findViewById(R.id.profile_pic_my_profile);
-        profileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GalleryFragment galleryFragment = new GalleryFragment();
-                galleryFragment.show(getActivity().getSupportFragmentManager(), "my_gallery");
+       // profileImage.setOnClickListener(new View.OnClickListener() {
+         //   @Override
+           // public void onClick(View v) {
+             //   GalleryFragment galleryFragment = new GalleryFragment();
+               // galleryFragment.show(getActivity().getSupportFragmentManager(), "my_gallery");
 
-            }
-        });
+            //}
+        //});
         profileName = (TextView) root.findViewById(R.id.name_my_profile);
         level = (TextView) root.findViewById(R.id.level_my_profile);
         doneWorkouts = (TextView) root.findViewById(R.id.workouts_my_profile);
+        points = (TextView) root.findViewById(R.id.points_my_profile);
         context = root.getContext();
         recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view_my_profile);
 
@@ -82,7 +84,9 @@ public class MyProfileFragment extends Fragment {
 
             Action a = (Action) getArguments().getSerializable("action");
             doneWorkouts.setText(String.valueOf(u.getWorkouts(a.getName()).size()));
-
+            double actionPoints = u.getPoints() + a.getPoints();
+            u.setPoints(actionPoints);
+            points.setText(String.valueOf(u.getPoints()));
             MyProfileAdapter myProfileAdapter = new MyProfileAdapter(u.getWorkouts(a.getName()), (AppCompatActivity) getActivity());
             recyclerView.setAdapter(myProfileAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -90,5 +94,15 @@ public class MyProfileFragment extends Fragment {
 
         FragmentTransaction ft = getFragmentManager().beginTransaction().addToBackStack("my_profile");
         return root;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 }

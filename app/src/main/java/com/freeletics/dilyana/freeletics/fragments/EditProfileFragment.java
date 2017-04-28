@@ -207,14 +207,13 @@ public class EditProfileFragment extends Fragment {
 
                 if (((MainActivity) getActivity()).isEmptyField(emailStr, etEmail)) return;
 
-                /*
-                if (!emailStr.matches(EMAIL_REGEX)){
+             /*   if (!emailStr.matches(EMAIL_REGEX)){
 
                     etEmail.setError("Invalid email");
                     etEmail.requestFocus();
                     return;
-                }
-                */
+                }*/
+
 
                 if (genderStr.equals("Male")) {
                     gender = User.Gender.MALE;
