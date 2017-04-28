@@ -56,7 +56,9 @@ public class UsersManager {
     }
 
     public void logOutUser() {
-        this.loggedUser = null;
+        if(loggedUser!=null) {
+            this.loggedUser = null;
+        }
     }
 
     public void setLoggedUser(User loggedUser) {
@@ -64,8 +66,10 @@ public class UsersManager {
     }
 
     public void deleteUserRegistration() {
-        this.registeredUsers.remove(loggedUser.getEmail());
-        this.loggedUser = null;
+        if(loggedUser != null) {
+            this.registeredUsers.remove(loggedUser.getEmail());
+            this.loggedUser = null;
+        }
     }
 
     public User getLoggedUser() {

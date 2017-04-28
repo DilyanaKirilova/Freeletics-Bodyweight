@@ -30,7 +30,7 @@ public class CountDownFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_count_down, container, false);
         tvCountDown = (TextView) root.findViewById(R.id.tv_count_down);
 
-        MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), R.raw.sound_file_down_counting_1);
+        MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), R.raw.sound_file_down_counting_2);
         mediaPlayer.start();
         new CountDownTimer(7000, 1000) {
 
@@ -45,11 +45,13 @@ public class CountDownFragment extends Fragment {
 
             public void onFinish() {
 
+                /*
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                */
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ChronometerFragment chronometerFragment = new ChronometerFragment();

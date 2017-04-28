@@ -145,7 +145,7 @@ $                       #   End of the line
 
                     if (isEmptyField(password1Str, etPassword1)) return;
 
-                /*
+
                 if (!password1Str.matches(PASSWORD_REGEX)) {
 
                     etPassword1.setError("Password must contains: \n"+
@@ -157,7 +157,7 @@ $                       #   End of the line
                     etPassword1.requestFocus();
                     return;
                 }
-                */
+
 
                     if (isEmptyField(password2Str, etPassword2)) return;
 
@@ -170,14 +170,14 @@ $                       #   End of the line
                         return;
                     }
 
-                /*
+
                 if (!emailStr.matches(EMAIL_REGEX)){
 
                     etEmail.setError("Invalid email");
                     etEmail.requestFocus();
                     return;
                 }
-                */
+
 
                     if (isEmptyField(emailStr, etEmail)) return;
 

@@ -64,9 +64,9 @@ public class MyProfileFragment extends Fragment {
 
         UsersManager usersManager = UsersManager.getInstance();
         User u = usersManager.getLoggedUser();
-        if (u.getPicture() != 0) {
-            profileImage.setImageResource(u.getPicture());
-        }
+       // if (u.getPicture() != 0) {
+         //   profileImage.setImageResource(u.getPicture());
+        //}
 
         Uri profile;
         if(getArguments()!=null && getArguments().getSerializable("uri")!=null) {
@@ -88,6 +88,7 @@ public class MyProfileFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         }
 
+        FragmentTransaction ft = getFragmentManager().beginTransaction().addToBackStack("my_profile");
         return root;
     }
 }

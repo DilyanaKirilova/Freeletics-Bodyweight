@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/workoutBackground"
-            android:text="Workouts: "/>
+            android:text="Actions: "/>
         <TextView
             android:id="@+id/workouts_my_profile"
             android:layout_width="wrap_content"

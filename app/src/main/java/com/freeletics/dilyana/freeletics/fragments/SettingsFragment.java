@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.freeletics.dilyana.freeletics.MainActivity;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.WelcomeActivity;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
@@ -59,7 +60,11 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 UsersManager.getInstance().logOutUser();
-                fragmentTransaction.replace(R.id.activity_main, new FragmentLogin()).addToBackStack("settings").commit();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("request_code","login");
+                startActivity(intent);
+                getActivity().finish();
+                //fragmentTransaction.replace(R.id.activity_main, new FragmentLogin()).addToBackStack("settings").commit();
             }
         });
 

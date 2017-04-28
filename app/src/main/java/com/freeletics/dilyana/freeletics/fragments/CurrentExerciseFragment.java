@@ -73,7 +73,7 @@ public class CurrentExerciseFragment extends Fragment {
             });
         }
 
-        nextButton.setText("Do your first " + action.getName().toString());
+        nextButton.setText("Do your " + action.getName().toString());
 
         final Action finalAction = action;
         nextButton.setOnClickListener(new View.OnClickListener() {
