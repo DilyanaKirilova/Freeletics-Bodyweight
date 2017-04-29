@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="0.5dp"
             android:layout_weight="1"
-            android:background="@color/blueColor"
+            android:background="@color/darkGray"
             android:gravity="center"
             android:hint="Login"
             android:textColorHint="@color/whiteColor" />

@@ -2,11 +2,12 @@
 <resources>
     <color name="colorPrimary">#191a1e</color>
     <color name="colorPrimaryDark">#0d2f39</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#40a0ff</color>
     <color name="workoutBackground">#bebebe</color>
     <color name="whiteColor">#FFFFFF</color>
     <color name="blueColor">#0051ff</color>
     <color name="black">#000000</color>
     <color name="darkGray">#0d0c0c</color>
     <color name="redColor">#ce0000</color>
+    <color name="buttonColor">#85ffffff</color>
 </resources>

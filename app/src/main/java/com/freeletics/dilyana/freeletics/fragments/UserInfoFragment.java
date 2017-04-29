@@ -30,7 +30,6 @@ public class UserInfoFragment extends Fragment {
     private Spinner spHeight;
 
 
-
     // user data
 
     private String gender;
@@ -43,10 +42,10 @@ public class UserInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root =  inflater.inflate(R.layout.fragment_info_user, container, false);
+        View root = inflater.inflate(R.layout.fragment_info_user, container, false);
 
         spGender = (Spinner) root.findViewById(R.id.spinner_gender);
-        spAge    = (Spinner) root.findViewById(R.id.spinner_age);
+        spAge = (Spinner) root.findViewById(R.id.spinner_age);
         spWeight = (Spinner) root.findViewById(R.id.spinner_weight);
         spHeight = (Spinner) root.findViewById(R.id.spinner_height);
 
@@ -70,7 +69,8 @@ public class UserInfoFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         spAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -80,17 +80,19 @@ public class UserInfoFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         spWeight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               weight = Integer.parseInt((String) parent.getItemAtPosition(position));
+                weight = Integer.parseInt((String) parent.getItemAtPosition(position));
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         spHeight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -100,7 +102,8 @@ public class UserInfoFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         Button btnSave = (Button) root.findViewById(R.id.btn_fiu_save);
@@ -109,23 +112,21 @@ public class UserInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString("gender", gender);
-                    bundle.putInt("age", age);
-                    bundle.putInt("weight", weight);
-                    bundle.putInt("height", height);
+                Bundle bundle = new Bundle();
+                bundle.putString("gender", gender);
+                bundle.putInt("age", age);
+                bundle.putInt("weight", weight);
+                bundle.putInt("height", height);
 
-                    RegisterFragment registerFragment = new RegisterFragment();
-                    registerFragment.setArguments(bundle);
+                RegisterFragment registerFragment = new RegisterFragment();
+                registerFragment.setArguments(bundle);
 
-                    fragmentTransaction.replace(R.id.activity_main, registerFragment).addToBackStack("info_user").commit();
+                fragmentTransaction.replace(R.id.activity_main, registerFragment).addToBackStack("info_user").commit();
             }
         });
-
         return root;
     }
-
 }

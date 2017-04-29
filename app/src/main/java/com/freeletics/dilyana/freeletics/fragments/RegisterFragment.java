@@ -3,8 +3,11 @@ package com.freeletics.dilyana.freeletics.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,8 +77,7 @@ $                       #   End of the line
     private EditText etLastName;
     private EditText etEmail;
     private EditText etPassword1;
-    private EditText etPassword2;
-    private LoginButton loginButton;
+    private Button showPassword;
 
 
     private User.Gender gender;
@@ -90,10 +92,10 @@ $                       #   End of the line
         View root = inflater.inflate(R.layout.fragment_register, container, false);
 
         etFirstName = (EditText) root.findViewById(R.id.et_fr_first_name);
-        etLastName = (EditText) root.findViewById(R.id.et_fr_last_name);
-        etEmail = (EditText) root.findViewById(R.id.et_fr_email);
+        etLastName  = (EditText) root.findViewById(R.id.et_fr_last_name);
+        etEmail     = (EditText) root.findViewById(R.id.et_fr_email);
         etPassword1 = (EditText) root.findViewById(R.id.et_fr_password_1);
-        etPassword2 = (EditText) root.findViewById(R.id.et_fr_password_2);
+        showPassword = (Button)  root.findViewById(R.id.show_password);
         btnCreateAccount = (Button) root.findViewById(R.id.btn_fr_create_account);
         // get user info
         if(getArguments() != null){
@@ -112,6 +114,17 @@ $                       #   End of the line
             weight = bundle.getInt("weight");
         }
 
+        showPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(etPassword1.getTransformationMethod() == null) {
+                    etPassword1.setTransformationMethod(new PasswordTransformationMethod());
+                }
+                else{
+                    etPassword1.setTransformationMethod(null);
+                }
+            }
+        });
 
         // check for valid registration and make registration
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +134,6 @@ $                       #   End of the line
                 String firstNameStr = etFirstName.getText().toString();
                 String lastNameStr = etLastName.getText().toString();
                 String password1Str = etPassword1.getText().toString();
-                String password2Str = etPassword2.getText().toString();
                 String emailStr = etEmail.getText().toString();
 
                     if (isEmptyField(firstNameStr, etFirstName)) return;
@@ -157,19 +169,6 @@ $                       #   End of the line
                     etPassword1.requestFocus();
                     return;
                 }
-
-
-                    if (isEmptyField(password2Str, etPassword2)) return;
-
-                    if (!password1Str.equals(password2Str)) {
-
-                        etPassword1.setText("");
-                        etPassword2.setText("");
-                        etPassword1.setError("Passwords mismatch");
-                        etPassword1.requestFocus();
-                        return;
-                    }
-
 
                 if (!emailStr.matches(EMAIL_REGEX)){
 
