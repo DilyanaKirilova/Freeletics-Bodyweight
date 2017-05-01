@@ -1,5 +1,6 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,9 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.adapters.ActionAdapter;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
+
+import java.util.List;
 
 
 public class ActionFragment extends Fragment {
@@ -25,6 +31,7 @@ public class ActionFragment extends Fragment {
     }
 
     private Button btnDoAction;
+   // private ShareButton shareButton;
     private Action action = null;
     private TextView tvNumOfRepetitions;
     private RecyclerView recyclerView;
@@ -33,6 +40,7 @@ public class ActionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        FacebookSdk.sdkInitialize(getContext());
         View root =  inflater.inflate(R.layout.fragment_action, container, false);
 
         if(getArguments() != null && getArguments().getSerializable("action") != null){
@@ -50,6 +58,8 @@ public class ActionFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         }
         tvNumOfRepetitions.setText(action.getRepetitions() + "");
+
+
 
 
         btnDoAction.setText("Do  " + action.getCategory());

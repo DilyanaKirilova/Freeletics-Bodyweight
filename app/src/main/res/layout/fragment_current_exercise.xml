@@ -83,6 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
+
     <Button
         android:layout_marginTop="20dp"
         android:id="@+id/next_button"
@@ -92,5 +93,6 @@
         android:background="@color/blueColor"
         android:text="Do your first exercise"
         android:textColor="@color/whiteColor"/>
+
 
 </RelativeLayout>

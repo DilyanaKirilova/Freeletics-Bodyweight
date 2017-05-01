@@ -59,19 +59,5 @@ public class GalleryFragment extends DialogFragment {
                 startActivityForResult(intent, 1);
         }
 
-        @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent data) {
-                super.onActivityResult(requestCode, resultCode, data);
-                if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-                        Uri filePath = data.getData();
-                        Intent publishIntent = new Intent(getActivity(), HomeActivity.class);
-                        publishIntent.putExtra("photoUri", filePath.toString());
-                        startActivity(publishIntent);
-                } else if (requestCode == 2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-                        Uri filePath = data.getData();
-                        Intent publishIntent = new Intent(getActivity(), HomeActivity.class);
-                        publishIntent.putExtra("photoUri", filePath.toString());
-                        startActivity(publishIntent);
-                }
-        }
+
 }

@@ -1,5 +1,6 @@
 package com.freeletics.dilyana.freeletics.adapters;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.dialog_fragments.VerificationFragment;
 import com.freeletics.dilyana.freeletics.fragments.AddEventFragment;
@@ -44,11 +48,10 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
 
     @Override
     public void onBindViewHolder(ActionViewHolder holder, int position) {
-
         final Action exercise = exercises.get(position);
 
         if(exercise.isEvent()){
-            holder.tvExerciseTime.setText(exercise.getHour() + ":" + exercise.getMinute());
+            //holder.tvExerciseTime.setText(exercise.getHour() + ":" + exercise.getMinute());
             holder.ibImage.setBackgroundResource(R.drawable.non_video);
 
             holder.layout.setOnLongClickListener(new View.OnLongClickListener() {
@@ -109,6 +112,11 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
                 }
             });
         }
+        String video = exercise.getVideoUrl();
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(video))
+                .build();
+        holder.shareButton.setShareContent(content);
         holder.tvExerciseName.setText(exercise.getName().toString());
         holder.tvExerciseRepetitions.setText(exercise.getRepetitions());
     }
@@ -126,8 +134,8 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
         ImageButton ibImage;
         TextView tvExerciseName;
         TextView tvExerciseRepetitions;
-        TextView tvExerciseTime;
         LinearLayout layout;
+        ShareButton shareButton;
 
         public ActionViewHolder(View itemView) {
             super(itemView);
@@ -135,8 +143,8 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
             ibImage               = (ImageButton) itemView.findViewById(R.id.ib_ar_img);
             tvExerciseName        = (TextView) itemView.findViewById(R.id.tv_ar_exercise_name);
             tvExerciseRepetitions = (TextView) itemView.findViewById(R.id.tv_ar_exercise_repetitions);
-            tvExerciseTime        = (TextView) itemView.findViewById(R.id.tv_ar_action_time);
             layout                = (LinearLayout) itemView.findViewById(R.id.action_row);
+            shareButton = (ShareButton) itemView.findViewById(R.id.share_btn);
         }
     }
 }

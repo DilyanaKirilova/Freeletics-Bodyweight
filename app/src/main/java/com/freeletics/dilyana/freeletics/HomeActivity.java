@@ -2,8 +2,11 @@ package com.freeletics.dilyana.freeletics;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -32,6 +35,7 @@ import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 import java.io.Serializable;
 import java.net.URL;
 
+import static android.graphics.BitmapFactory.decodeFile;
 import static com.freeletics.dilyana.freeletics.R.array.gender;
 import static com.freeletics.dilyana.freeletics.R.array.weight;
 
@@ -44,7 +48,6 @@ public class HomeActivity extends AppCompatActivity
     private TextView name;
     private com.facebook.login.widget.LoginButton loginButton;
     private CallbackManager callbackManager;
-    private Uri photoUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +88,11 @@ public class HomeActivity extends AppCompatActivity
                 Bundle b = getIntent().getExtras();
                 MyProfileFragment myProfileFragment = new MyProfileFragment();
                 if (b != null) {
-                    photoUri = Uri.parse(b.getString("photoUri"));
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("uri", (Serializable) photoUri);
-                    myProfileFragment.setArguments(bundle);
+                    String photopPath = b.getString("photo");
+                   // photoUri = Uri.parse(b.getString("photoUri"));
+                    //Bundle bundle = new Bundle();
+                    //bundle.putSerializable("uri", (Serializable) photoUri);
+                    myProfileFragment.setArguments(b);
 
                 }
                 ft.replace(R.id.fragment_container, myProfileFragment).addToBackStack("my_profile_frag").commit();
@@ -146,10 +150,27 @@ public class HomeActivity extends AppCompatActivity
         ((TextView) findViewById(R.id.tv_fae_minute)).setText( minute + "");
     }
 
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri filePath = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            // Intent publishIntent = new Intent(HomeActivity.this, HomeActivity.class);
+            // publishIntent.putExtra("photoUri", filePath.toString());
+            //startActivity(publishIntent);
+            Cursor cursor = getContentResolver().query(filePath, filePathColumn, null, null, null);
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+            Bundle bundle = new Bundle();
+            bundle.putString("picture", picturePath);
+            MyProfileFragment myProfileFragment = new MyProfileFragment();
+            myProfileFragment.setArguments(bundle);
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.fragment_container, myProfileFragment).addToBackStack("take_photo").commit();
 
+        }
+    }
 
 }

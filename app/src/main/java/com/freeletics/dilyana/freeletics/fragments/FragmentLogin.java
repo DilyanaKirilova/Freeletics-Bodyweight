@@ -91,6 +91,11 @@ public class FragmentLogin extends Fragment {
                     startActivity(intent);
                     getActivity().finish();
                 }
+                else {
+                    Toast.makeText(getActivity(), "Not correct profile, create account!", Toast.LENGTH_SHORT).show();
+                    email.setText(" ");
+                    password.setText("");
+                }
             }
         });
 

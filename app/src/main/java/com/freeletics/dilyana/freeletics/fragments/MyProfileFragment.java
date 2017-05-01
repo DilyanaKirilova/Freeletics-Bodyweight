@@ -2,6 +2,7 @@ package com.freeletics.dilyana.freeletics.fragments;
 
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -49,14 +50,14 @@ public class MyProfileFragment extends Fragment {
         }
 
         profileImage = (ImageView) root.findViewById(R.id.profile_pic_my_profile);
-       // profileImage.setOnClickListener(new View.OnClickListener() {
-         //   @Override
-           // public void onClick(View v) {
-             //   GalleryFragment galleryFragment = new GalleryFragment();
-               // galleryFragment.show(getActivity().getSupportFragmentManager(), "my_gallery");
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GalleryFragment galleryFragment = new GalleryFragment();
+                galleryFragment.show(getActivity().getSupportFragmentManager(), "my_gallery");
 
-            //}
-        //});
+            }
+        });
         profileName = (TextView) root.findViewById(R.id.name_my_profile);
         level = (TextView) root.findViewById(R.id.level_my_profile);
         doneWorkouts = (TextView) root.findViewById(R.id.workouts_my_profile);
@@ -71,12 +72,14 @@ public class MyProfileFragment extends Fragment {
         //}
 
         Uri profile;
-        if(getArguments()!=null && getArguments().getSerializable("uri")!=null) {
-            profile = (Uri) getArguments().getSerializable("uri");
-            String prof = profile.toString();
-            int pic = Integer.parseInt(prof);
-            u.setPicture(pic);
-            profileImage.setImageResource(pic);
+        if(getArguments()!=null && getArguments().getString("picture")!=null) {
+            //profile = (Uri) getArguments().getSerializable("uri");
+            //String prof = profile.toString();
+            //int pic = Integer.parseInt(prof);
+            String picturePath = getArguments().getString("picture");
+            profileImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            //u.setPicture(pic);
+            //profileImage.setImageResource(pic);
         }
         profileName.setText(u.getFirstName() + " " + u.getLastName());
         level.setText(String.valueOf(u.getLevel()));

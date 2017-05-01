@@ -57,7 +57,7 @@ public class DBManager extends SQLiteOpenHelper {
     public static final String COL_ACTION_BEST_TIME = "ACTION_HOUR_BEST_TIME";
     public static final String COL_ACTION_REPETITIONS = "ACTION_REPETITIONS";
 
-    private static final String SQL_CREATE_USERS = "CREATE TABLE Users (\n" +
+    private static final String SQL_CREATE_USERS = "CREATE TABLE users (\n" +
             "\n" +
             " USER_ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
             " USER_FIRST_NAME text NOT NULL,\n" +
@@ -70,12 +70,13 @@ public class DBManager extends SQLiteOpenHelper {
             " USER_HEIGHT INTEGER NOT NULL,\n" +
             " USER_PICTURE INTEGER NOT NULL,\n" +
             " USER_LEVEL INTEGER NOT NULL,\n" +
-            " USER_IS_LOGGED_USER BOOLEAN NOT NULL,\n"+
-            " USER_NOTIFICATION_ID INTEGER,\n"+
-            " USER_ACTION_ID INTEGER,\n"+
-            " FOREIGN KEY(USER_NOTIFICATION_ID) REFERENCES NotificationActions(NOTIFICATION_ACTION_ID),\n"+
-            " FOREIGN KEY(USER_ACTION_ID) REFERENCES Actions(ACTION_ID)\n"+
+            " USER_IS_LOGGED_USER BOOLEAN NOT NULL,\n" +
+            " USER_NOTIFICATION_ID INTEGER,\n" +
+            " USER_ACTION_ID INTEGER,\n" +
+            " FOREIGN KEY(USER_NOTIFICATION_ID) REFERENCES NotificationActions(NOTIFICATION_ACTION_ID),\n" +
+            " FOREIGN KEY(USER_ACTION_ID) REFERENCES Actions(ACTION_ID)\n" +
             ");";
+
 
     private static final String SQL_CREATE_NOTIFICATION_ACTIONS = "CREATE TABLE NotificationActions (\n" +
             "\n" +
@@ -93,8 +94,7 @@ public class DBManager extends SQLiteOpenHelper {
             " ACTION_ID PRIMARY KEY AUTOINCREMENT,\n" +
             " ACTION_NAME text NOT NULL,\n" +
             " ACTION_TIME  NOT NULL,\n" +
-            " ACTION_REPETITIONS INTEGER NOT NULL\n" +
-            ");";
+            " ACTION_REPETITIONS INTEGER NOT NULL);";
 
     //TODO FINISHED ACTIONS AND SCHEDULE
 
@@ -107,9 +107,10 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     public static DBManager getInstance(Context context) {
-        if(ourInstance == null){
+        if (ourInstance == null) {
             ourInstance = new DBManager(context);
             DBManager.context = context;
+            loadUsers();
         }
         return ourInstance;
     }
@@ -117,23 +118,23 @@ public class DBManager extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_USERS);
-        db.execSQL(TABLE_NOTIFICATION_ACTION);
-        db.execSQL(TABLE_ACTION);
+       // db.execSQL(TABLE_NOTIFICATION_ACTION);
+        //db.execSQL(TABLE_ACTION);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE Users;");
-        db.execSQL("DROP TABLE NotificationActions;");
-        db.execSQL("DROP TABLE Actions;");
+       // db.execSQL("DROP TABLE NotificationActions;");
+       // db.execSQL("DROP TABLE Actions;");
         onCreate(db);
     }
 
-    public void addUser(User u){
-        if(UsersManager.getInstance().existsUser(u.getEmail())){
+    public void addUser(User u) {
+        if (!UsersManager.getInstance().existsUser(u.getEmail())) {
             Toast.makeText(context, "User already exists", Toast.LENGTH_SHORT).show();
-           return;
-       }
+            return;
+        }
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_USER_FIRST_NAME, u.getFirstName());
         contentValues.put(COL_USER_LAST_NAME, u.getLastName());
@@ -147,13 +148,13 @@ public class DBManager extends SQLiteOpenHelper {
         contentValues.put(COL_USER_LEVEL, u.getLevel());
         contentValues.put(COL_USER_IS_LOGGED_USER, u.isLogged());
 
-        long id = getWritableDatabase().insert(TABLE_USERS, null, contentValues );
-        u.setId((int)id);
+        long id = getWritableDatabase().insert(TABLE_USERS, null, contentValues);
+        u.setId((int) id);
 
         Toast.makeText(context, "User added successfully", Toast.LENGTH_SHORT).show();
     }
 
-    public void addNotification(Action a){
+    public void addNotification(Action a) {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_NOTIFICATION_ACTION_NAME, String.valueOf(a.getName()));
@@ -163,39 +164,39 @@ public class DBManager extends SQLiteOpenHelper {
         contentValues.put(COL_NOTIFICATION_ACTION_REPETITIONS, a.getRepetitions());
         contentValues.put(COL_NOTIFICATION_ACTION_HAS_NOTIFICATION, a.hasNotification());
 
-        long id = getWritableDatabase().insert(TABLE_NOTIFICATION_ACTION, null, contentValues );
-        a.setId((int)id);
+        long id = getWritableDatabase().insert(TABLE_NOTIFICATION_ACTION, null, contentValues);
+        a.setId((int) id);
 
         Toast.makeText(context, "Notification added successfully", Toast.LENGTH_SHORT).show();
     }
 
-    public void addAction(Action a){
+    public void addAction(Action a) {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_ACTION_NAME, String.valueOf(a.getName()));
         contentValues.put(COL_ACTION_BEST_TIME, a.getBestTime());
         contentValues.put(COL_ACTION_REPETITIONS, a.getRepetitions());
 
-        long id = getWritableDatabase().insert(TABLE_ACTION, null, contentValues );
-        a.setId((int)id);
+        long id = getWritableDatabase().insert(TABLE_ACTION, null, contentValues);
+        a.setId((int) id);
 
         Toast.makeText(context, "Action added successfully", Toast.LENGTH_SHORT).show();
     }
 
 
-    public void deleteUser(String email){
-            if(!UsersManager.getInstance().existsUser(email)){
-               Toast.makeText(context, "User does not exist!", Toast.LENGTH_SHORT).show();
-              return;
-            }
+    public void deleteUser(String email) {
+        if (!UsersManager.getInstance().existsUser(email)) {
+            Toast.makeText(context, "User does not exist!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            getWritableDatabase().delete("User", "username = ?", new String[]{email});
-            Toast.makeText(context, email + " deleted successfully", Toast.LENGTH_SHORT).show();
-            UsersManager.getInstance().deleteUserRegistration();
+        getWritableDatabase().delete("User", "username = ?", new String[]{email});
+        Toast.makeText(context, email + " deleted successfully", Toast.LENGTH_SHORT).show();
+        UsersManager.getInstance().deleteUserRegistration();
     }
 
-    public void deleteAction(Action action){
-        if(!UsersManager.getInstance().getLoggedUser().hasNotificationAction(action)){
+    public void deleteAction(Action action) {
+        if (!UsersManager.getInstance().getLoggedUser().hasNotificationAction(action)) {
             Toast.makeText(context, "User does not exist!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -204,14 +205,15 @@ public class DBManager extends SQLiteOpenHelper {
         //todo
     }
 
-    public void deleteNotification(){
+    public void deleteNotification() {
 
     }
 
-    private static void loadUsers(){
+    private static void loadUsers() {
         //select from users and fill in collection
-        Cursor cursor = ourInstance.getWritableDatabase().rawQuery("SELECT id, username, password, age FROM kozi;", null);
-        while(cursor.moveToNext()){
+        Cursor cursor = ourInstance.getWritableDatabase().rawQuery("SELECT USER_ID,USER_FIRST_NAME, " +
+                "USER_LAST_NAME, USER_WEIGHT, USER_HEIGHT, USER_AGE, USER_GENDER, USER_EMAIL, USER_PASSWORD FROM Users;", null);
+        while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex(COL_USER_ID));
             String firstName = cursor.getString(cursor.getColumnIndex(COL_USER_FIRST_NAME));
             String lastName = cursor.getString(cursor.getColumnIndex(COL_USER_LAST_NAME));
@@ -221,22 +223,18 @@ public class DBManager extends SQLiteOpenHelper {
             int age = cursor.getInt(cursor.getColumnIndex(COL_USER_AGE));
             int weight = cursor.getInt(cursor.getColumnIndex(COL_USER_WEIGHT));
             int height = cursor.getInt(cursor.getColumnIndex(COL_USER_HEIGHT));
-            int picture = cursor.getInt(cursor.getColumnIndex(COL_USER_PICTURE));
-            int level = cursor.getInt(cursor.getColumnIndex(COL_USER_LEVEL));
-            boolean isLoggedUser = cursor.getInt(cursor.getColumnIndex(COL_USER_IS_LOGGED_USER))>0;
+            boolean isLoggedUser = cursor.getInt(cursor.getColumnIndex(COL_USER_IS_LOGGED_USER)) > 0;
             User.Gender gender1 = null;
-            if(gender.equals("MALE")){
+            if (gender.equals("MALE")) {
                 gender1 = User.Gender.MALE;
             }
-            if(gender.equals("FEMALE")){
+            if (gender.equals("FEMALE")) {
                 gender1 = User.Gender.FEMALE;
             }
             User u = new User(firstName, lastName, weight, height, age, gender1, email, password);
             u.setId(id);
-            //registeredUsers.put(username, u);
+            UsersManager.getInstance().registerUser(u);
         }
-
     }
 }
-
 

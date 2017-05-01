@@ -1,5 +1,6 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -31,6 +31,7 @@ public class CurrentExerciseFragment extends Fragment {
     private TextView equipmentValue;
     private Spinner spinnerRepetitions;
     private Button nextButton;
+
     private Action action;
     private RecyclerView recyclerView;
 
@@ -72,6 +73,8 @@ public class CurrentExerciseFragment extends Fragment {
                 }
             });
         }
+
+
 
         nextButton.setText("Do your " + action.getName().toString());
 

@@ -48,7 +48,6 @@
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true" />
 
-
         <receiver android:name=".NotificationReceiver" />
 
     </application>

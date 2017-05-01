@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 import com.facebook.CallbackManager;
+import com.freeletics.dilyana.freeletics.data_base.DBManager;
 import com.freeletics.dilyana.freeletics.fragments.FragmentLogin;
 import com.freeletics.dilyana.freeletics.fragments.SettingsFragment;
 import com.freeletics.dilyana.freeletics.fragments.UserInfoFragment;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         callbackManager = CallbackManager.Factory.create();
+
+        DBManager dbManager = DBManager.getInstance(this);
 
         if(getIntent().getStringExtra("request_code")!= null){
 
