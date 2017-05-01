@@ -116,6 +116,7 @@ public class WelcomeActivity extends AppCompatActivity{
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.putExtra("request_code", "start_now");
                     startActivity(intent);
+                    getActivity().overridePendingTransition( R.anim.in_from_left, R.anim.out_to_right );
                 }
             });
 
@@ -126,6 +127,7 @@ public class WelcomeActivity extends AppCompatActivity{
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.putExtra("request_code", "login");
                     startActivity(intent);
+                    getActivity().overridePendingTransition( R.anim.right_in, R.anim.left_out );
                 }
             });
 

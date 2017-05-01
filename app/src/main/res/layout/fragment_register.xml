@@ -8,66 +8,74 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="15dp"
         android:orientation="vertical"
         android:layout_gravity="center">
-
-
         <EditText
             android:id="@+id/et_fr_first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/layout_margin"
             android:hint="First Name"
+            android:textColorHint="@color/whiteColor"
+            android:textColor="@color/whiteColor"
             android:maxLines="1"
             android:maxLength="35"
             android:gravity="center"/>
-
         <EditText
             android:id="@+id/et_fr_last_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/layout_margin"
+            android:textColorHint="@color/whiteColor"
+            android:textColor="@color/whiteColor"
             android:hint="Last Name"
             android:maxLines="1"
             android:maxLength="35"
             android:gravity="center"/>
-
         <EditText
             android:id="@+id/et_fr_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/layout_margin"
+            android:textColorHint="@color/whiteColor"
+            android:textColor="@color/whiteColor"
             android:hint="Email"
             android:maxLines="1"
             android:maxLength="35"
             android:gravity="center"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/layout_margin">
         <EditText
             android:id="@+id/et_fr_password_1"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="10"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:textColorHint="@color/whiteColor"
+            android:textColor="@color/whiteColor"
             android:inputType="textPassword"
             android:maxLines="1"
             android:maxLength="35"
             android:gravity="center"/>
-
-        <EditText
-            android:id="@+id/et_fr_password_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:maxLength="35"
-            android:gravity="center"/>
-
+            <Button
+                android:id="@+id/show_password"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_remove_red_eye_white_24dp"/>
+        </LinearLayout>
         <Button
             android:id="@+id/btn_fr_create_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create new account"
+            android:text="Register with Email"
             android:textColor="@color/whiteColor"
-            android:background="@color/blueColor"
+            android:background="@color/buttonColor"
+            android:layout_margin="@dimen/layout_margin"
+            android:textStyle="bold"
             android:gravity="center"/>
     </LinearLayout>
-
 </ScrollView>

@@ -7,33 +7,34 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/reg"
-    tools:context="com.freeletics.dilyana.freeletics.fragments.FragmentLogin">
-
+    tools:context="com.freeletics.dilyana.freeletics.fragments.FragmentLogin"
+    >
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:gravity="center"
-        android:layout_margin="4dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"/>
-
+        android:layout_margin="@dimen/layout_margin"
+        android:layout_height="@dimen/button_height"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layout_margin"
         android:gravity="center"
+        android:textColor="@color/whiteColor"
         android:text="@string/or"
-        android:textSize="25sp"/>
+        android:textSize="20sp"/>
     <EditText
         android:id="@+id/email_login"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layout_margin"
         android:maxLines="1"
         android:maxLength="35"
+        android:textColor="@color/whiteColor"
+        android:textColorHint="@color/whiteColor"
         android:hint="@string/email"/>
-
     <EditText
         android:id="@+id/password_login"
         android:layout_width="match_parent"
@@ -42,15 +43,17 @@
         android:inputType="textPassword"
         android:maxLines="1"
         android:maxLength="35"
+        android:layout_margin="@dimen/layout_margin"
+        android:textColor="@color/whiteColor"
+        android:textColorHint="@color/whiteColor"
         android:hint="@string/password"/>
-
     <Button
         android:id="@+id/email_login_button_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@color/blueColor"
+        android:background="@color/buttonColor"
         android:text="@string/log_in_with_email"
+        android:layout_height="@dimen/button_height"
+        android:layout_margin="@dimen/layout_margin"
+        android:textStyle="bold"
         android:textColor="@color/whiteColor"/>
-
 </LinearLayout>

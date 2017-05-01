@@ -2,128 +2,123 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:background="@drawable/reg"
+    android:orientation="vertical"
     tools:context="com.freeletics.dilyana.freeletics.fragments.UserInfoFragment">
 
     <TextView
         android:id="@+id/tv_fiu_title_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="35dp"
+        android:layout_margin="@dimen/layout_margin"
         android:gravity="center"
         android:text="GET STARTED"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textStyle="bold"
+        android:textSize="35dp" />
 
     <TextView
         android:id="@+id/tv_fiu_title_two"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layout_margin"
         android:gravity="center"
-        android:text="Take the first step to individualizing your Athletic jorney. Tell us more about yourself."
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textStyle="bold"
+        android:text="Take the first step to individualizing your Athletic jorney. Tell us more about yourself." />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="bottom"
-        android:layout_gravity="bottom">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_margin="@dimen/layout_margin"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="5"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Select your Gender" />
+
+            <Spinner
+                android:id="@+id/spinner_gender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="right"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select your Gender"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:layout_gravity="center">
 
-        <Spinner
-            android:layout_width="0dp"
-            android:layout_weight="2"
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Select your Age" />
+
+            <Spinner
+                android:id="@+id/spinner_age"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="right" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner_gender"
-            android:gravity="right"
-            android:textColor="@color/colorPrimaryDark"/>
-    </LinearLayout>
+            android:layout_gravity="center">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@color/whiteColor">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Select your Height"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="5"
+            <Spinner
+                android:id="@+id/spinner_height"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="right"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select your Age"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:layout_gravity="center"
+            android:textColor="@color/whiteColor">
 
-        <Spinner
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_age"
-            android:gravity="right"
-            android:textColor="@color/colorPrimaryDark"/>
-    </LinearLayout>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Select your Weight" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+            <Spinner
+                android:id="@+id/spinner_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="right" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="wrap_content"
-            android:text="Select your Height"
-            android:textColor="@color/colorPrimaryDark"/>
-
-        <Spinner
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_height"
-            android:gravity="right"
-            android:textColor="@color/colorPrimaryDark"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@color/whiteColor">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="wrap_content"
-            android:text="Select your Weight"
-            android:textColor="@color/colorPrimaryDark"/>
-
-        <Spinner
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_weight"
-            android:gravity="right"
-            android:textColor="@color/colorPrimaryDark"/>
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_fiu_save"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Save information about yourself"
-        android:background="@color/blueColor"
-        android:textColorHint="@color/whiteColor"/>
-    </LinearLayout>
+        android:layout_height="@dimen/button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:background="@color/buttonColor"
+        android:text="Save"
+        android:textStyle="bold"
+        android:layout_margin="@dimen/layout_margin"
+        android:textColor="@color/whiteColor" />
 
 </LinearLayout>
