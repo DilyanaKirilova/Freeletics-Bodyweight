@@ -26,7 +26,6 @@ import com.freeletics.dilyana.freeletics.model.users.UsersManager;
  */
 public class MyProfileFragment extends Fragment {
 
-    private ImageView profileImage;
     private TextView profileName;
     private TextView level;
     private TextView doneWorkouts;
@@ -46,7 +45,6 @@ public class MyProfileFragment extends Fragment {
             mediaPlayer.start();
         }
 
-        profileImage = (ImageView) root.findViewById(R.id.profile_pic_my_profile);
         profileName = (TextView) root.findViewById(R.id.name_my_profile);
         level = (TextView) root.findViewById(R.id.level_my_profile);
         doneWorkouts = (TextView) root.findViewById(R.id.workouts_my_profile);

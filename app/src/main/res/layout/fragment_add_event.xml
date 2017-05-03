@@ -48,7 +48,7 @@
                 android:layout_marginTop="15dp"
                 android:text="Choose repetitions:"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:textSize="15sp"/>
 
             <TextView
                 android:layout_width="match_parent"

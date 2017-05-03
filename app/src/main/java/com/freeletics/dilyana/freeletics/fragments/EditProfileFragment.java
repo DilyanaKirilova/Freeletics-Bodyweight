@@ -20,12 +20,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.freeletics.dilyana.freeletics.HomeActivity;
 import com.freeletics.dilyana.freeletics.MainActivity;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
 import static android.app.Activity.RESULT_OK;
+import static com.freeletics.dilyana.freeletics.fragments.RegisterFragment.EMAIL_REGEX;
 import static com.freeletics.dilyana.freeletics.fragments.RegisterFragment.NAME_REGEX;
 
 /**
@@ -99,7 +101,9 @@ public class EditProfileFragment extends Fragment {
         spHeight.setAdapter(adapterHeight);
 
         setLoggedUserDataToEditTexts();
-        setAllSpinnerValues();
+        if(UsersManager.getInstance().getLoggedUser().getHeight()!= 0) {
+            setAllSpinnerValues();
+        }
 
         btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,16 +191,23 @@ public class EditProfileFragment extends Fragment {
                 String lastNameStr = etLastName.getText().toString();
                 String emailStr = etEmail.getText().toString();
 
-                if (((MainActivity) getActivity()).isEmptyField(firstNameStr, etFirstName)) return;
 
-                if (!firstNameStr.matches(NAME_REGEX)) {
-                    etFirstName.setError("Name must contains only alphabetic symbols \n" +
-                            "Name must be between 2-15 characters in length");
+                if(etFirstName.getText().toString().trim().isEmpty()){
+                    etFirstName.setError("Please fill out this field");
                     etFirstName.requestFocus();
                     return;
                 }
+                if (!firstNameStr.matches(NAME_REGEX)) {
+                    etFirstName.setError("Name must contains only alphabetic symbols \n" +
+                            "Name must be between 2-15 characters in length");
+                    return;
+                }
 
-                if (((MainActivity) getActivity()).isEmptyField(lastNameStr, etLastName)) return;
+                if(etLastName.getText().toString().trim().isEmpty()){
+                    etLastName.setError("Please fill out this field");
+                    etLastName.requestFocus();
+                    return;
+                }
 
                 if (!lastNameStr.matches(NAME_REGEX)) {
                     etLastName.setError("Name must contains only alphabetic symbols \n" +
@@ -205,44 +216,34 @@ public class EditProfileFragment extends Fragment {
                     return;
                 }
 
-                if (((MainActivity) getActivity()).isEmptyField(emailStr, etEmail)) return;
+                //if((UsersManager.getInstance().getLoggedUser().getEmail() != null)) {
+                    if (etEmail.getText().toString().trim().isEmpty()) {
+                        etEmail.setError("Please fill out this field");
+                        etEmail.requestFocus();
+                        return;
+                    }
 
-             /*   if (!emailStr.matches(EMAIL_REGEX)){
+                    if (!emailStr.matches(EMAIL_REGEX)) {
 
-                    etEmail.setError("Invalid email");
-                    etEmail.requestFocus();
-                    return;
-                }*/
+                        etEmail.setError("Invalid email");
+                        etEmail.requestFocus();
+                        return;
+                    }
 
-
-                if (genderStr.equals("Male")) {
-                    gender = User.Gender.MALE;
-                } else {
-                    gender = User.Gender.FEMALE;
-                }
+                    if (genderStr.equals("Male")) {
+                        gender = User.Gender.MALE;
+                    } else {
+                        gender = User.Gender.FEMALE;
+                    }
 
                 User u = new User(firstNameStr, lastNameStr, weight, height, age, gender, emailStr, UsersManager.getInstance().getLoggedUser().getPassword());
-                UsersManager.getInstance().updateUserInfo(u);
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.activity_main, new SettingsFragment()).addToBackStack("edit_profile").commit();
+                UsersManager.getInstance().setLoggedUser(u);
+                Intent intent = new Intent(getActivity(), HomeActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+                
             }
         });
-
-
-
-        /*
-        Open camera
-        tvTakePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 10);
-            }
-        });
-        */
-
 
         return root;
     }
@@ -276,19 +277,4 @@ public class EditProfileFragment extends Fragment {
             setLoggedUserDataToSpinner(String.valueOf(u.getWeight()), spWeight);
         }
     }
-
-    /*
-    Set image resource from camera
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (RESULT_OK == resultCode) {
-            Bundle extras = data.getExtras();
-            Bitmap bmp = (Bitmap) extras.get("data");
-            image.setImageBitmap(bmp);
-        }
-    }
-    */
 }

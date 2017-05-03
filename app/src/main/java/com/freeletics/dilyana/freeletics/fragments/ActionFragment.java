@@ -40,7 +40,6 @@ public class ActionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        FacebookSdk.sdkInitialize(getContext());
         View root =  inflater.inflate(R.layout.fragment_action, container, false);
 
         if(getArguments() != null && getArguments().getSerializable("action") != null){
@@ -73,7 +72,7 @@ public class ActionFragment extends Fragment {
                 bundle.putSerializable("action", action);
                 CountDownFragment countDownFragment = new CountDownFragment();
                 countDownFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.fragment_container, countDownFragment).addToBackStack("action").commit();
+                fragmentTransaction.replace(R.id.fragment_container, countDownFragment).commit();
 
 
             }

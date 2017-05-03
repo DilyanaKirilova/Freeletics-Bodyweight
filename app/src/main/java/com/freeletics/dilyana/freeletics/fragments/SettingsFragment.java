@@ -42,14 +42,14 @@ public class SettingsFragment extends Fragment {
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentTransaction.replace(R.id.fragment_container, new EditProfileFragment()).commit();
+                fragmentTransaction.replace(R.id.fragment_container, new EditProfileFragment()).addToBackStack("edit_profile").commit();
             }
         });
 
         btnDeleteProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBManager.getInstance(getContext()).deleteUser(UsersManager.getInstance().getLoggedUser().getEmail());
+               // DBManager.getInstance(getContext()).deleteUser(UsersManager.getInstance().getLoggedUser().getEmail());
                 UsersManager.getInstance().deleteUserRegistration();
                 Intent intent = new Intent(getActivity(), WelcomeActivity.class);
                 startActivity(intent);
@@ -61,7 +61,7 @@ public class SettingsFragment extends Fragment {
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBManager.getInstance(getContext()).userLogged(false);
+                // DBManager.getInstance(getContext()).userLogged(false);
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("request_code","login");
                 startActivity(intent);

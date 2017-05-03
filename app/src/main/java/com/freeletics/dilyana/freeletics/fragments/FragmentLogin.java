@@ -67,6 +67,7 @@ public class FragmentLogin extends Fragment {
                     User u = new User(profile.getFirstName().toString(), profile.getLastName());
                     UsersManager.getInstance().setLoggedUser(u);
                     startActivity(intent);
+                    getActivity().finish();
                 } else {
                     Toast.makeText(getActivity(), "No profile", Toast.LENGTH_SHORT).show();
                 }
@@ -88,7 +89,7 @@ public class FragmentLogin extends Fragment {
             public void onClick(View v) {
                 if (UsersManager.getInstance().isValidLogin(email.getText().toString(), password.getText().toString())) {
 
-                    DBManager.getInstance(getContext()).userLogged(true);
+                    //DBManager.getInstance(getContext()).userLogged(true);
 
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     startActivity(intent);

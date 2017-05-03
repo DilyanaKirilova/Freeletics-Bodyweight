@@ -173,7 +173,9 @@ $                       #   End of the line
                 }
 
                 User u = new User(firstNameStr, lastNameStr, weight, height, age, gender, emailStr, password1Str);
-                DBManager.getInstance(getContext()).addUser(u);
+                //DBManager.getInstance(getContext()).addUser(u);
+                UsersManager.getInstance().registerUser(u);
+                UsersManager.getInstance().setLoggedUser(u);
 
                 Intent intent = new Intent(getActivity(), HomeActivity.class);
                 startActivity(intent);
