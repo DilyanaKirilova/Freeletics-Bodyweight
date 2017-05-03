@@ -1,29 +1,16 @@
 package com.freeletics.dilyana.freeletics.fragments;
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.Profile;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.freeletics.dilyana.freeletics.HomeActivity;
-import com.freeletics.dilyana.freeletics.MainActivity;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.data_base.DBManager;
 import com.freeletics.dilyana.freeletics.model.users.User;
@@ -92,17 +79,17 @@ $                       #   End of the line
         View root = inflater.inflate(R.layout.fragment_register, container, false);
 
         etFirstName = (EditText) root.findViewById(R.id.et_fr_first_name);
-        etLastName  = (EditText) root.findViewById(R.id.et_fr_last_name);
-        etEmail     = (EditText) root.findViewById(R.id.et_fr_email);
+        etLastName = (EditText) root.findViewById(R.id.et_fr_last_name);
+        etEmail = (EditText) root.findViewById(R.id.et_fr_email);
         etPassword1 = (EditText) root.findViewById(R.id.et_fr_password_1);
-        showPassword = (Button)  root.findViewById(R.id.show_password);
+        showPassword = (Button) root.findViewById(R.id.show_password);
         btnCreateAccount = (Button) root.findViewById(R.id.btn_fr_create_account);
         // get user info
-        if(getArguments() != null){
+        if (getArguments() != null) {
 
             Bundle bundle = getArguments();
 
-            if(bundle.getString("gender")!= null) {
+            if (bundle.getString("gender") != null) {
                 if (bundle.getString("gender").equals("Male")) {
                     gender = User.Gender.MALE;
                 } else {
@@ -117,10 +104,9 @@ $                       #   End of the line
         showPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etPassword1.getTransformationMethod() == null) {
+                if (etPassword1.getTransformationMethod() == null) {
                     etPassword1.setTransformationMethod(new PasswordTransformationMethod());
-                }
-                else{
+                } else {
                     etPassword1.setTransformationMethod(null);
                 }
             }
@@ -136,41 +122,41 @@ $                       #   End of the line
                 String password1Str = etPassword1.getText().toString();
                 String emailStr = etEmail.getText().toString();
 
-                    if (isEmptyField(firstNameStr, etFirstName)) return;
+                if (isEmptyField(firstNameStr, etFirstName)) return;
 
-                    if (isEmptyField(lastNameStr, etLastName)) return;
+                if (isEmptyField(lastNameStr, etLastName)) return;
 
 
-                    if (!firstNameStr.matches(NAME_REGEX)) {
-                        etFirstName.setError("Name must contains only alphabetic symbols \n" +
-                                "Name must be between 2-15 characters in length");
-                        etFirstName.requestFocus();
-                        return;
-                    }
+                if (!firstNameStr.matches(NAME_REGEX)) {
+                    etFirstName.setError("Name must contains only alphabetic symbols \n" +
+                            "Name must be between 2-15 characters in length");
+                    etFirstName.requestFocus();
+                    return;
+                }
 
-                    if (!lastNameStr.matches(NAME_REGEX)) {
-                        etLastName.setError("Name must contains only alphabetic symbols \n" +
-                                "Name must be between 2-15 characters in length");
-                        etLastName.requestFocus();
-                        return;
-                    }
+                if (!lastNameStr.matches(NAME_REGEX)) {
+                    etLastName.setError("Name must contains only alphabetic symbols \n" +
+                            "Name must be between 2-15 characters in length");
+                    etLastName.requestFocus();
+                    return;
+                }
 
-                    if (isEmptyField(password1Str, etPassword1)) return;
+                if (isEmptyField(password1Str, etPassword1)) return;
 
 
                 if (!password1Str.matches(PASSWORD_REGEX)) {
 
-                    etPassword1.setError("Password must contains: \n"+
-                            "one digit from 0-9 \n"+
-                            "one lowercase character \n"+
-                            "one uppercase character \n"+
-                            "one special symbol in the list \"@#$%\" \n"+
+                    etPassword1.setError("Password must contains: \n" +
+                            "one digit from 0-9 \n" +
+                            "one lowercase character \n" +
+                            "one uppercase character \n" +
+                            "one special symbol in the list \"@#$%\" \n" +
                             "Must be between 6-20 characters in length");
                     etPassword1.requestFocus();
                     return;
                 }
 
-                if (!emailStr.matches(EMAIL_REGEX)){
+                if (!emailStr.matches(EMAIL_REGEX)) {
 
                     etEmail.setError("Invalid email");
                     etEmail.requestFocus();
@@ -178,27 +164,26 @@ $                       #   End of the line
                 }
 
 
-                    if (isEmptyField(emailStr, etEmail)) return;
+                if (isEmptyField(emailStr, etEmail)) return;
 
-                    if (UsersManager.getInstance().existsUser(emailStr)) {
-                        etEmail.setError("This user already exists!");
-                        etEmail.requestFocus();
-                        return;
-                    }
+                if (UsersManager.getInstance().existsUser(emailStr)) {
+                    etEmail.setError("This user already exists!");
+                    etEmail.requestFocus();
+                    return;
+                }
 
-                    User u = new User(firstNameStr, lastNameStr,  weight, height, age, gender, emailStr, password1Str);
-                UsersManager.getInstance().setLoggedUser(u);
-                   // DBManager.getInstance(getContext()).addUser(u);
+                User u = new User(firstNameStr, lastNameStr, weight, height, age, gender, emailStr, password1Str);
+                DBManager.getInstance(getContext()).addUser(u);
 
-                    Intent intent = new Intent(getActivity(), HomeActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
+                Intent intent = new Intent(getActivity(), HomeActivity.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
         return root;
     }
 
-    public boolean isEmptyField(String txt, EditText et){
+    public boolean isEmptyField(String txt, EditText et) {
         if (txt.trim().isEmpty()) {
             et.setError("Please fill out this field");
             et.requestFocus();

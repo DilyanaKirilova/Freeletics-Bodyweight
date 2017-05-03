@@ -1,6 +1,5 @@
 package com.freeletics.dilyana.freeletics;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 import com.facebook.CallbackManager;
-import com.freeletics.dilyana.freeletics.data_base.DBManager;
 import com.freeletics.dilyana.freeletics.fragments.FragmentLogin;
 import com.freeletics.dilyana.freeletics.fragments.SettingsFragment;
 import com.freeletics.dilyana.freeletics.fragments.UserInfoFragment;
@@ -27,21 +25,20 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         callbackManager = CallbackManager.Factory.create();
 
-        DBManager dbManager = DBManager.getInstance(this);
-
         if(getIntent().getStringExtra("request_code")!= null){
 
             if(getIntent().getStringExtra("request_code").equals("start_now")){
                 fragmentTransaction.replace(R.id.activity_main, new UserInfoFragment()).commit();
-
             }
 
             if(getIntent().getStringExtra("request_code").equals("login")){
                 fragmentTransaction.replace(R.id.activity_main, new FragmentLogin()).commit();
+               //finish();
             }
 
             if(getIntent().getStringExtra("request_code").equals("settings")) {
                 fragmentTransaction.replace(R.id.activity_main, new SettingsFragment()).commit();
+                //finish();
             }
         }
     }

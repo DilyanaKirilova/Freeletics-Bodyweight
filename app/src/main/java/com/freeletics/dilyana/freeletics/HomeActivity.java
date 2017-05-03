@@ -3,7 +3,6 @@ package com.freeletics.dilyana.freeletics;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -32,21 +31,12 @@ import com.freeletics.dilyana.freeletics.fragments.MyProgramFragment;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
-import java.io.Serializable;
-import java.net.URL;
-
-import static android.graphics.BitmapFactory.decodeFile;
-import static com.freeletics.dilyana.freeletics.R.array.gender;
-import static com.freeletics.dilyana.freeletics.R.array.weight;
-
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TimePickerDialog.OnTimeSetListener {
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    private ImageView profileImage;
     private TextView name;
-    private com.facebook.login.widget.LoginButton loginButton;
     private CallbackManager callbackManager;
 
     @Override
@@ -62,13 +52,7 @@ public class HomeActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        profileImage = (ImageView) findViewById(R.id.imageView);
         callbackManager =  CallbackManager.Factory.create();
-
-
-
-
-        //name = (TextView) findViewById(R.id.first_last_name);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -85,11 +69,10 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                Bundle b = getIntent().getExtras();
                 MyProfileFragment myProfileFragment = new MyProfileFragment();
+                Bundle b = getIntent().getExtras();
                 if (b != null) {
                     myProfileFragment.setArguments(b);
-
                 }
                 ft.replace(R.id.fragment_container, myProfileFragment).addToBackStack("my_profile_frag").commit();
                 drawer.closeDrawer(GravityCompat.START);

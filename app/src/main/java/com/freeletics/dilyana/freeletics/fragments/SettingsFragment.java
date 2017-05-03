@@ -16,16 +16,13 @@ import com.facebook.login.LoginManager;
 import com.freeletics.dilyana.freeletics.MainActivity;
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.WelcomeActivity;
+import com.freeletics.dilyana.freeletics.data_base.DBManager;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SettingsFragment extends Fragment {
-
-    private Button btnEditProfile;
-    private Button btnLogOut;
-    private Button btnDeleteProfile;
 
 
     @Override
@@ -35,9 +32,9 @@ public class SettingsFragment extends Fragment {
         FacebookSdk.sdkInitialize(getContext());
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        btnEditProfile   = (Button) root.findViewById(R.id.btn_fup_edit_profile);
-        btnDeleteProfile = (Button) root.findViewById(R.id.btn_fup_delete_profile);
-        btnLogOut        = (Button) root.findViewById(R.id.btn_fup_logout);
+        Button btnEditProfile   = (Button) root.findViewById(R.id.btn_fup_edit_profile);
+        Button btnDeleteProfile = (Button) root.findViewById(R.id.btn_fup_delete_profile);
+        Button btnLogOut        = (Button) root.findViewById(R.id.btn_fup_logout);
 
         FragmentManager fragmentManager = getFragmentManager();
         final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -52,6 +49,7 @@ public class SettingsFragment extends Fragment {
         btnDeleteProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DBManager.getInstance(getContext()).deleteUser(UsersManager.getInstance().getLoggedUser().getEmail());
                 UsersManager.getInstance().deleteUserRegistration();
                 Intent intent = new Intent(getActivity(), WelcomeActivity.class);
                 startActivity(intent);
@@ -63,7 +61,7 @@ public class SettingsFragment extends Fragment {
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UsersManager.getInstance().logOutUser();
+                DBManager.getInstance(getContext()).userLogged(false);
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("request_code","login");
                 startActivity(intent);

@@ -29,6 +29,7 @@ public class User implements Serializable {
     private int height;
     private int age;
     private double points;
+    private boolean isLogged;
     private int id;
 
     private static int emailCounter =1;
@@ -38,7 +39,7 @@ public class User implements Serializable {
     }
 
     public boolean isLogged() {
-        return this == UsersManager.getInstance().getLoggedUser();
+        return this.isLogged();
     }
 
     public boolean hasNotificationAction(Action action) {
@@ -51,6 +52,41 @@ public class User implements Serializable {
             }
         }
         return false;
+    }
+
+
+    public Gender getGender() {
+        return gender;
+    }
+
+
+    public void setEmail(String email) {
+        if(this.email != null) {
+            //TODO plus regex
+            this.email = email;
+        }
+    }
+
+    public void setGender(Gender gender) {
+        if(gender != null) {
+            this.gender = gender;
+        }
+    }
+
+    public void setWeight(int weight) {
+        if(this.weight >= 40 || this.weight <= 200) {
+            this.weight = weight;
+        }
+    }
+
+    public void setHeight(int height) {
+        if(this.weight >= 147 || this.height <= 200) {
+            this.height = height;
+        }
+    }
+
+    public void userLogged(Boolean flag) {
+        this.isLogged = flag;
     }
 
     public enum Gender {MALE, FEMALE};

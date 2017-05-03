@@ -71,20 +71,20 @@ public class EditProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
-        etFirstName = (EditText) root.findViewById(R.id.et_fr_first_name);
-        etLastName = (EditText) root.findViewById(R.id.et_fr_last_name);
-        etEmail = (EditText) root.findViewById(R.id.et_fr_email);
-        etPasswordOld = (EditText) root.findViewById(R.id.et_fep_old_password);
-        etPasswordNew = (EditText) root.findViewById(R.id.et_fep_new_password);
+        etFirstName          = (EditText) root.findViewById(R.id.et_fr_first_name);
+        etLastName           = (EditText) root.findViewById(R.id.et_fr_last_name);
+        etEmail              = (EditText) root.findViewById(R.id.et_fr_email);
+        etPasswordOld        = (EditText) root.findViewById(R.id.et_fep_old_password);
+        etPasswordNew        = (EditText) root.findViewById(R.id.et_fep_new_password);
         etPasswordNewConfirm = (EditText) root.findViewById(R.id.et_fep_confirm_new_password);
-        spGender = (Spinner) root.findViewById(R.id.spinner_gender);
-        spAge = (Spinner) root.findViewById(R.id.spinner_age);
-        spWeight = (Spinner) root.findViewById(R.id.spinner_weight);
-        spHeight = (Spinner) root.findViewById(R.id.spinner_height);
-        btnChangePassword = (Button) root.findViewById(R.id.btn_fep_change_password);
-        btnSaveChanges = (Button) root.findViewById(R.id.btn_fep_save_changes);
-        tvTakePhoto = (TextView) root.findViewById(R.id.take_photo);
-        image = (ImageView) root.findViewById(R.id.profile_pic);
+        spGender             = (Spinner) root.findViewById(R.id.spinner_gender);
+        spAge                = (Spinner) root.findViewById(R.id.spinner_age);
+        spWeight             = (Spinner) root.findViewById(R.id.spinner_weight);
+        spHeight             = (Spinner) root.findViewById(R.id.spinner_height);
+        btnChangePassword    = (Button) root.findViewById(R.id.btn_fep_change_password);
+        btnSaveChanges       = (Button) root.findViewById(R.id.btn_fep_save_changes);
+        tvTakePhoto          = (TextView) root.findViewById(R.id.take_photo);
+        image                = (ImageView) root.findViewById(R.id.profile_pic);
 
         adapterGender = ArrayAdapter.createFromResource(getActivity(), R.array.gender, R.layout.support_simple_spinner_dropdown_item);
         spGender.setAdapter(adapterGender);
