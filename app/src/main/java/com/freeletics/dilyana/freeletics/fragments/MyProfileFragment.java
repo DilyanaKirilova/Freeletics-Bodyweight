@@ -2,9 +2,7 @@ package com.freeletics.dilyana.freeletics.fragments;
 
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,7 +17,6 @@ import android.widget.TextView;
 
 import com.freeletics.dilyana.freeletics.R;
 import com.freeletics.dilyana.freeletics.adapters.MyProfileAdapter;
-import com.freeletics.dilyana.freeletics.dialog_fragments.GalleryFragment;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
 import com.freeletics.dilyana.freeletics.model.users.User;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
@@ -50,14 +47,6 @@ public class MyProfileFragment extends Fragment {
         }
 
         profileImage = (ImageView) root.findViewById(R.id.profile_pic_my_profile);
-        profileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GalleryFragment galleryFragment = new GalleryFragment();
-                galleryFragment.show(getActivity().getSupportFragmentManager(), "my_gallery");
-
-            }
-        });
         profileName = (TextView) root.findViewById(R.id.name_my_profile);
         level = (TextView) root.findViewById(R.id.level_my_profile);
         doneWorkouts = (TextView) root.findViewById(R.id.workouts_my_profile);
@@ -67,20 +56,6 @@ public class MyProfileFragment extends Fragment {
 
         UsersManager usersManager = UsersManager.getInstance();
         User u = usersManager.getLoggedUser();
-       // if (u.getPicture() != 0) {
-         //   profileImage.setImageResource(u.getPicture());
-        //}
-
-        Uri profile;
-        if(getArguments()!=null && getArguments().getString("picture")!=null) {
-            //profile = (Uri) getArguments().getSerializable("uri");
-            //String prof = profile.toString();
-            //int pic = Integer.parseInt(prof);
-            String picturePath = getArguments().getString("picture");
-            profileImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-            //u.setPicture(pic);
-            //profileImage.setImageResource(pic);
-        }
         profileName.setText(u.getFirstName() + " " + u.getLastName());
         level.setText(String.valueOf(u.getLevel()));
         if(getArguments() != null && getArguments().getSerializable("action") != null){

@@ -88,10 +88,6 @@ public class HomeActivity extends AppCompatActivity
                 Bundle b = getIntent().getExtras();
                 MyProfileFragment myProfileFragment = new MyProfileFragment();
                 if (b != null) {
-                    String photopPath = b.getString("photo");
-                   // photoUri = Uri.parse(b.getString("photoUri"));
-                    //Bundle bundle = new Bundle();
-                    //bundle.putSerializable("uri", (Serializable) photoUri);
                     myProfileFragment.setArguments(b);
 
                 }
@@ -150,27 +146,5 @@ public class HomeActivity extends AppCompatActivity
         ((TextView) findViewById(R.id.tv_fae_minute)).setText( minute + "");
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri filePath = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            // Intent publishIntent = new Intent(HomeActivity.this, HomeActivity.class);
-            // publishIntent.putExtra("photoUri", filePath.toString());
-            //startActivity(publishIntent);
-            Cursor cursor = getContentResolver().query(filePath, filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-            Bundle bundle = new Bundle();
-            bundle.putString("picture", picturePath);
-            MyProfileFragment myProfileFragment = new MyProfileFragment();
-            myProfileFragment.setArguments(bundle);
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.fragment_container, myProfileFragment).addToBackStack("take_photo").commit();
-
-        }
-    }
 
 }

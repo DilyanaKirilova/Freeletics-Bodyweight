@@ -181,7 +181,6 @@ $                       #   End of the line
                     if (isEmptyField(emailStr, etEmail)) return;
 
                     if (UsersManager.getInstance().existsUser(emailStr)) {
-
                         etEmail.setError("This user already exists!");
                         etEmail.requestFocus();
                         return;
