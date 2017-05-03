@@ -57,53 +57,55 @@ public class FragmentLogin extends Fragment {
         emailButton = (Button) root.findViewById(R.id.email_login_button_login);
         callbackManager = MainActivity.callbackManager;
 
-        facebookButton.registerCallback(callbackManager,new FacebookCallback<LoginResult>() {
-        @Override
-        public void onSuccess (LoginResult loginResult){
+        facebookButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
 
-        Profile profile = Profile.getCurrentProfile();
-        if (profile != null) {
-            Intent intent = new Intent(getActivity(), HomeActivity.class);
-            User u = new User(profile.getFirstName().toString(), profile.getLastName() );
-            UsersManager.getInstance().setLoggedUser(u);
-            startActivity(intent);
-        } else {
-            Toast.makeText(getActivity(), "No profile", Toast.LENGTH_SHORT).show();
-        }
-    }
+                Profile profile = Profile.getCurrentProfile();
+                if (profile != null) {
+                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                    User u = new User(profile.getFirstName().toString(), profile.getLastName());
+                    UsersManager.getInstance().setLoggedUser(u);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), "No profile", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-        @Override
-        public void onCancel () {
-        Toast.makeText(getActivity(), "Canceled login with Facebook!", Toast.LENGTH_SHORT).show();
-    }
+            @Override
+            public void onCancel() {
+                Toast.makeText(getActivity(), "Canceled login with Facebook!", Toast.LENGTH_SHORT).show();
+            }
 
-        @Override
-        public void onError (FacebookException error){
-            Toast.makeText(getActivity(), "Canceled login with Facebook!", Toast.LENGTH_SHORT).show();
-         }
-    });
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(getActivity(), "Canceled login with Facebook!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(UsersManager.getInstance().isValidLogin(email.getText().toString(), password.getText().toString())){
+                if (UsersManager.getInstance().isValidLogin(email.getText().toString(), password.getText().toString())) {
+
+                    DBManager.getInstance(getContext()).userLogged(true);
+
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     startActivity(intent);
                     getActivity().finish();
-                }
-                else {
-                    Toast.makeText(getActivity(), "Not correct profile, create account!", Toast.LENGTH_SHORT).show();
-                    email.setText(" ");
+
+                } else {
+
+                    email.setError("Invalid email or password");
+                    email.setText("");
                     password.setText("");
                 }
             }
         });
 
 
-
         return root;
     }
-
 
 
 }

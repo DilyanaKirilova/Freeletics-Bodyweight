@@ -1,5 +1,8 @@
 package com.freeletics.dilyana.freeletics.model.users;
 
+import android.widget.Toast;
+
+import com.freeletics.dilyana.freeletics.data_base.DBManager;
 import com.freeletics.dilyana.freeletics.model.actions.Action;
 
 import java.util.ArrayList;
@@ -28,7 +31,7 @@ public class UsersManager {
 
     public boolean existsUser(String email) {
 
-        if (!this.registeredUsers.containsKey(email)) {
+        if (this.registeredUsers == null || !this.registeredUsers.containsKey(email)) {
             return false;
         }
         return true;
@@ -36,16 +39,15 @@ public class UsersManager {
 
     public void registerUser(User u) {
 
-        if(u.getPassword() != null) {
+        if(u != null) {
             if (!this.registeredUsers.containsKey(u.getEmail())) {
                 this.registeredUsers.put(u.getEmail(), u);
             }
         }
-        loggedUser = u;
     }
 
     public boolean isValidLogin(String email, String password) {
-        if (registeredUsers.containsKey(email)) {
+        if (this.registeredUsers.containsKey(email)) {
             User user = registeredUsers.get(email);
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 this.loggedUser = user;
@@ -55,11 +57,6 @@ public class UsersManager {
         return false;
     }
 
-    public void logOutUser() {
-        if(loggedUser!=null) {
-            this.loggedUser = null;
-        }
-    }
 
     public void setLoggedUser(User loggedUser) {
         this.loggedUser = loggedUser;
@@ -89,5 +86,16 @@ public class UsersManager {
         UsersManager.getInstance().deleteUserRegistration();
         UsersManager.getInstance().registerUser(u);
         //todo delete from DB and add to DB
+    }
+
+    public User getUser(String email) {
+        if(email != null) {
+            return this.registeredUsers.get(email);
+        }
+        return null;
+    }
+
+    public void userLogged(Boolean flag) {
+        this.loggedUser.userLogged(flag);
     }
 }

@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.freeletics.dilyana.freeletics.data_base.DBManager;
 import com.freeletics.dilyana.freeletics.model.users.UsersManager;
 
 public class WelcomeActivity extends AppCompatActivity{
@@ -44,6 +45,13 @@ public class WelcomeActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        DBManager.getInstance(this);
+
+        if(UsersManager.getInstance().getLoggedUser() != null){
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -98,6 +106,8 @@ public class WelcomeActivity extends AppCompatActivity{
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_welcome, container, false);
+
+
 
             LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.layout_welcome);
             if(getArguments() != null && getArguments().getInt(imgKey, 0) != 0) {
