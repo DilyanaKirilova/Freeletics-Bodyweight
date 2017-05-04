@@ -46,8 +46,6 @@ public class EditProfileFragment extends Fragment {
     private EditText etPasswordOld;
     private EditText etPasswordNew;
     private EditText etPasswordNewConfirm;
-    private TextView tvTakePhoto;
-    private ImageView image;
     private Spinner spGender;
     private Spinner spAge;
     private Spinner spWeight;
@@ -85,8 +83,6 @@ public class EditProfileFragment extends Fragment {
         spHeight             = (Spinner) root.findViewById(R.id.spinner_height);
         btnChangePassword    = (Button) root.findViewById(R.id.btn_fep_change_password);
         btnSaveChanges       = (Button) root.findViewById(R.id.btn_fep_save_changes);
-        tvTakePhoto          = (TextView) root.findViewById(R.id.take_photo);
-        image                = (ImageView) root.findViewById(R.id.profile_pic);
 
         adapterGender = ArrayAdapter.createFromResource(getActivity(), R.array.gender, R.layout.support_simple_spinner_dropdown_item);
         spGender.setAdapter(adapterGender);
@@ -237,6 +233,7 @@ public class EditProfileFragment extends Fragment {
                     }
 
                 User u = new User(firstNameStr, lastNameStr, weight, height, age, gender, emailStr, UsersManager.getInstance().getLoggedUser().getPassword());
+                UsersManager.getInstance().registerUser(u);
                 UsersManager.getInstance().setLoggedUser(u);
                 Intent intent = new Intent(getActivity(), HomeActivity.class);
                 startActivity(intent);

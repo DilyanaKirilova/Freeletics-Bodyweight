@@ -66,20 +66,6 @@ public class HomeActivity extends AppCompatActivity
 
         name.setText(u.getFirstName() + " " + u.getLastName());
 
-        head.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                MyProfileFragment myProfileFragment = new MyProfileFragment();
-                Bundle b = getIntent().getExtras();
-                if (b != null) {
-                    myProfileFragment.setArguments(b);
-                }
-                ft.replace(R.id.fragment_container, myProfileFragment).addToBackStack("my_profile_frag").commit();
-                drawer.closeDrawer(GravityCompat.START);
-            }
-        });
-
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, new CategoryFragment(), "Category Fragment").commit();

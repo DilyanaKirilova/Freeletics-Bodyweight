@@ -88,6 +88,8 @@ public class ChronometerFragment extends Fragment {
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 timeWhenStopped=0;
                 flag[0]=false;
+                counter=0;
+                counerTv.setText(String.valueOf(counter));
                 showElapsedTime();
             }
         });

@@ -113,10 +113,12 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
             });
         }
         String video = exercise.getVideoUrl();
-        ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse(video))
-                .build();
-        holder.shareButton.setShareContent(content);
+        if(video!=null) {
+            ShareLinkContent content = new ShareLinkContent.Builder()
+                    .setContentUrl(Uri.parse(video))
+                    .build();
+            holder.shareButton.setShareContent(content);
+        }
         holder.tvExerciseName.setText(exercise.getName().toString());
         holder.tvExerciseRepetitions.setText(exercise.getRepetitions());
     }
